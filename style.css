@@ -19,16 +19,28 @@ body{
 
 header{
     text-align:center;
-    padding:100px 20px;
-    background:linear-gradient(135deg,#2563eb,#0ea5e9);
+    padding:160px 20px;
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a,
+        #2563eb
+    );
 }
 
 header h1{
-    font-size:3rem;
+    font-size:4rem;
+    margin-bottom:20px;
+}
+header h2{
+    font-size:2rem;
+    margin-bottom:15px;
+    color:#e2e8f0;
 }
 
 header p{
-    margin:20px 0;
+    font-size:1.1rem;
+    margin-bottom:10px;
 }
 
 .botao{
