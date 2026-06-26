@@ -4,273 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trabalho 11 - agroMindpampaAI</title>
-    
-    <!-- Estilos melhorados -->
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* ===== RESET E BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            color: #1a2332;
-            line-height: 1.7;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: linear-gradient(135deg, #0b1a2e, #1a365d);
-            color: white;
-            padding: 16px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .navbar h2 {
-            font-weight: 600;
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-        }
-
-        .navbar h2 span {
-            color: #7dd3fc;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 24px;
-        }
-
-        .navbar ul li a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 6px 0;
-            border-bottom: 2px solid transparent;
-        }
-
-        .navbar ul li a:hover {
-            color: #7dd3fc;
-            border-bottom-color: #7dd3fc;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            background: linear-gradient(135deg, #1a365d, #2b6cb0);
-            color: white;
-            padding: 50px 0 40px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.6rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        header h1 small {
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #bee3f8;
-            margin-top: 6px;
-        }
-
-        header .badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-        }
-
-        header p {
-            max-width: 720px;
-            margin: 16px auto 0;
-            font-size: 1.1rem;
-            opacity: 0.92;
-        }
-
-        /* ===== SEÇÃO PRINCIPAL ===== */
-        section {
-            padding: 40px 0 60px;
-        }
-
-        /* ===== CARDS ===== */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 28px 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-            border-top: 5px solid #2b6cb0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.12);
-        }
-
-        .card:nth-child(2) {
-            border-top-color: #38a169;
-        }
-
-        .card h3 {
-            font-size: 1.4rem;
-            color: #1a365d;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 .icon {
-            font-size: 1.6rem;
-        }
-
-        .card p {
-            color: #2d3748;
-            margin-bottom: 18px;
-            flex: 1;
-        }
-
-        .card .meta {
+        /* ===== ESTILOS EXTRAS (complementam o style.css) ===== */
+        
+        /* Tags / Badges */
+        .meta-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 16px;
+            margin: 10px 0 14px;
         }
-
-        .card .tag {
-            background: #edf2f7;
+        .tag {
+            background: #e2e8f0;
             padding: 3px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #2d3748;
+            color: #1a202c;
             letter-spacing: 0.3px;
         }
-
-        .card .tag.blue {
-            background: #bee3f8;
-            color: #1a365d;
-        }
-
-        .card .tag.green {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
-        .card .tag.purple {
-            background: #e9d8fd;
-            color: #44337a;
-        }
-
-        .botao {
-            display: inline-block;
-            background: #2b6cb0;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: background 0.3s, transform 0.1s;
-            text-align: center;
-            border: none;
-            cursor: pointer;
-            align-self: flex-start;
-        }
-
-        .botao:hover {
-            background: #1a4f8a;
-            transform: scale(1.02);
-        }
-
-        .botao.verde {
-            background: #38a169;
-        }
-
-        .botao.verde:hover {
-            background: #2f855a;
-        }
-
-        .botao.outline {
-            background: transparent;
-            border: 2px solid #2b6cb0;
-            color: #2b6cb0;
-        }
-
-        .botao.outline:hover {
-            background: #2b6cb0;
-            color: white;
-        }
-
-        /* ===== SEÇÃO DE CÓDIGO / DEMONSTRAÇÃO ===== */
-        .demo-section {
-            margin-top: 50px;
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
-
-        .demo-section h2 {
-            font-size: 1.7rem;
-            color: #1a365d;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .demo-section h2 .badge-code {
-            background: #1a202c;
-            color: #68d391;
-            font-size: 0.7rem;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
 
         /* Bloco de código */
         .code-block {
@@ -279,166 +36,168 @@
             padding: 20px 24px;
             border-radius: 12px;
             overflow-x: auto;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
             line-height: 1.8;
             margin: 16px 0 20px;
             position: relative;
+            border: 1px solid #2d3748;
         }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
 
-        .code-block .comment {
-            color: #68d391;
-        }
-
-        .code-block .keyword {
-            color: #f472b6;
-        }
-
-        .code-block .string {
-            color: #fbbf24;
-        }
-
-        .code-block .function {
-            color: #60a5fa;
-        }
-
-        .code-block .number {
-            color: #f472b6;
-        }
-
-        .code-block .copy-btn {
-            position: absolute;
-            top: 12px;
-            right: 16px;
+        .copy-btn {
             background: rgba(255,255,255,0.08);
             border: none;
             color: #a0aec0;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 6px;
             font-size: 0.75rem;
             cursor: pointer;
             transition: background 0.3s;
+            float: right;
+            margin-bottom: 8px;
         }
-
-        .code-block .copy-btn:hover {
+        .copy-btn:hover {
             background: rgba(255,255,255,0.15);
             color: white;
         }
 
-        /* ===== SAÍDA / RESULTADO ===== */
+        /* Saída do programa */
         .output-box {
             background: #edf2f7;
             border-left: 4px solid #2b6cb0;
-            padding: 16px 22px;
+            padding: 14px 20px;
             border-radius: 8px;
-            margin: 16px 0 10px;
-            font-family: 'JetBrains Mono', monospace;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
             font-size: 0.9rem;
         }
-
         .output-box .label {
-            font-weight: 600;
+            font-weight: 700;
             color: #1a365d;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-
-        /* ===== GRÁFICO PLACEHOLDER ===== */
-        .chart-placeholder {
-            background: #f7fafc;
-            border: 2px dashed #cbd5e0;
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #4a5568;
-            margin: 20px 0;
-        }
-
-        .chart-placeholder .chart-icon {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: #0b1a2e;
-            color: #cbd5e0;
-            padding: 30px 0;
-            text-align: center;
-            border-top: 1px solid #1a365d;
-        }
-
-        footer h3 {
-            color: white;
-            font-size: 1.2rem;
             margin-bottom: 4px;
         }
 
-        footer p {
-            font-size: 0.95rem;
-            margin: 2px 0;
+        /* Seção de reflexão */
+        .reflection-box {
+            background: #edf2f7;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-top: 40px;
+            border-left: 5px solid #805ad5;
+        }
+        .reflection-box h3 {
+            color: #1a365d;
+            margin-bottom: 10px;
         }
 
-        footer a {
-            color: #7dd3fc;
-            text-decoration: none;
+        /* Botões extras */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        /* Grid de cards */
+        .grid-trabalhos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .grid-trabalhos {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* ===== RESPONSIVO ===== */
-        @media (max-width: 600px) {
-            .navbar .container {
-                flex-direction: column;
-                gap: 10px;
-            }
+        /* Cards com borda colorida */
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho:nth-child(2) {
+            border-top-color: #38a169;
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
 
-            header h1 {
-                font-size: 1.8rem;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .demo-section {
-                padding: 20px;
-            }
-
-            .code-block {
-                font-size: 0.8rem;
-                padding: 16px;
-            }
+        /* Seção de demonstração */
+        .demo-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 32px;
+            margin-top: 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+        .demo-section h2 {
+            color: #1a365d;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .demo-section h2 .badge-code {
+            background: #1a202c;
+            color: #68d391;
+            font-size: 0.7rem;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
-<!-- ========== NAVBAR ========== -->
+<!-- ========== NAVBAR (padrão do site) ========== -->
 <nav class="navbar">
-    <div class="container">
-        <h2>📘 Portfólio <span>Acadêmico</span></h2>
-        <ul>
-            <li><a href="index.html">🏠 Início</a></li>
-            <li><a href="trabalho10.html">◀ Trabalho 10</a></li>
-            <li><a href="trabalho12.html">Trabalho 12 ▶</a></li>
-        </ul>
-    </div>
+    <h2>📘 Portfólio Acadêmico</h2>
+    <ul>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho10.html">◀ Trabalho 10</a></li>
+        <li><a href="trabalho12.html">Trabalho 12 ▶</a></li>
+    </ul>
 </nav>
 
 <!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>
-            🌾 Trabalho 11
-            <small>agroMindpampaAI · Solução com LLMs para Engenharia</small>
-        </h1>
-        <div class="badge">🧠 IA Aplicada · 🌱 Agronegócio · ⚡ Engenharia Elétrica</div>
-        <p>
+        <h1>🌾 Trabalho 11</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            agroMindpampaAI · Solução com LLMs para Engenharia
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🧠 IA Aplicada</span>
+            <span class="tag green">🌱 Agronegócio</span>
+            <span class="tag orange">⚡ Engenharia Elétrica</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
             Resolução de um problema real de engenharia utilizando Large Language Models (LLMs) 
             para desenvolver uma solução computacional inteligente, integrando algoritmos, 
             análise de dados e tomada de decisão assistida por IA.
@@ -450,28 +209,24 @@
 <section>
     <div class="container">
 
-        <!-- Grid de Cards -->
-        <div class="grid">
+        <!-- Grid de Cards (2 colunas) -->
+        <div class="grid-trabalhos">
 
             <!-- Card 1: Descrição do Problema -->
-            <div class="card">
-                <h3>
-                    <span class="icon">📋</span> 
-                    Descrição do Problema
-                </h3>
-                <div class="meta">
+            <div class="card-trabalho">
+                <h3>📋 Descrição do Problema</h3>
+                <div class="meta-tags">
                     <span class="tag blue">Contexto</span>
                     <span class="tag purple">Engenharia</span>
                     <span class="tag">Agro</span>
                 </div>
-                <p>
+                <p style="color:#2d3748;">
                     <strong>Desafio:</strong> Como otimizar o manejo de recursos no agronegócio usando 
-                    dados de sensores, clima e histórico de produção? O problema selecionado envolve 
-                    a predição de produtividade e recomendação de ações com base em variáveis ambientais.
+                    dados de sensores, clima e histórico de produção? O problema envolve a predição 
+                    de produtividade e recomendação de ações com base em variáveis ambientais.
                 </p>
-                <p style="font-size:0.95rem; color:#4a5568; margin-top: 4px;">
-                    📌 <em>Clique no botão para ler o documento completo com o detalhamento do problema, 
-                    justificativa e objetivos.</em>
+                <p style="font-size:0.95rem; color:#4a5568; margin:8px 0 16px;">
+                    📌 <em>Clique no botão para ler o documento completo com o detalhamento do problema.</em>
                 </p>
                 <a href="trabalhos/algoritimos/Descrição do Problema.pdf" target="_blank" class="botao">
                     📄 Abrir Descrição Completa
@@ -479,53 +234,49 @@
             </div>
 
             <!-- Card 2: agroMindpampaAI -->
-            <div class="card">
-                <h3>
-                    <span class="icon">🤖</span> 
-                    agroMindpampaAI
-                </h3>
-                <div class="meta">
+            <div class="card-trabalho">
+                <h3>🤖 agroMindpampaAI</h3>
+                <div class="meta-tags">
                     <span class="tag green">Solução</span>
                     <span class="tag blue">Python</span>
                     <span class="tag purple">LLM</span>
                 </div>
-                <p>
-                    <strong>Implementação:</strong> Sistema desenvolvido com auxílio de LLMs (ChatGPT, Claude) 
+                <p style="color:#2d3748;">
+                    <strong>Implementação:</strong> Sistema desenvolvido com auxílio de LLMs 
                     que processa dados de sensores, aplica algoritmos de predição e gera recomendações 
-                    para o manejo agrícola, com interface simples e visualização de resultados.
+                    para o manejo agrícola.
                 </p>
-                <p style="font-size:0.95rem; color:#4a5568; margin-top: 4px;">
-                    ⚙️ <em>Contém: código estruturado, funções de análise, gráficos de saída e 
-                    documentação do processo de desenvolvimento com IA.</em>
+                <p style="font-size:0.95rem; color:#4a5568; margin:8px 0 16px;">
+                    ⚙️ <em>Contém: código estruturado e documentação do processo de desenvolvimento com IA.</em>
                 </p>
-                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao verde">
+                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
                     📄 Abrir agroMindpampaAI
                 </a>
             </div>
 
         </div>
 
-        <!-- ===== SEÇÃO DE DEMONSTRAÇÃO INTERATIVA ===== -->
+        <!-- ===== SEÇÃO DE DEMONSTRAÇÃO ===== -->
         <div class="demo-section">
             <h2>
                 🧪 Demonstração da Solução
                 <span class="badge-code">Python · IA</span>
             </h2>
-            <p style="color:#4a5568; margin-bottom: 16px;">
-                Abaixo, um trecho do código principal do <strong>agroMindpampaAI</strong>, 
-                mostrando a lógica de predição e a integração com dados de sensores.
+            <p style="color:#4a5568; margin-bottom:16px;">
+                Trecho do código principal do <strong>agroMindpampaAI</strong>, mostrando a lógica 
+                de predição com Random Forest e integração com dados de sensores.
             </p>
 
             <!-- Bloco de Código -->
             <div class="code-block">
                 <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
-                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap;">
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
 <span class="comment"># agroMindpampaAI - Módulo de Predição</span>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 <span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor
 
-<span class="comment"># Dados simulados de sensores (temperatura, umidade, precipitação)</span>
+<span class="comment"># Dados simulados de sensores</span>
 dados = {
     <span class="string">'temp'</span>: [22, 24, 21, 23, 25],
     <span class="string">'umid'</span>: [65, 70, 68, 72, 66],
@@ -556,114 +307,71 @@ Produtividade estimada: 3350 kg/ha
                 </code>
             </div>
 
-            <p style="color:#4a5568; font-size:0.95rem; margin-top: 12px;">
-                💡 <strong>Como foi feito:</strong> O código acima foi desenvolvido em conjunto com 
-                LLMs, que auxiliaram na estruturação do modelo, escolha de parâmetros e 
-                interpretação dos resultados. O modelo Random Forest foi escolhido por sua 
-                robustez com dados não-lineares.
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Como foi feito:</strong> O código foi desenvolvido em conjunto com LLMs, 
+                que auxiliaram na estruturação do modelo, escolha de parâmetros e interpretação 
+                dos resultados. O modelo Random Forest foi escolhido por sua robustez com dados 
+                não-lineares.
             </p>
 
-            <!-- Placeholder para Gráfico -->
-            <div class="chart-placeholder">
-                <div class="chart-icon">📊</div>
-                <p><strong>Gráfico de Produtividade × Variáveis</strong></p>
-                <p style="font-size:0.9rem;">
-                    (Espaço reservado para o gráfico gerado pelo código — 
-                    você pode substituir por uma imagem real do seu trabalho)
-                </p>
-                <div style="display:flex; justify-content:center; gap:20px; margin-top:12px; flex-wrap:wrap;">
-                    <span style="background:#bee3f8; padding:4px 16px; border-radius:20px; font-size:0.8rem;">🌡️ Temperatura</span>
-                    <span style="background:#c6f6d5; padding:4px 16px; border-radius:20px; font-size:0.8rem;">💧 Umidade</span>
-                    <span style="background:#e9d8fd; padding:4px 16px; border-radius:20px; font-size:0.8rem;">🌧️ Precipitação</span>
-                </div>
-            </div>
-
-            <!-- Links Extras -->
-            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; justify-content: center;">
-                <a href="#" class="botao outline" style="flex:1; min-width:160px; text-align:center;">
+            <!-- Grupo de Botões -->
+            <div class="btn-group">
+                <a href="#" class="botao" style="background:transparent; border:2px solid #2b6cb0; color:#2b6cb0;">
                     ▶️ Ver no Google Colab
                 </a>
-                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao verde" style="flex:1; min-width:160px; text-align:center;">
+                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
                     📥 Baixar PDF Completo
                 </a>
-                <a href="trabalhos/algoritimos/Descrição do Problema.pdf" target="_blank" class="botao outline" style="flex:1; min-width:160px; text-align:center;">
+                <a href="trabalhos/algoritimos/Descrição do Problema.pdf" target="_blank" class="botao" style="background:transparent; border:2px solid #4a5568; color:#4a5568;">
                     📋 Ver Descrição
                 </a>
             </div>
         </div>
 
-        <!-- ===== SEÇÃO DE APRENDIZADO COM LLM ===== -->
-        <div style="background: #edf2f7; border-radius: 16px; padding: 30px; margin-top: 40px; border-left: 5px solid #805ad5;">
-            <h3 style="color: #1a365d; display: flex; align-items: center; gap: 10px;">
-                🧠 Reflexão sobre o Uso de LLMs
-            </h3>
-            <p style="color: #2d3748; margin: 10px 0;">
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div class="reflection-box">
+            <h3>🧠 Reflexão sobre o Uso de LLMs</h3>
+            <p style="color:#2d3748;">
                 <strong>O que aprendi:</strong> Utilizar LLMs (ChatGPT, Claude) como assistentes 
                 no desenvolvimento de soluções de engenharia acelera o processo de prototipagem, 
                 auxilia na depuração de código e oferece novas perspectivas para abordar problemas 
                 complexos. No entanto, é fundamental validar cada sugestão com o conhecimento 
                 técnico do engenheiro.
             </p>
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;">
-                <span style="background: #805ad5; color: white; padding: 4px 16px; border-radius: 20px; font-size:0.8rem;">✅ Validação Humana</span>
-                <span style="background: #2b6cb0; color: white; padding: 4px 16px; border-radius: 20px; font-size:0.8rem;">✅ Iteração Rápida</span>
-                <span style="background: #38a169; color: white; padding: 4px 16px; border-radius: 20px; font-size:0.8rem;">✅ Aprendizado Contínuo</span>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Validação Humana</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Iteração Rápida</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Aprendizado Contínuo</span>
             </div>
         </div>
 
     </div>
 </section>
 
-<!-- ========== FOOTER ========== -->
+<!-- ========== FOOTER (padrão do site) ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
-    <p>Engenharia Elétrica · Universidade Federal do Pampa</p>
+    <p>Engenharia Elétrica</p>
     <p>
-        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br">
-            📧 viniciusmoletta.aluno@unipampa.edu.br
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
         </a>
-    </p>
-    <p style="font-size:0.8rem; opacity:0.6; margin-top:10px;">
-        Jornada Acadêmica 2026 · Disciplina de Algoritmos e Programação
     </p>
 </footer>
 
 <!-- ========== JAVASCRIPT ========== -->
 <script>
-    // Função para copiar código
     function copiarCodigo() {
         const codigo = document.getElementById('codigoExemplo').innerText;
         navigator.clipboard.writeText(codigo).then(() => {
             const btn = document.querySelector('.copy-btn');
-            const originalText = btn.innerText;
+            const original = btn.innerText;
             btn.innerText = '✅ Copiado!';
-            setTimeout(() => {
-                btn.innerText = originalText;
-            }, 2000);
+            setTimeout(() => { btn.innerText = original; }, 2000);
         }).catch(() => {
-            alert('Não foi possível copiar. Selecione o código manualmente.');
+            alert('Selecione o código manualmente para copiar.');
         });
     }
-
-    // Animação suave ao rolar para os cards
-    document.addEventListener('DOMContentLoaded', () => {
-        const cards = document.querySelectorAll('.card');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        cards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
-            observer.observe(card);
-        });
-    });
 </script>
 
 </body>
