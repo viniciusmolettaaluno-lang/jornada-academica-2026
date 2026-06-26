@@ -3,50 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 1</title>
+    <title>Trabalho 1 - Lista de Exercícios de Lógica</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS (complementam o style.css) ===== */
+        
+        /* Tags / Badges */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        /* Bloco de código */
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        /* Saída do programa */
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        /* Card de conteúdo */
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        /* Grupo de botões */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        /* Exercício em destaque */
+        .exercise-highlight {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .exercise-highlight strong {
+            color: #1a365d;
+        }
+        .exercise-highlight .number {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho2.html">Trabalho 2 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 1</h1>
-        <p>
-            Resolução de Exercícios de Lógica: Seleção e desenvolvimento de 15 exercícios práticos com estruturas condicionais simples aplicadas à Engenharia.
+        <h1>📝 Trabalho 1</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Lista de Exercícios de Lógica
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag green">🔄 Estruturas Condicionais</span>
+            <span class="tag orange">📚 Lógica</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Resolução de 15 exercícios práticos com estruturas condicionais simples aplicadas à Engenharia.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid" style="display: block; max-width: 500px; margin: 0 auto;">
 
-            <div class="card" style="text-align: center;">
-                <h3>Lista e Resoluções</h3>
-                <p>
-                    Documento completo contendo os enunciados dos 15 exercícios de lógica propostos e as suas respectivas resoluções estruturadas.
-                </p>
-                <a href="trabalhos/algoritimos/trabalho1.pdf" target="_blank" class="botao">
-                    Abrir PDF Completo
-                </a>
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo</h3>
+            <p style="color:#2d3748;">
+                Desenvolver a lógica de programação através da resolução de 15 exercícios práticos, 
+                aplicando estruturas condicionais (<code>if</code>, <code>elif</code>, <code>else</code>) 
+                para resolver problemas típicos da engenharia.
+            </p>
+
+            <h3 style="margin-top:24px;">📋 Lista de Exercícios</h3>
+            <p style="color:#4a5568;">
+                Os exercícios abordam temas como:
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Comparação de valores numéricos</li>
+                <li>Tomada de decisão com múltiplas condições</li>
+                <li>Aplicações em cenários de engenharia (dimensionamento, seleção, verificação)</li>
+                <li>Validação de dados de entrada</li>
+            </ul>
+
+            <!-- Exemplo de exercício -->
+            <div class="exercise-highlight">
+                <span class="number">Exemplo</span>
+                <strong>Exercício tipo:</strong> "Elabore um programa que leia a temperatura em Celsius e informe se está abaixo de 0°C (congelando), entre 0°C e 30°C (temperatura amena) ou acima de 30°C (quente)."
             </div>
 
+            <h3 style="margin-top:24px;">💻 Código Exemplo</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício de estrutura condicional</span>
+<span class="comment"># Verifica a faixa de temperatura</span>
+
+<span class="keyword">def</span> <span class="function">classificar_temperatura</span>(temp):
+    <span class="keyword">if</span> temp < <span class="number">0</span>:
+        <span class="keyword">return</span> <span class="string">"❄️ Congelando"</span>
+    <span class="keyword">elif</span> temp <= <span class="number">30</span>:
+        <span class="keyword">return</span> <span class="string">"🌤️ Temperatura amena"</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> <span class="string">"🔥 Quente"</span>
+
+<span class="comment"># Teste da função</span>
+temperaturas = [<span class="number">-5</span>, <span class="number">15</span>, <span class="number">35</span>, <span class="number">0</span>, <span class="number">30</span>]
+<span class="keyword">for</span> t <span class="keyword">in</span> temperaturas:
+    print(f<span class="string">"{t}°C → {classificar_temperatura(t)}"</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+-5°C → ❄️ Congelando
+15°C → 🌤️ Temperatura amena
+35°C → 🔥 Quente
+0°C → 🌤️ Temperatura amena
+30°C → 🌤️ Temperatura amena
+                </code>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conceitos abordados:</strong> Estruturas condicionais aninhadas, 
+                operadores de comparação, boas práticas de legibilidade com <code>elif</code>.
+            </p>
+
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/trabalho1.pdf" target="_blank" class="botao" style="background:#2b6cb0;">
+                    📄 Ver PDF Completo (15 Exercícios)
+                </a>
+                <a href="#" class="botao" style="background:transparent; border:2px solid #2b6cb0; color:#2b6cb0;">
+                    ▶️ Ver no Google Colab
+                </a>
+            </div>
         </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
 
 </body>
 </html>
