@@ -3,72 +3,453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 3</title>
+    <title>Trabalho 3 - Listas de Exercícios com IA</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .ia-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .ia-card.gemini { border-left-color: #4299e1; }
+        .ia-card.claude { border-left-color: #805ad5; }
+        .ia-card.grok { border-left-color: #e53e3e; }
+        .ia-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .ia-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .ia-card .badge.gemini { background: #bee3f8; color: #1a365d; }
+        .ia-card .badge.claude { background: #e9d8fd; color: #44337a; }
+        .ia-card .badge.grok { background: #fed7d7; color: #742a2a; }
+
+        .exercise-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        @media (max-width: 600px) {
+            .exercise-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        .exercise-item {
+            background: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .exercise-item strong {
+            color: #1a365d;
+        }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Voltar</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho2.html">◀ Trabalho 2</a></li>
+        <li><a href="trabalho4.html">Trabalho 4 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 3</h1>
-        <p>
-            Nesta atividade, cada aluno deverá utilizar três LLMs diferentes
-            para gerar exercícios de algoritmos aplicados à Engenharia.
+        <h1>🤖 Trabalho 3</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Listas de Exercícios com IA - Engenharia Elétrica
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 IA</span>
+            <span class="tag orange">⚡ Engenharia Elétrica</span>
+            <span class="tag green">📚 Exercícios</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Geração e resolução de 30 exercícios de programação voltados à engenharia elétrica, 
+            utilizando três IAs diferentes: Gemini, Claude e Grok. 
+            Comparação de qualidade, variedade e experiência de uso.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Exercício 1</h3>
-                <p>Grok - geração de exercícios e soluções.</p>
-                <a href="trabalhos/algoritimos/grok.PDF" target="_blank" class="botao">
-                    Abrir PDF
-                </a>
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Utilizar três IAs diferentes (Gemini, Claude e Grok) para gerar 10 exercícios de 
+                programação cada, voltados para a área de engenharia elétrica. Os exercícios deveriam 
+                ser resolvidos com estruturas básicas de Python. O trabalho também teve como objetivo 
+                comparar a qualidade, variedade e experiência de uso de cada ferramenta.
+            </p>
+
+            <h3 style="margin-top:24px;">📋 Resumo da Experiência</h3>
+            
+            <!-- Gemini -->
+            <div class="ia-card gemini">
+                <h4>
+                    <span>🔵 Gemini</span>
+                    <span class="badge gemini">Melhor para iniciantes</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    Exercícios simples e básicos, com estruturas mais lógicas. Foi tranquilo de resolver, 
+                    com problemas diretos e fáceis de entender.
+                </p>
+                <div class="exercise-list">
+                    <div class="exercise-item"><strong>1.</strong> Lei de Ohm</div>
+                    <div class="exercise-item"><strong>2.</strong> Resistores em Paralelo</div>
+                    <div class="exercise-item"><strong>3.</strong> Potência e Energia</div>
+                    <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
+                    <div class="exercise-item"><strong>5.</strong> Reatância Capacitiva</div>
+                    <div class="exercise-item"><strong>6.</strong> Fator de Potência</div>
+                    <div class="exercise-item"><strong>7.</strong> Queda de Tensão</div>
+                    <div class="exercise-item"><strong>8.</strong> Conversão Estrela-Triângulo</div>
+                    <div class="exercise-item"><strong>9.</strong> Impedância RLC</div>
+                    <div class="exercise-item"><strong>10.</strong> Dimensionamento de Disjuntor</div>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Exercício 2</h3>
-                <p>Gemini - geração de exercícios e soluções.</p>
-                <a href="trabalhos/algoritimos/gemini.PDF" target="_blank" class="botao">
-                    Abrir PDF
-                </a>
+            <!-- Claude -->
+            <div class="ia-card claude">
+                <h4>
+                    <span>🟣 Claude</span>
+                    <span class="badge claude">Melhor experiência</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    Melhor site, com exercícios mais variados que passavam pelas 5 unidades da apostila 
+                    de introdução ao Python. Problemas mais completos e com maior diversidade de conceitos.
+                </p>
+                <div class="exercise-list">
+                    <div class="exercise-item"><strong>1.</strong> Potência Elétrica</div>
+                    <div class="exercise-item"><strong>2.</strong> Resistores em Série</div>
+                    <div class="exercise-item"><strong>3.</strong> Resistores em Paralelo</div>
+                    <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
+                    <div class="exercise-item"><strong>5.</strong> Energia e Custo</div>
+                    <div class="exercise-item"><strong>6.</strong> Reatância Capacitiva</div>
+                    <div class="exercise-item"><strong>7.</strong> Reatância Indutiva</div>
+                    <div class="exercise-item"><strong>8.</strong> Conversor de Unidades</div>
+                    <div class="exercise-item"><strong>9.</strong> Verificador de Curto</div>
+                    <div class="exercise-item"><strong>10.</strong> Calculadora de Circuito</div>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Exercício 3</h3>
-                <p>Claude - geração de exercícios e soluções.</p>
-                <a href="trabalhos/algoritimos/claude.PDF" target="_blank" class="botao">
-                    Abrir PDF
-                </a>
+            <!-- Grok -->
+            <div class="ia-card grok">
+                <h4>
+                    <span>🔴 Grok</span>
+                    <span class="badge grok">Pior experiência</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    Site mais demorado e com exercícios muito repetidos. A experiência foi a pior entre 
+                    as três, com muitos problemas duplicados e interface lenta.
+                </p>
+                <div class="exercise-list">
+                    <div class="exercise-item"><strong>1.</strong> Lei de Ohm</div>
+                    <div class="exercise-item"><strong>2.</strong> Associação de Resistores</div>
+                    <div class="exercise-item"><strong>3.</strong> Potência Dissipada</div>
+                    <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
+                    <div class="exercise-item"><strong>5.</strong> Constante de Tempo RC</div>
+                    <div class="exercise-item"><strong>6.</strong> Carga do Capacitor</div>
+                    <div class="exercise-item"><strong>7.</strong> Tensão RMS</div>
+                    <div class="exercise-item"><strong>8.</strong> Resistor para LED</div>
+                    <div class="exercise-item"><strong>9.</strong> Autonomia de Bateria</div>
+                    <div class="exercise-item"><strong>10.</strong> Lei de Kirchhoff</div>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Relatório Final</h3>
-                <p>Comparação entre os modelos utilizados.</p>
-                <a href="trabalhos/algoritimos/relatoriofinal.PDF" target="_blank" class="botao">
-                    Abrir PDF
-                </a>
+            <h3 style="margin-top:24px;">💻 Código Exemplo (Claude - Exercício 1)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 01 — Potência Elétrica</span>
+<span class="comment"># Fonte: Claude.IA</span>
+
+V = float(input(<span class="string">"Tensão (V): "</span>))
+I = float(input(<span class="string">"Corrente (A): "</span>))
+P = V * I
+print(f<span class="string">"Potência: {P:.2f} W"</span>)
+
+<span class="comment"># Exemplo de execução:</span>
+<span class="comment"># Tensão (V): 220</span>
+<span class="comment"># Corrente (A): 5</span>
+<span class="comment"># Potência: 1100.00 W</span>
+                </pre>
             </div>
 
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+Tensão (V): 220
+Corrente (A): 5
+Potência: 1100.00 W
+                </code>
+            </div>
+
+            <h3 style="margin-top:24px;">💻 Código Exemplo (Gemini - Exercício 5)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 5 — Reatância Capacitiva</span>
+<span class="comment"># Fonte: Gemini</span>
+
+<span class="keyword">import</span> math
+
+frequencia = <span class="number">60</span> <span class="comment"># Hz</span>
+capacitancia = <span class="number">0.0001</span> <span class="comment"># 100uF em Farads</span>
+
+xc = <span class="number">1</span> / (<span class="number">2</span> * math.pi * frequencia * capacitancia)
+print(f<span class="string">"A reatância capacitiva é {xc:.2f} Ohms."</span>)
+
+<span class="comment"># Exemplo de saída:</span>
+<span class="comment"># A reatância capacitiva é 26.53 Ohms.</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+A reatância capacitiva é 26.53 Ohms.
+                </code>
+            </div>
+
+            <h3 style="margin-top:24px;">📊 Comparação entre as IAs</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0;">
+                <table style="width:100%; border-collapse: collapse; font-size:0.95rem;">
+                    <thead>
+                        <tr style="background:#e2e8f0;">
+                            <th style="padding:8px; text-align:left;">Critério</th>
+                            <th style="padding:8px; text-align:center;">Gemini</th>
+                            <th style="padding:8px; text-align:center;">Claude</th>
+                            <th style="padding:8px; text-align:center;">Grok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:8px;">Dificuldade</td>
+                            <td style="padding:8px; text-align:center;">🟢 Fácil</td>
+                            <td style="padding:8px; text-align:center;">🟡 Médio</td>
+                            <td style="padding:8px; text-align:center;">🟡 Médio</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:8px;">Variedade</td>
+                            <td style="padding:8px; text-align:center;">🟡 Média</td>
+                            <td style="padding:8px; text-align:center;">🟢 Alta</td>
+                            <td style="padding:8px; text-align:center;">🔴 Repetitiva</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:8px;">Velocidade</td>
+                            <td style="padding:8px; text-align:center;">🟢 Rápido</td>
+                            <td style="padding:8px; text-align:center;">🟢 Rápido</td>
+                            <td style="padding:8px; text-align:center;">🔴 Lento</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px;">Experiência geral</td>
+                            <td style="padding:8px; text-align:center;">🟢 Boa</td>
+                            <td style="padding:8px; text-align:center;">🟢 Excelente</td>
+                            <td style="padding:8px; text-align:center;">🔴 Ruim</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> O Claude foi a melhor IA para este trabalho, com maior 
+                variedade de exercícios e melhor experiência de uso. O Gemini é ótimo para iniciantes, 
+                com problemas mais simples. O Grok foi o menos recomendado devido à repetição de 
+                exercícios e lentidão.
+            </p>
+
+            <!-- ===== BOTÕES: SEM O COLAB ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/trabalho3.pdf" target="_blank" class="botao" style="background:#2b6cb0;">
+                    📄 Ver PDF Completo
+                </a>
+            </div>
         </div>
+
+        <!-- Seção de reflexão -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> O uso de IAs para gerar exercícios pode ser uma ferramenta 
+                poderosa, mas é importante avaliar a qualidade e variedade dos problemas. O Claude se 
+                destacou pela diversidade de conceitos abordados, enquanto o Gemini foi mais adequado 
+                para exercícios introdutórios. A experiência mostrou que diferentes IAs têm diferentes 
+                abordagens, e cabe ao usuário escolher a melhor ferramenta para cada necessidade.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Avaliação de IAs</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Resolução de Exercícios</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Comparação de Ferramentas</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
 
 </body>
 </html>
