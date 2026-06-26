@@ -157,28 +157,37 @@
             border-radius: 6px;
             border: 1px solid #e2e8f0;
             font-size: 0.9rem;
+            color: #1a202c;
         }
         .exercise-item strong {
             color: #1a365d;
         }
 
-        table {
+        /* ===== ESTILOS DA TABELA CORRIGIDOS ===== */
+        .tabela-comparativa {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.95rem;
+            color: #1a202c;
         }
-        table th, table td {
+        .tabela-comparativa th {
             padding: 10px 12px;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        table th {
             background: #e2e8f0;
-            font-weight: 600;
             color: #1a365d;
+            font-weight: 600;
         }
-        table tr:hover {
+        .tabela-comparativa td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        .tabela-comparativa tr:hover {
             background: #f7fafc;
+        }
+        .tabela-comparativa .destaque {
+            background: #edf2f7;
+            font-weight: 600;
         }
         .text-center { text-align: center; }
     </style>
@@ -409,10 +418,10 @@ Tensão = 220.00 V
                 </code>
             </div>
 
-            <!-- ===== TABELA COMPARATIVA ===== -->
+            <!-- ===== TABELA COMPARATIVA CORRIGIDA ===== -->
             <h3 style="margin-top:30px;">📊 Comparação entre as IAs</h3>
             <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
-                <table>
+                <table class="tabela-comparativa">
                     <thead>
                         <tr>
                             <th>Critério</th>
@@ -446,7 +455,7 @@ Tensão = 220.00 V
                             <td class="text-center">📚 Abrangente</td>
                             <td class="text-center">🔁 Repetitiva</td>
                         </tr>
-                        <tr style="background:#edf2f7; font-weight:600;">
+                        <tr class="destaque">
                             <td><strong>Experiência Geral</strong></td>
                             <td class="text-center">🟢 Boa</td>
                             <td class="text-center">🟢 Excelente</td>
