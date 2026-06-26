@@ -143,7 +143,7 @@
         .exercise-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
             margin: 10px 0;
         }
         @media (max-width: 600px) {
@@ -153,7 +153,7 @@
         }
         .exercise-item {
             background: white;
-            padding: 8px 14px;
+            padding: 6px 14px;
             border-radius: 6px;
             border: 1px solid #e2e8f0;
             font-size: 0.9rem;
@@ -161,6 +161,26 @@
         .exercise-item strong {
             color: #1a365d;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        table th, table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        table th {
+            background: #e2e8f0;
+            font-weight: 600;
+            color: #1a365d;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
     </style>
 </head>
 <body>
@@ -209,9 +229,10 @@
                 comparar a qualidade, variedade e experiência de uso de cada ferramenta.
             </p>
 
-            <h3 style="margin-top:24px;">📋 Resumo da Experiência</h3>
+            <!-- ===== RESULTADO DA EXPERIÊNCIA ===== -->
+            <h3 style="margin-top:30px;">📋 Resumo da Experiência</h3>
             
-            <!-- Gemini -->
+            <!-- GEMINI -->
             <div class="ia-card gemini">
                 <h4>
                     <span>🔵 Gemini</span>
@@ -222,20 +243,20 @@
                     com problemas diretos e fáceis de entender.
                 </p>
                 <div class="exercise-list">
-                    <div class="exercise-item"><strong>1.</strong> Lei de Ohm</div>
-                    <div class="exercise-item"><strong>2.</strong> Resistores em Paralelo</div>
-                    <div class="exercise-item"><strong>3.</strong> Potência e Energia</div>
+                    <div class="exercise-item"><strong>1.</strong> Lei de Ohm Simples</div>
+                    <div class="exercise-item"><strong>2.</strong> Associação de Resistores em Paralelo</div>
+                    <div class="exercise-item"><strong>3.</strong> Cálculo de Potência e Energia</div>
                     <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
                     <div class="exercise-item"><strong>5.</strong> Reatância Capacitiva</div>
                     <div class="exercise-item"><strong>6.</strong> Fator de Potência</div>
-                    <div class="exercise-item"><strong>7.</strong> Queda de Tensão</div>
-                    <div class="exercise-item"><strong>8.</strong> Conversão Estrela-Triângulo</div>
-                    <div class="exercise-item"><strong>9.</strong> Impedância RLC</div>
+                    <div class="exercise-item"><strong>7.</strong> Queda de Tensão em Condutores</div>
+                    <div class="exercise-item"><strong>8.</strong> Conversão Estrela-Triângulo (Y→Δ)</div>
+                    <div class="exercise-item"><strong>9.</strong> Cálculo de Impedância RLC</div>
                     <div class="exercise-item"><strong>10.</strong> Dimensionamento de Disjuntor</div>
                 </div>
             </div>
 
-            <!-- Claude -->
+            <!-- CLAUDE -->
             <div class="ia-card claude">
                 <h4>
                     <span>🟣 Claude</span>
@@ -250,16 +271,16 @@
                     <div class="exercise-item"><strong>2.</strong> Resistores em Série</div>
                     <div class="exercise-item"><strong>3.</strong> Resistores em Paralelo</div>
                     <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
-                    <div class="exercise-item"><strong>5.</strong> Energia e Custo</div>
+                    <div class="exercise-item"><strong>5.</strong> Energia Consumida e Custo</div>
                     <div class="exercise-item"><strong>6.</strong> Reatância Capacitiva</div>
                     <div class="exercise-item"><strong>7.</strong> Reatância Indutiva</div>
-                    <div class="exercise-item"><strong>8.</strong> Conversor de Unidades</div>
-                    <div class="exercise-item"><strong>9.</strong> Verificador de Curto</div>
-                    <div class="exercise-item"><strong>10.</strong> Calculadora de Circuito</div>
+                    <div class="exercise-item"><strong>8.</strong> Conversor de Unidades Elétricas</div>
+                    <div class="exercise-item"><strong>9.</strong> Verificador de Curto-Circuito</div>
+                    <div class="exercise-item"><strong>10.</strong> Calculadora de Circuito (V, I, R)</div>
                 </div>
             </div>
 
-            <!-- Grok -->
+            <!-- GROK -->
             <div class="ia-card grok">
                 <h4>
                     <span>🔴 Grok</span>
@@ -270,20 +291,21 @@
                     as três, com muitos problemas duplicados e interface lenta.
                 </p>
                 <div class="exercise-list">
-                    <div class="exercise-item"><strong>1.</strong> Lei de Ohm</div>
-                    <div class="exercise-item"><strong>2.</strong> Associação de Resistores</div>
-                    <div class="exercise-item"><strong>3.</strong> Potência Dissipada</div>
+                    <div class="exercise-item"><strong>1.</strong> Calculadora da Lei de Ohm</div>
+                    <div class="exercise-item"><strong>2.</strong> Associação de Resistores (Série/Paralelo)</div>
+                    <div class="exercise-item"><strong>3.</strong> Potência Dissipada no Resistor</div>
                     <div class="exercise-item"><strong>4.</strong> Divisor de Tensão</div>
                     <div class="exercise-item"><strong>5.</strong> Constante de Tempo RC</div>
-                    <div class="exercise-item"><strong>6.</strong> Carga do Capacitor</div>
-                    <div class="exercise-item"><strong>7.</strong> Tensão RMS</div>
+                    <div class="exercise-item"><strong>6.</strong> Carga do Capacitor (simulação)</div>
+                    <div class="exercise-item"><strong>7.</strong> Cálculo de Tensão RMS</div>
                     <div class="exercise-item"><strong>8.</strong> Resistor para LED</div>
                     <div class="exercise-item"><strong>9.</strong> Autonomia de Bateria</div>
-                    <div class="exercise-item"><strong>10.</strong> Lei de Kirchhoff</div>
+                    <div class="exercise-item"><strong>10.</strong> Lei de Kirchhoff das Correntes</div>
                 </div>
             </div>
 
-            <h3 style="margin-top:24px;">💻 Código Exemplo (Claude - Exercício 1)</h3>
+            <!-- ===== CÓDIGO EXEMPLO 1 (CLAUDE) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Claude - Exercício 1)</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
                 <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
@@ -303,7 +325,7 @@ print(f<span class="string">"Potência: {P:.2f} W"</span>)
             </div>
 
             <div class="output-box">
-                <div class="label">▶ Exemplo de Saída</div>
+                <div class="label">▶ Saída do programa</div>
                 <code style="color:#1a202c;">
 Tensão (V): 220
 Corrente (A): 5
@@ -311,7 +333,8 @@ Potência: 1100.00 W
                 </code>
             </div>
 
-            <h3 style="margin-top:24px;">💻 Código Exemplo (Gemini - Exercício 5)</h3>
+            <!-- ===== CÓDIGO EXEMPLO 2 (GEMINI) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Gemini - Exercício 5)</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
                 <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
@@ -332,47 +355,102 @@ print(f<span class="string">"A reatância capacitiva é {xc:.2f} Ohms."</span>)
             </div>
 
             <div class="output-box">
-                <div class="label">▶ Exemplo de Saída</div>
+                <div class="label">▶ Saída do programa</div>
                 <code style="color:#1a202c;">
 A reatância capacitiva é 26.53 Ohms.
                 </code>
             </div>
 
-            <h3 style="margin-top:24px;">📊 Comparação entre as IAs</h3>
-            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0;">
-                <table style="width:100%; border-collapse: collapse; font-size:0.95rem;">
+            <!-- ===== CÓDIGO EXEMPLO 3 (GROK) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Grok - Exercício 1)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 1 — Calculadora da Lei de Ohm</span>
+<span class="comment"># Fonte: Grok</span>
+
+print(<span class="string">"=== Calculadora Lei de Ohm ==="</span>)
+print(<span class="string">"1 - Calcular Tensão (V)"</span>)
+print(<span class="string">"2 - Calcular Corrente (I)"</span>)
+print(<span class="string">"3 - Calcular Resistência (R)"</span>)
+op = int(input(<span class="string">"Escolha (1/2/3): "</span>))
+
+<span class="keyword">if</span> op == <span class="number">1</span>:
+    I = float(input(<span class="string">"Corrente (A): "</span>))
+    R = float(input(<span class="string">"Resistência (Ω): "</span>))
+    V = I * R
+    print(f<span class="string">"Tensão = {V:.2f} V"</span>)
+<span class="keyword">elif</span> op == <span class="number">2</span>:
+    V = float(input(<span class="string">"Tensão (V): "</span>))
+    R = float(input(<span class="string">"Resistência (Ω): "</span>))
+    I = V / R
+    print(f<span class="string">"Corrente = {I:.4f} A"</span>)
+<span class="keyword">elif</span> op == <span class="number">3</span>:
+    V = float(input(<span class="string">"Tensão (V): "</span>))
+    I = float(input(<span class="string">"Corrente (A): "</span>))
+    R = V / I
+    print(f<span class="string">"Resistência = {R:.2f} Ω"</span>)
+<span class="keyword">else</span>:
+    print(<span class="string">"Opção inválida!"</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+=== Calculadora Lei de Ohm ===
+1 - Calcular Tensão (V)
+2 - Calcular Corrente (I)
+3 - Calcular Resistência (R)
+Escolha (1/2/3): 1
+Corrente (A): 5
+Resistência (Ω): 44
+Tensão = 220.00 V
+                </code>
+            </div>
+
+            <!-- ===== TABELA COMPARATIVA ===== -->
+            <h3 style="margin-top:30px;">📊 Comparação entre as IAs</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
                     <thead>
-                        <tr style="background:#e2e8f0;">
-                            <th style="padding:8px; text-align:left;">Critério</th>
-                            <th style="padding:8px; text-align:center;">Gemini</th>
-                            <th style="padding:8px; text-align:center;">Claude</th>
-                            <th style="padding:8px; text-align:center;">Grok</th>
+                        <tr>
+                            <th>Critério</th>
+                            <th class="text-center">🔵 Gemini</th>
+                            <th class="text-center">🟣 Claude</th>
+                            <th class="text-center">🔴 Grok</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="border-bottom:1px solid #e2e8f0;">
-                            <td style="padding:8px;">Dificuldade</td>
-                            <td style="padding:8px; text-align:center;">🟢 Fácil</td>
-                            <td style="padding:8px; text-align:center;">🟡 Médio</td>
-                            <td style="padding:8px; text-align:center;">🟡 Médio</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #e2e8f0;">
-                            <td style="padding:8px;">Variedade</td>
-                            <td style="padding:8px; text-align:center;">🟡 Média</td>
-                            <td style="padding:8px; text-align:center;">🟢 Alta</td>
-                            <td style="padding:8px; text-align:center;">🔴 Repetitiva</td>
-                        </tr>
-                        <tr style="border-bottom:1px solid #e2e8f0;">
-                            <td style="padding:8px;">Velocidade</td>
-                            <td style="padding:8px; text-align:center;">🟢 Rápido</td>
-                            <td style="padding:8px; text-align:center;">🟢 Rápido</td>
-                            <td style="padding:8px; text-align:center;">🔴 Lento</td>
+                        <tr>
+                            <td><strong>Dificuldade</strong></td>
+                            <td class="text-center">🟢 Fácil</td>
+                            <td class="text-center">🟡 Médio</td>
+                            <td class="text-center">🟡 Médio</td>
                         </tr>
                         <tr>
-                            <td style="padding:8px;">Experiência geral</td>
-                            <td style="padding:8px; text-align:center;">🟢 Boa</td>
-                            <td style="padding:8px; text-align:center;">🟢 Excelente</td>
-                            <td style="padding:8px; text-align:center;">🔴 Ruim</td>
+                            <td><strong>Variedade</strong></td>
+                            <td class="text-center">🟡 Média</td>
+                            <td class="text-center">🟢 Alta</td>
+                            <td class="text-center">🔴 Repetitiva</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Velocidade</strong></td>
+                            <td class="text-center">🟢 Rápido</td>
+                            <td class="text-center">🟢 Rápido</td>
+                            <td class="text-center">🔴 Lento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Abordagem</strong></td>
+                            <td class="text-center">📘 Básica</td>
+                            <td class="text-center">📚 Abrangente</td>
+                            <td class="text-center">🔁 Repetitiva</td>
+                        </tr>
+                        <tr style="background:#edf2f7; font-weight:600;">
+                            <td><strong>Experiência Geral</strong></td>
+                            <td class="text-center">🟢 Boa</td>
+                            <td class="text-center">🟢 Excelente</td>
+                            <td class="text-center">🔴 Ruim</td>
                         </tr>
                     </tbody>
                 </table>
@@ -381,11 +459,11 @@ A reatância capacitiva é 26.53 Ohms.
             <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
                 💡 <strong>Conclusão:</strong> O Claude foi a melhor IA para este trabalho, com maior 
                 variedade de exercícios e melhor experiência de uso. O Gemini é ótimo para iniciantes, 
-                com problemas mais simples. O Grok foi o menos recomendado devido à repetição de 
-                exercícios e lentidão.
+                com problemas mais simples e diretos. O Grok foi o menos recomendado devido à repetição 
+                de exercícios e lentidão.
             </p>
 
-            <!-- ===== BOTÕES: SEM O COLAB ===== -->
+            <!-- ===== BOTÕES ===== -->
             <div class="btn-group">
                 <a href="trabalhos/algoritimos/trabalho3.pdf" target="_blank" class="botao" style="background:#2b6cb0;">
                     📄 Ver PDF Completo
@@ -393,7 +471,7 @@ A reatância capacitiva é 26.53 Ohms.
             </div>
         </div>
 
-        <!-- Seção de reflexão -->
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
         <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
             <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
             <p style="color:#2d3748;">
@@ -429,7 +507,7 @@ A reatância capacitiva é 26.53 Ohms.
     function copiarCodigo() {
         const codigo = document.getElementById('codigoExemplo').innerText;
         navigator.clipboard.writeText(codigo).then(() => {
-            const btn = document.querySelector('.copy-btn');
+            const btn = document.querySelectorAll('.copy-btn')[0];
             const original = btn.innerText;
             btn.innerText = '✅ Copiado!';
             setTimeout(() => { btn.innerText = original; }, 2000);
@@ -442,6 +520,18 @@ A reatância capacitiva é 26.53 Ohms.
         const codigo = document.getElementById('codigoExemplo2').innerText;
         navigator.clipboard.writeText(codigo).then(() => {
             const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo3() {
+        const codigo = document.getElementById('codigoExemplo3').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[2];
             const original = btn.innerText;
             btn.innerText = '✅ Copiado!';
             setTimeout(() => { btn.innerText = original; }, 2000);
