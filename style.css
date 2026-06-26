@@ -207,3 +207,16 @@ footer p {
     color: #64748b;
     font-size: 0.9rem;
 }
+
+/* Remove a aparência padrão do link de e-mail e faz ele seguir o layout natural */
+footer p a {
+    color: inherit;            /* Herda o cinza (#64748b) definido no parágrafo */
+    text-decoration: none;     /* Remove o sublinhado azul padrão */
+    transition: opacity 0.3s;  /* Transição suave para o efeito de passar o mouse */
+}
+
+/* Efeito sutil ao passar o mouse por cima do e-mail */
+footer p a:hover {
+    opacity: 0.8;              /* Dá uma leve clareada/apagada ao interagir */
+    text-decoration: underline; /* Opcional: adiciona o sublinhado apenas no hover para indicar que é clicável */
+}
