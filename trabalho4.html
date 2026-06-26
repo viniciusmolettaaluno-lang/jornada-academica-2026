@@ -3,90 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 4</title>
+    <title>Trabalho 4 - Exercícios com LLMs</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card.ex5 { border-left-color: #e53e3e; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+        .exercicio-card .badge.ex5 { background: #fed7d7; color: #742a2a; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+        .btn-pdf.ex4 { background: #38a169; }
+        .btn-pdf.ex5 { background: #e53e3e; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho3.html">Trabalho 3</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho3.html">◀ Trabalho 3</a></li>
+        <li><a href="trabalho5.html">Trabalho 5 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 4</h1>
-        <p>
-            Resolução de exercícios em papel, interpretação por LLMs e comparação de soluções em Python.
+        <h1>📝 Trabalho 4</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Resolução de Exercícios com LLMs - Engenharia Elétrica
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 LLMs</span>
+            <span class="tag orange">⚡ Engenharia Elétrica</span>
+            <span class="tag green">📚 Exercícios</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Resolução de 5 exercícios de engenharia elétrica com suporte de LLMs (Claude, ChatGPT, Gemini). 
+            Cada exercício foi resolvido manualmente, interpretado por IA e convertido para Python.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Exercício 1</h3>
-                <p>
-                    Resolução manual do exercício 1 + análise por LLMs + código Python comparado.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Resolver 5 exercícios de engenharia elétrica, utilizando LLMs para interpretar o problema, 
+                gerar soluções em Python e comparar diferentes abordagens. O trabalho envolveu:
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Resolução manual dos exercícios</li>
+                <li>Interpretação por LLMs (Claude, ChatGPT, Gemini)</li>
+                <li>Geração de código Python a partir das interpretações</li>
+                <li>Comparação das soluções geradas</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Exercícios Desenvolvidos</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Exercício 1</span>
+                    <span class="badge ex1">Conversão de Tempo</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Converter um valor em segundos para dias, horas, minutos e segundos.
                 </p>
-                <a href="trabalhos/algoritimos/Exercicio1.PDF" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Divisão inteira, operador módulo, formatação de saída.
+                </p>
+                <a href="trabalhos/algoritimos/Exercicio1.PDF" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Exercício 2</h3>
-                <p>
-                    Resolução manual do exercício 2 + interpretação por IA + código Python.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Exercício 2</span>
+                    <span class="badge ex2">Ponte de Wheatstone</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Calcular a resistência desconhecida em uma Ponte de Wheatstone, além da resistência total, corrente e potência.
                 </p>
-                <a href="trabalhos/algoritimos/Exercicio2.PDF" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Lei de Ohm, associação de resistores, verificação de equilíbrio.
+                </p>
+                <a href="trabalhos/algoritimos/Exercicio2.PDF" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Exercício 3</h3>
-                <p>
-                    Resolução manual do exercício 3 + interpretação por IA + código Python.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Exercício 3</span>
+                    <span class="badge ex3">Cálculo de Impostos (IPI/ICMS/PIS/COFINS)</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Calcular o preço final de um produto com incidência de IPI, ICMS e PIS/COFINS em cascata.
                 </p>
-                <a href="trabalhos/algoritimos/Exercicio3.PDF" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Cálculo de impostos em cascata, base de cálculo, carga tributária.
+                </p>
+                <a href="trabalhos/algoritimos/Exercicio3.PDF" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Exercício 4</h3>
-                <p>
-                    Resolução manual do exercício 4 + interpretação por IA + código Python.
+            <!-- EXERCÍCIO 4 -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟢 Exercício 4</span>
+                    <span class="badge ex4">Classificação de Solo (SPT)</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Classificar o solo com base no valor de SPT e capacidade de carga, recomendando o tipo de fundação.
                 </p>
-                <a href="trabalhos/algoritimos/Exercicio4.PDF" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Estruturas condicionais aninhadas, classificação de solos, engenharia geotécnica.
+                </p>
+                <a href="trabalhos/algoritimos/Exercicio4.PDF" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Exercício 5</h3>
-                <p>
-                    Resolução manual do exercício 5 + interpretação por IA + código Python.
+            <!-- EXERCÍCIO 5 -->
+            <div class="exercicio-card ex5">
+                <h4>
+                    <span>🔴 Exercício 5</span>
+                    <span class="badge ex5">Análise de Processo</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Analisar variáveis de processo, calcular desvios e verificar limites de tolerância.
                 </p>
-                <a href="trabalhos/algoritimos/Exercicio5.PDF" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Desvio percentual, verificação de limites, análise de dados.
+                </p>
+                <a href="trabalhos/algoritimos/Exercicio5.PDF" target="_blank" class="btn-pdf ex5">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO 1 (EXERCÍCIO 1) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 1 - Conversão de Tempo)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 1 — Conversão de Tempo</span>
+<span class="comment"># Fonte: Claude.IA</span>
+
+<span class="keyword">def</span> <span class="function">converter_tempo</span>():
+    <span class="comment"># Entrada</span>
+    t = int(input(<span class="string">"Digite o tempo em segundos: "</span>))
+
+    <span class="comment"># Cálculos</span>
+    dias = t // <span class="number">86400</span>
+    resto1 = t % <span class="number">86400</span>
+    horas = resto1 // <span class="number">3600</span>
+    resto2 = resto1 % <span class="number">3600</span>
+    minutos = resto2 // <span class="number">60</span>
+    segundos = resto2 % <span class="number">60</span>
+
+    <span class="comment"># Saída</span>
+    print(f<span class="string">"\n{dias} dias, {horas:02d}:{minutos:02d}:{segundos:02d}"</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    converter_tempo()
+
+<span class="comment"># Exemplo de execução:</span>
+<span class="comment"># Digite o tempo em segundos: 90061</span>
+<span class="comment"># 1 dias, 01:01:01</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Digite o tempo em segundos: 90061
+1 dias, 01:01:01
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (EXERCÍCIO 2) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 2 - Ponte de Wheatstone)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 2 — Ponte de Wheatstone</span>
+<span class="comment"># Fonte: ChatGPT</span>
+
+<span class="comment"># Entrada de dados</span>
+R1 = float(input(<span class="string">"Digite o valor de R1 (ohms): "</span>))
+R2 = float(input(<span class="string">"Digite o valor de R2 (ohms): "</span>))
+R3 = float(input(<span class="string">"Digite o valor de R3 (ohms): "</span>))
+Vfonte = float(input(<span class="string">"Digite o valor da tensão da fonte (V): "</span>))
+
+print(<span class="string">"\n--- Análise do Circuito ---"</span>)
+
+<span class="comment"># Validação</span>
+<span class="keyword">if</span> R1 == <span class="number">0</span>:
+    print(<span class="string">"Erro: R1 não pode ser zero"</span>)
+<span class="keyword">else</span>:
+    <span class="comment"># Cálculos</span>
+    Rx = (R3 * R2) / R1
+    ramo1 = R1 + Rx
+    ramo2 = R2 + R3
+    R_total = (ramo1 * ramo2) / (ramo1 + ramo2)
+    I_total = Vfonte / R_total
+    P_total = Vfonte * I_total
+
+    <span class="comment"># Saídas</span>
+    print(f<span class="string">"Resistência desconhecida (Rx): {Rx:.2f} ohms"</span>)
+    print(f<span class="string">"Resistência total: {R_total:.2f} ohms"</span>)
+    print(f<span class="string">"Corrente total: {I_total:.2f} A"</span>)
+    print(f<span class="string">"Potência total: {P_total:.2f} W"</span>)
+
+    <span class="comment"># Verificação de equilíbrio</span>
+    <span class="keyword">if</span> abs(R1 * Rx - R2 * R3) < <span class="number">1e-6</span>:
+        print(<span class="string">"A ponte está equilibrada"</span>)
+    <span class="keyword">else</span>:
+        print(<span class="string">"Status: ponte desequilibrada"</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+Digite o valor de R1 (ohms): 100
+Digite o valor de R2 (ohms): 200
+Digite o valor de R3 (ohms): 300
+Digite o valor da tensão da fonte (V): 12
+
+--- Análise do Circuito ---
+Resistência desconhecida (Rx): 600.00 ohms
+Resistência total: 266.67 ohms
+Corrente total: 0.04 A
+Potência total: 0.54 W
+Status: ponte desequilibrada
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 (EXERCÍCIO 3) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 3 - Cálculo de Impostos)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 3 — Cálculo de Impostos (IPI, ICMS, PIS/COFINS)</span>
+<span class="comment"># Fonte: Claude.IA</span>
+
+<span class="keyword">def</span> <span class="function">calcular_nota_fiscal</span>():
+    <span class="comment"># Entrada de dados</span>
+    preco_fabrica = float(input(<span class="string">"Digite o preço da fábrica (R$): "</span>))
+    aliq_ipi = float(input(<span class="string">"Digite a alíquota do IPI (%): "</span>))
+    aliq_icms = float(input(<span class="string">"Digite a alíquota do ICMS (%): "</span>))
+    aliq_pis_cofins = float(input(<span class="string">"Digite a alíquota PIS/COFINS (%): "</span>))
+
+    <span class="comment"># Cálculos</span>
+    ipi = preco_fabrica * aliq_ipi / <span class="number">100</span>
+    base_icms = preco_fabrica + ipi
+    icms = base_icms * aliq_icms / <span class="number">100</span>
+    base_pc = base_icms + icms
+    pis_cofins = base_pc * aliq_pis_cofins / <span class="number">100</span>
+    preco_final = base_pc + pis_cofins
+    carga_total_perc = (preco_final - preco_fabrica) / preco_fabrica * <span class="number">100</span>
+
+    <span class="comment"># Demonstrativo</span>
+    print(<span class="string">"\n=== Demonstrativo ==="</span>)
+    print(f<span class="string">"Preço de fábrica: R$ {preco_fabrica:.2f}"</span>)
+    print(f<span class="string">"Valor IPI: R$ {ipi:.2f}"</span>)
+    print(f<span class="string">"Base ICMS (fábrica+IPI): R$ {base_icms:.2f}"</span>)
+    print(f<span class="string">"Valor ICMS: R$ {icms:.2f}"</span>)
+    print(f<span class="string">"Valor PIS/COFINS: R$ {pis_cofins:.2f}"</span>)
+    print(f<span class="string">"Preço Final: R$ {preco_final:.2f}"</span>)
+    print(f<span class="string">"Carga tributária total: {carga_total_perc:.2f}%"</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    calcular_nota_fiscal()
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+Digite o preço da fábrica (R$): 1000
+Digite a alíquota do IPI (%): 10
+Digite a alíquota do ICMS (%): 18
+Digite a alíquota PIS/COFINS (%): 9.25
+
+=== Demonstrativo ===
+Preço de fábrica: R$ 1000.00
+Valor IPI: R$ 100.00
+Base ICMS (fábrica+IPI): R$ 1100.00
+Valor ICMS: R$ 198.00
+Valor PIS/COFINS: R$ 120.07
+Preço Final: R$ 1418.07
+Carga tributária total: 41.81%
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 4 (EXERCÍCIO 4) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 4 - Classificação de Solo)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo4()">📋 Copiar</button>
+                <pre id="codigoExemplo4" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 4 — Classificação de Solo (SPT)</span>
+<span class="comment"># Fonte: Claude.IA</span>
+
+<span class="comment"># Entrada de dados</span>
+spt = int(input(<span class="string">"Digite o valor do SPT: "</span>))
+cap_carga = float(input(<span class="string">"Digite a capacidade de carga (kPa): "</span>))
+
+print(<span class="string">"\n--- Classificação do Solo ---"</span>)
+
+<span class="comment"># Classificação principal</span>
+<span class="keyword">if</span> spt < <span class="number">5</span> <span class="keyword">or</span> cap_carga < <span class="number">80</span>:
+    print(<span class="string">"INAPTO: reforço no solo necessário"</span>)
+<span class="keyword">elif</span> spt < <span class="number">10</span> <span class="keyword">or</span> cap_carga < <span class="number">150</span>:
+    print(<span class="string">"RESTRITO: fundação especial recomendada"</span>)
+<span class="keyword">elif</span> spt >= <span class="number">30</span> <span class="keyword">and</span> cap_carga >= <span class="number">300</span>:
+    print(<span class="string">"EXCELENTE: solo de alta capacidade"</span>)
+<span class="keyword">else</span>:
+    print(<span class="string">"ADEQUADO: fundação convencional"</span>)
+
+<span class="comment"># Informações adicionais</span>
+<span class="keyword">if</span> spt < <span class="number">10</span>:
+    print(<span class="string">"SPT baixo"</span>)
+<span class="keyword">if</span> cap_carga < <span class="number">150</span>:
+    print(<span class="string">"Capacidade de carga baixa"</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+Digite o valor do SPT: 8
+Digite a capacidade de carga (kPa): 120
+
+--- Classificação do Solo ---
+RESTRITO: fundação especial recomendada
+SPT baixo
+Capacidade de carga baixa
+                </code>
+            </div>
+
+            <!-- ===== TABELA COMPARATIVA ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo dos Exercícios</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Exercício</th>
+                            <th>Tema</th>
+                            <th>LLMs Utilizados</th>
+                            <th>Conceitos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Conversão de Tempo</td>
+                            <td>Claude, ChatGPT</td>
+                            <td>Divisão inteira, módulo, formatação</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Ponte de Wheatstone</td>
+                            <td>Claude, ChatGPT</td>
+                            <td>Lei de Ohm, associação de resistores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Cálculo de Impostos</td>
+                            <td>Claude, ChatGPT</td>
+                            <td>Impostos em cascata, tributação</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>Classificação de Solo</td>
+                            <td>Claude, ChatGPT</td>
+                            <td>Estruturas condicionais, SPT</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td>Análise de Processo</td>
+                            <td>Claude, ChatGPT</td>
+                            <td>Desvio percentual, verificação de limites</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> Os LLMs foram eficazes na interpretação dos problemas e 
+                geração de código Python. Cada exercício abordou um conceito diferente de engenharia, 
+                demonstrando a versatilidade das ferramentas de IA no suporte à resolução de problemas.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/Exercicio1.PDF" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Exercício 1
+                </a>
+                <a href="trabalhos/algoritimos/Exercicio2.PDF" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Exercício 2
+                </a>
+                <a href="trabalhos/algoritimos/Exercicio3.PDF" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Exercício 3
+                </a>
+                <a href="trabalhos/algoritimos/Exercicio4.PDF" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Exercício 4
+                </a>
+                <a href="trabalhos/algoritimos/Exercicio5.PDF" target="_blank" class="botao" style="background:#e53e3e;">
+                    📄 Exercício 5
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> O uso de LLMs como ferramenta de apoio à resolução de 
+                problemas de engenharia elétrica mostrou-se extremamente útil. As IAs foram capazes de 
+                interpretar corretamente os enunciados, sugerir abordagens e gerar código funcional. 
+                A comparação entre diferentes LLMs (Claude e ChatGPT) mostrou que ambas são eficientes, 
+                mas com abordagens ligeiramente diferentes na estruturação do código.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Interpretação de Problemas</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Geração de Código</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Comparação de LLMs</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
 
-</body>
-</html>
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[0];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo3()
