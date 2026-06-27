@@ -272,32 +272,6 @@
         .evolucao-item .check { color: #38a169; font-weight: 700; }
         .evolucao-item .cross { color: #e53e3e; font-weight: 700; }
 
-        /* ===== TABELA CORRIGIDA ===== */
-        .tabela-funcionalidades {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-            color: #1a202c;
-            background: #f7fafc;
-        }
-        .tabela-funcionalidades th {
-            padding: 10px 12px;
-            text-align: left;
-            background: #e2e8f0;
-            color: #1a365d;
-            font-weight: 600;
-        }
-        .tabela-funcionalidades td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #1a202c;
-        }
-        .tabela-funcionalidades tr:hover {
-            background: #edf2f7;
-        }
-        .text-center { text-align: center; }
-        .text-green { color: #38a169; font-weight: 600; }
-
         /* ===== FOOTER ===== */
         .footer {
             background: #1a202c;
@@ -306,11 +280,13 @@
             text-align: center;
             border-top: 1px solid #2d3748;
             margin-top: 40px;
+            width: 100%;
         }
         .footer h3 {
             color: #e2e8f0;
             font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 4px;
         }
         .footer p {
             font-size: 0.9rem;
@@ -604,45 +580,129 @@ Previsão para 3 dias: Risco de estresse severo
             <!-- ===== TABELA DE FUNCIONALIDADES CORRIGIDA ===== -->
             <h3 style="margin-top:30px;">📋 Funcionalidades da Versão 2</h3>
             <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
-                <table class="tabela-funcionalidades">
+                <table style="width:100%; border-collapse:collapse; font-size:0.95rem; color:#1a202c !important; background:#f7fafc;">
                     <thead>
-                        <tr>
-                            <th style="color:#1a365d !important; background:#e2e8f0 !important;">Funcionalidade</th>
-                            <th style="color:#1a365d !important; background:#e2e8f0 !important;">Descrição</th>
-                            <th style="color:#1a365d !important; background:#e2e8f0 !important; text-align:center;">Status</th>
+                        <tr style="background:#e2e8f0;">
+                            <th style="padding:12px 14px; text-align:left; color:#1a365d !important; font-weight:700;">Funcionalidade</th>
+                            <th style="padding:12px 14px; text-align:left; color:#1a365d !important; font-weight:700;">Descrição</th>
+                            <th style="padding:12px 14px; text-align:center; color:#1a365d !important; font-weight:700;">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">IA Preditiva</strong></td>
-                            <td style="color:#2d3748 !important;">Antecipa estresse hídrico com base em variáveis climáticas</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">IA Preditiva</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Antecipa estresse hídrico com base em variáveis climáticas</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Índice de Estresse</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Algoritmo matemático para calcular risco hídrico</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Irrigação Preventiva</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Ativa recomendações antes da condição crítica</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Classificação de Risco</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Baixo, Moderado, Alto, Crítico</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Dashboard Profissional</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Modo escuro inspirado em sistemas supervisórios</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Setores Configuráveis</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Slider para ajustar número de setores (4-16)</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
+                        </tr>
+                        <tr style="background:#ffffff !important; border-bottom:1px solid #e2e8f0;">
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Logs Operacionais</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Eventos com timestamp em tempo real</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
                         </tr>
                         <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Índice de Estresse</strong></td>
-                            <td style="color:#2d3748 !important;">Algoritmo matemático para calcular risco hídrico</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
+                            <td style="padding:10px 14px; color:#1a202c !important;"><strong style="color:#1a202c !important;">Estrutura Escalável</strong></td>
+                            <td style="padding:10px 14px; color:#2d3748 !important;">Preparado para sensores IoT, APIs, ML</td>
+                            <td style="padding:10px 14px; text-align:center; color:#38a169 !important; font-weight:700;">✅ Nova</td>
                         </tr>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Irrigação Preventiva</strong></td>
-                            <td style="color:#2d3748 !important;">Ativa recomendações antes da condição crítica</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
-                        </tr>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Classificação de Risco</strong></td>
-                            <td style="color:#2d3748 !important;">Baixo, Moderado, Alto, Crítico</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
-                        </tr>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Dashboard Profissional</strong></td>
-                            <td style="color:#2d3748 !important;">Modo escuro inspirado em sistemas supervisórios</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
-                        </tr>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Setores Configuráveis</strong></td>
-                            <td style="color:#2d3748 !important;">Slider para ajustar número de setores (4-16)</td>
-                            <td style="color:#38a169 !important; text-align:center; font-weight:700;">✅ Nova</td>
-                        </tr>
-                        <tr style="background:#ffffff !important;">
-                            <td style="color:#1a202c !important;"><strong style="color:#1a202c !important;">Logs Operacionais</strong></td>
-                            <td style="color:#2
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Diferencial:</strong> O AgroMind Pampa AI evoluiu de uma simples simulação agrícola 
+                para uma plataforma inteligente de agricultura de precisão com características próximas 
+                de sistemas reais utilizados no agronegócio moderno, com IA preditiva, irrigação 
+                automatizada e estrutura escalável para tecnologias reais.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/objetivoagromind.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Objetivo
+                </a>
+                <a href="trabalhos/algoritimos/diferenciaisAgroMindPampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Diferenciais
+                </a>
+                <a href="trabalhos/algoritimos/limita%C3%A7oesemelhorias.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Limitações
+                </a>
+                <a href="trabalhos/algoritimos/codigoatualizadoagromind.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Atualizado
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #38a169;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A evolução do AgroMind Pampa AI da versão 1 para a versão 2 
+                foi uma experiência enriquecedora que demonstrou como um projeto pode ser aprimorado 
+                com a adição de inteligência artificial preditiva, irrigação preventiva e um dashboard 
+                mais profissional. Aprendi a importância de estruturar o código de forma modular e 
+                escalável, preparando o sistema para futuras integrações com tecnologias reais como 
+                sensores IoT, APIs climáticas e Machine Learning.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#38a169; color:white;">✅ IA Preditiva</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Agricultura 4.0</span>
+                <span class="tag" style="background:#805ad5; color:white;">✅ Escalabilidade</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <h3>Vinicius Moletta da Silva</h3>
+    <p>Engenharia Elétrica</p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: #63b3ed; text-decoration: none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
+
+</body>
+</html>
