@@ -3,81 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 12</title>
+    <title>Trabalho 12 - AgroMind Pampa AI (Versão Evoluída)</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #38a169; }
+        .exercicio-card.ex3 { border-left-color: #805ad5; }
+        .exercicio-card.ex4 { border-left-color: #d69e2e; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #c6f6d5; color: #22543d; }
+        .exercicio-card .badge.ex3 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex4 { background: #fefcbf; color: #744210; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #38a169; }
+        .btn-pdf.ex3 { background: #805ad5; }
+        .btn-pdf.ex4 { background: #d69e2e; }
+
+        /* ===== ESTILOS DO DASHBOARD EVOLUÍDO ===== */
+        .dashboard-preview {
+            background: #0E1117;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            border: 1px solid #333333;
+            color: white;
+        }
+        .dashboard-preview .title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .dashboard-preview .subtitle {
+            color: #a0aec0;
+            margin-bottom: 16px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 12px 0;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .metric-card-dark {
+            background: #1E1E1E;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #333333;
+        }
+        .metric-card-dark .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .metric-card-dark .label {
+            font-size: 0.8rem;
+            color: #a0aec0;
+            margin-top: 4px;
+        }
+        .metric-card-dark .icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .status-grid-dark {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+        @media (max-width: 600px) {
+            .status-grid-dark {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .status-card-dark {
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .status-card-dark.success { background: #1a3a2a; color: #68d391; border: 1px solid #2d6a4f; }
+        .status-card-dark.warning { background: #3a2a1a; color: #f6ad55; border: 1px solid #6a4f2d; }
+        .status-card-dark.error { background: #3a1a1a; color: #fc8181; border: 1px solid #6a2d2d; }
+        .status-card-dark.critical { background: #4a1a1a; color: #fc8181; border: 2px solid #e53e3e; }
+
+        .comparacao-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 16px 0;
+        }
+        @media (max-width: 768px) {
+            .comparacao-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .comparacao-card {
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #f7fafc;
+        }
+        .comparacao-card h4 {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .comparacao-card h4.version1 { color: #4299e1; }
+        .comparacao-card h4.version2 { color: #38a169; }
+
+        .evolucao-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .evolucao-item .check { color: #38a169; font-weight: 700; }
+        .evolucao-item .cross { color: #e53e3e; font-weight: 700; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+        .text-green { color: #38a169; }
+        .text-red { color: #e53e3e; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho11.html">Trabalho 11</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho11.html">◀ Trabalho 11</a></li>
+        <li><a href="trabalho13.html">Trabalho 13 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 12</h1>
-        <p>
-            Evolução e Robustez da Solução: Aprofundamento técnico focado na usabilidade, transformando a prova de conceito inicial em um sistema robusto, útil e visualmente bem estruturado.
+        <h1>🚀 Trabalho 12</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            AgroMind Pampa AI - Versão Evoluída com IA Preditiva
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag green">🌱 Agro</span>
+            <span class="tag purple">🧠 IA Preditiva</span>
+            <span class="tag orange">📊 Streamlit</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Versão evoluída do AgroMind Pampa AI com inteligência artificial preditiva para estresse hídrico, 
+            irrigação preventiva automatizada, dashboard profissional e estrutura escalável para tecnologias 
+            reais de Agricultura 4.0.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Objetivo e Escopo</h3>
-                <p>
-                    Versão atualizada do detalhamento do problema com foco nas reais necessidades do usuário final da aplicação AgroMind.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Projeto</h3>
+            <p style="color:#2d3748;">
+                O projeto AgroMind Pampa AI foi desenvolvido com o objetivo de simular um sistema inteligente 
+                de agricultura de precisão voltado ao monitoramento e gerenciamento da irrigação agrícola, 
+                resolvendo problemas relacionados ao desperdício de água, consumo excessivo de energia e 
+                dificuldade de monitoramento das condições do solo e do clima.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Monitoramento de múltiplos setores agrícolas simultaneamente</li>
+                <li>Inteligência artificial preditiva para antecipar estresse hídrico</li>
+                <li>Irrigação preventiva automatizada baseada em índices de risco</li>
+                <li>Dashboard interativo com indicadores operacionais e alertas</li>
+                <li>Estrutura escalável para sensores reais, APIs e Machine Learning</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Objetivo do Projeto</span>
+                    <span class="badge ex1">Contexto</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Descrição detalhada do objetivo do projeto AgroMind Pampa AI, 
+                    incluindo os problemas resolvidos, funcionalidades e conceitos aplicados.
                 </p>
-                <a href="trabalhos/algoritimos/objetivoagromind.pdf" target="_blank" class="botao">
-                    Abrir Objetivo
+                <a href="trabalhos/algoritimos/objetivoagromind.pdf" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Objetivo do Projeto
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Código-Fonte Evoluído</h3>
-                <p>
-                    Script Python atualizado contendo melhorias de arquitetura, tratamento de dados e maior robustez na execução.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟢 Diferenciais e Evoluções</span>
+                    <span class="badge ex2">Novidades</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Lista completa dos diferenciais e evoluções do sistema, 
+                    incluindo IA preditiva, irrigação preventiva, dashboard profissional e escalabilidade.
                 </p>
-                <a href="trabalhos/algoritimos/codigoatualizadoagromind.pdf" target="_blank" class="botao">
-                    Ver Código Atualizado
+                <a href="trabalhos/algoritimos/diferenciaisAgroMindPampaAI.pdf" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Diferenciais
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Diferenciais Visuais</h3>
-                <p>
-                    Exibição dos resultados visuais obtidos, interfaces gráficas geradas e os principais diferenciais competitivos da solução.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟣 Limitações e Melhorias</span>
+                    <span class="badge ex3">Futuro</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Análise das limitações atuais do sistema e propostas de 
+                    melhorias futuras, incluindo integração com sensores reais, APIs e Machine Learning.
                 </p>
-                <a href="trabalhos/algoritimos/diferenciais AgroMind Pampa AI.pdf" target="_blank" class="botao">
-                    Abrir Diferenciais
+                <a href="trabalhos/algoritimos/limitaçoesemelhorias.pdf" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Limitações e Melhorias
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Limitações e Melhorias</h3>
-                <p>
-                    Descrição objetiva de todas as melhorias implementadas, limitações técnicas mapeadas na versão atual e próximos passos do projeto.
+            <!-- EXERCÍCIO 4 -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟡 Código Atualizado</span>
+                    <span class="badge ex4">Sistema</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código completo da versão evoluída do AgroMind Pampa AI, 
+                    com IA preditiva, irrigação preventiva e dashboard profissional.
                 </p>
-                <a href="trabalhos/algoritimos/limitaçoes e melhorias.pdf" target="_blank" class="botao">
-                    Ver Limitações e Melhorias
+                <a href="trabalhos/algoritimos/codigoatualizadoagromind.pdf" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Código Atualizado
                 </a>
             </div>
 
+            <!-- ===== COMPARAÇÃO VERSÕES ===== -->
+            <h3 style="margin-top:30px;">📊 Evolução: Trabalho 11 → Trabalho 12</h3>
+            <div class="comparacao-grid">
+                <div class="comparacao-card">
+                    <h4 class="version1">🔵 Versão 1 (Trabalho 11)</h4>
+                    <div class="evolucao-item"><span class="cross">✖</span> IA Preditiva</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Índice de Estresse Hídrico</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Irrigação Preventiva</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Classificação de Risco (Crítico/Alto)</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Dashboard Profissional (Modo Escuro)</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Setores Configuráveis (Slider)</div>
+                    <div class="evolucao-item"><span class="cross">✖</span> Logs Operacionais com Timestamp</div>
+                </div>
+                <div class="comparacao-card">
+                    <h4 class="version2">🟢 Versão 2 (Trabalho 12)</h4>
+                    <div class="evolucao-item"><span class="check">✔</span> IA Preditiva de Estresse Hídrico</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Índice Matemático de Estresse</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Irrigação Preventiva Automatizada</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Classificação: Baixo, Médio, Alto, Crítico</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Dashboard Profissional (Modo Escuro)</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Setores Configuráveis (Slider 4-16)</div>
+                    <div class="evolucao-item"><span class="check">✔</span> Logs Operacionais com Timestamp</div>
+                </div>
+            </div>
+
+            <!-- ===== DASHBOARD EVOLUÍDO ===== -->
+            <h3 style="margin-top:30px;">📊 Dashboard do Sistema (Versão 2)</h3>
+            
+            <div class="dashboard-preview">
+                <div class="title">🌎 AgroMind Pampa AI</div>
+                <div class="subtitle">Sistema Inteligente de Irrigação - Alegrete/RS</div>
+                <p style="color:#a0aec0; margin-bottom:12px; font-size:0.9rem;">
+                    Plataforma inteligente de agricultura de precisão com IA Preditiva, Irrigação Automatizada, 
+                    Monitoramento Climático, Alertas Inteligentes e Eficiência Energética.
+                </p>
+
+                <div style="margin:16px 0; padding:12px; background:#1E1E1E; border-radius:8px;">
+                    <p style="color:#a0aec0; font-size:0.85rem;">⚙️ Configurações</p>
+                    <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:8px;">
+                        <span style="color:#ffffff; background:#2d3748; padding:4px 12px; border-radius:4px;">Verão Gaúcho</span>
+                        <span style="color:#ffffff; background:#2d3748; padding:4px 12px; border-radius:4px;">Arroz Irrigado</span>
+                        <span style="color:#ffffff; background:#2d3748; padding:4px 12px; border-radius:4px;">8 Setores</span>
+                    </div>
+                </div>
+
+                <div class="title" style="font-size:1rem; margin-top:12px;">Indicadores Operacionais</div>
+                <div class="dashboard-grid">
+                    <div class="metric-card-dark">
+                        <div class="icon">🌡️</div>
+                        <div class="value">28.4 °C</div>
+                        <div class="label">Temperatura Média</div>
+                    </div>
+                    <div class="metric-card-dark">
+                        <div class="icon">💧</div>
+                        <div class="value">2,450 L/h</div>
+                        <div class="label">Consumo Hídrico</div>
+                    </div>
+                    <div class="metric-card-dark">
+                        <div class="icon">⚡</div>
+                        <div class="value">3.2 kWh</div>
+                        <div class="label">Energia Consumida</div>
+                    </div>
+                    <div class="metric-card-dark">
+                        <div class="icon">🚿</div>
+                        <div class="value">4</div>
+                        <div class="label">Setores Irrigando</div>
+                    </div>
+                </div>
+
+                <div class="title" style="font-size:1rem; margin-top:16px;">Situação dos Setores</div>
+                <div class="status-grid-dark">
+                    <div class="status-card-dark success">✅ Setor 1<br>Estável</div>
+                    <div class="status-card-dark success">✅ Setor 2<br>Estável</div>
+                    <div class="status-card-dark warning">🟠 Setor 3<br>Alto Risco</div>
+                    <div class="status-card-dark success">✅ Setor 4<br>Estável</div>
+                    <div class="status-card-dark critical">🔴 Setor 5<br>Crítico</div>
+                    <div class="status-card-dark success">✅ Setor 6<br>Estável</div>
+                    <div class="status-card-dark warning">🟠 Setor 7<br>Alto Risco</div>
+                    <div class="status-card-dark success">✅ Setor 8<br>Estável</div>
+                </div>
+
+                <div class="title" style="font-size:1rem; margin-top:16px;">Alertas Inteligentes</div>
+                <div style="background:#3a1a1a; border:1px solid #6a2d2d; border-radius:8px; padding:12px; margin-top:8px;">
+                    <p style="color:#fc8181;">🔴 Setor 5 - Risco crítico de estresse hídrico. Irrigação preventiva recomendada.</p>
+                </div>
+                <div style="background:#3a2a1a; border:1px solid #6a4f2d; border-radius:8px; padding:12px; margin-top:8px;">
+                    <p style="color:#f6ad55;">🟠 Setor 3 - Alto risco climático detectado.</p>
+                </div>
+
+                <div class="title" style="font-size:1rem; margin-top:16px;">📸 Interface do Sistema</div>
+                <div style="background:#1E1E1E; border-radius:8px; padding:16px; text-align:center; border:1px solid #333333;">
+                    <p style="color:#a0aec0; margin-bottom:8px;">
+                        <strong>Captura de tela do AgroMind Pampa AI (Versão 2)</strong>
+                    </p>
+                    <img src="trabalhos/algoritimos/Captura%20de%20Tela%20(3).png" 
+                         alt="AgroMind Pampa AI Dashboard" 
+                         style="max-width:100%; border-radius:8px; border:1px solid #333333;"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\'color:#a0aec0;\'>📷 Captura de tela disponível no PDF do sistema.</p>'">
+                </div>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (IA Preditiva)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># AgroMind Pampa AI - IA Preditiva de Estresse Hídrico</span>
+
+<span class="comment"># Índice de estresse hídrico baseado em variáveis climáticas</span>
+<span class="keyword">def</span> <span class="function">calcular_indice_estresse</span>(temperatura, vento, evaporacao, umidade_solo):
+    <span class="string">"""
+    Calcula o índice de estresse hídrico baseado em múltiplas variáveis.
+    Quanto maior o índice, maior o risco de estresse.
+    """</span>
+    indice = (
+        (temperatura / <span class="number">40</span>) * <span class="number">0.35</span> +
+        (vento / <span class="number">50</span>) * <span class="number">0.25</span> +
+        (evaporacao / <span class="number">10</span>) * <span class="number">0.20</span> +
+        (<span class="number">1</span> - umidade_solo / <span class="number">100</span>) * <span class="number">0.20</span>
+    )
+    <span class="keyword">return</span> indice
+
+<span class="comment"># Classificação do risco</span>
+<span class="keyword">def</span> <span class="function">classificar_risco</span>(indice):
+    <span class="keyword">if</span> indice < <span class="number">0.3</span>:
+        <span class="keyword">return</span> <span class="string">"Baixo"</span>
+    <span class="keyword">elif</span> indice < <span class="number">0.5</span>:
+        <span class="keyword">return</span> <span class="string">"Moderado"</span>
+    <span class="keyword">elif</span> indice < <span class="number">0.7</span>:
+        <span class="keyword">return</span> <span class="string">"Alto"</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> <span class="string">"Crítico"</span>
+
+<span class="comment"># Predição de estresse futuro</span>
+<span class="keyword">def</span> <span class="function">predizer_estresse_futuro</span>(dados_historicos, dias=<span class="number">3</span>):
+    <span class="string">"""
+    Prediz o risco de estresse hídrico para os próximos dias
+    baseado em tendências climáticas.
+    """</span>
+    tendencia = sum(dados_historicos) / len(dados_historicos)
+    fator_evaporacao = <span class="number">1.05</span> <span class="keyword">if</span> tendencia > <span class="number">0.6</span> <span class="keyword">else</span> <span class="number">1.0</span>
+    <span class="keyword">return</span> min(tendencia * fator_evaporacao * (<span class="number">1</span> + dias * <span class="number">0.02</span>), <span class="number">1.0</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (IA Preditiva)</div>
+                <code style="color:#1a202c;">
+=== Análise de Risco - Setor 5 ===
+Temperatura: 34.2 °C
+Vento: 28.5 km/h
+Umidade do Solo: 22.0%
+Índice de Estresse: 0.78
+Classificação: CRÍTICO
+Previsão para 3 dias: Risco de estresse severo
+
+⚡ Ação Preventiva: Irrigação automática recomendada!
+                </code>
+            </div>
+
+            <!-- ===== TABELA DE FUNCIONALIDADES ===== -->
+            <h3 style="margin-top:30px;">📋 Funcionalidades da Versão 2</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Funcionalidade</th>
+                            <th>Descrição</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>IA Preditiva</strong></td>
+                            <td>Antecipa estresse hídrico com base em variáveis climáticas</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Índice de Estresse</strong></td>
+                            <td>Algoritmo matemático para calcular risco hídrico</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Irrigação Preventiva</strong></td>
+                            <td>Ativa recomendações antes da condição crítica</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Classificação de Risco</strong></td>
+                            <td>Baixo, Moderado, Alto, Crítico</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dashboard Profissional</strong></td>
+                            <td>Modo escuro inspirado em sistemas supervisórios</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Setores Configuráveis</strong></td>
+                            <td>Slider para ajustar número de setores (4-16)</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logs Operacionais</strong></td>
+                            <td>Eventos com timestamp em tempo real</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estrutura Escalável</strong></td>
+                            <td>Preparado para sensores IoT, APIs, ML</td>
+                            <td class="text-green">✅ Nova</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Diferencial:</strong> O AgroMind Pampa AI evoluiu de uma simples simulação agrícola 
+                para uma plataforma inteligente de agricultura de precisão com características próximas 
+                de sistemas reais utilizados no agronegócio moderno, com IA preditiva, irrigação 
+                automatizada e estrutura escalável para tecnologias reais.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/objetivoagromind.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Objetivo
+                </a>
+                <a href="trabalhos/algoritimos/diferenciaisAgroMindPampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Diferenciais
+                </a>
+                <a href="trabalhos/algoritimos/limitaçoesemelhorias.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Limitações
+                </a>
+                <a href="trabalhos/algoritimos/codigoatualizadoagromind.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Atualizado
+                </a>
+            </div>
         </div>
-    </div>
-</section>
 
-<footer>
-    <h3>Vinicius Moletta da Silva</h3>
-    <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
-</footer>
-
-</body>
-</html>
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #38a169;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A evolução do AgroMind Pampa AI da versão 1 para a versão 2 
+                foi uma experiência enriquecedora que demonstrou como um projeto pode ser aprimorado 
+                com a adição de intelig
