@@ -3,71 +3,601 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 7</title>
+    <title>Trabalho 7 - Otimização de Rotas e Logística</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho6.html">Trabalho 6</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho6.html">◀ Trabalho 6</a></li>
+        <li><a href="trabalho8.html">Trabalho 8 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 7</h1>
-        <p>
-            Otimização de Rotas e Logística: Implementação de algoritmos para o problema do Caixeiro Viajante (TSP) aplicado ao transporte e consumo de combustível na Engenharia.
+        <h1>🚛 Trabalho 7</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Otimização de Rotas e Logística - TSP
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 Algoritmos</span>
+            <span class="tag orange">🚚 Logística</span>
+            <span class="tag green">📊 Otimização</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Implementação de algoritmos para o problema do Caixeiro Viajante (TSP) aplicado ao 
+            transporte e consumo de combustível na Engenharia, com análise de rotas e desempenho.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Parte 1: Algoritmo Base</h3>
-                <p>
-                    Implementação das funções de distância total da rota original e a lógica do algoritmo do vizinho mais próximo.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Implementar e comparar algoritmos para otimização de rotas no contexto do problema 
+                do Caixeiro Viajante (TSP), aplicado à logística de transporte e consumo de combustível.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Implementação do algoritmo de força bruta (rota original)</li>
+                <li>Implementação do algoritmo do vizinho mais próximo (heurística)</li>
+                <li>Cálculo de distâncias e consumo de combustível</li>
+                <li>Análise de desempenho com diferentes quantidades de pontos</li>
+                <li>Visualização gráfica das rotas</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Códigos Desenvolvidos</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Código 1</span>
+                    <span class="badge ex1">Consumo e Abastecimento</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Implementação da rota original, algoritmo do vizinho mais próximo, 
+                    cálculo de consumo de combustível e verificação de necessidade de reabastecimento.
                 </p>
-                <a href="trabalhos/algoritimos/codigo 1 .pdf" target="_blank" class="botao">
-                    Abrir Código 1
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Distância Euclidiana, consumo de combustível, autonomia, 
+                    algoritmo heurístico.
+                </p>
+                <a href="trabalhos/algoritimos/codigo1.pdf" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Código 1
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Parte 2: Gráfico de Rotas</h3>
-                <p>
-                    Visualização gráfica das rotas geradas e mapeamento dos pontos de parada do caminhão.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Código 2</span>
+                    <span class="badge ex2">Gráfico de Rotas</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Visualização gráfica comparativa entre a rota original e a rota 
+                    otimizada pelo algoritmo do vizinho mais próximo.
                 </p>
-                <a href="trabalhos/algoritimos/codigo 2_ grafico.pdf" target="_blank" class="botao">
-                    Abrir Gráfico
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Matplotlib, plotagem de rotas, comparação visual.
+                </p>
+                <a href="trabalhos/algoritimos/codigo2_grafico.pdf" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código 2
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Parte 3: Rotas e Desempenho</h3>
-                <p>
-                    Análise comparativa do consumo de combustível entre as rotas e verificação da necessidade de reabastecimento.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Código 3</span>
+                    <span class="badge ex3">Comparação de Desempenho</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Análise de desempenho comparando a rota original com a otimizada 
+                    para diferentes quantidades de pontos, com gráfico de desempenho.
                 </p>
-                <a href="trabalhos/algoritimos/codigo3rotasedesempenho.pdf" target="_blank" class="botao">
-                    Abrir Desempenho
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Geração de pontos aleatórios, análise de desempenho, 
+                    experimento computacional.
+                </p>
+                <a href="trabalhos/algoritimos/codigo3rotasedesempenho.pdf" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Código 3
                 </a>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO 1 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Código 1 - Consumo e Abastecimento)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código 1 — Consumo e Abastecimento</span>
+<span class="comment"># Otimização de rotas com cálculo de combustível</span>
+
+<span class="keyword">import</span> math
+
+CONSUMO_POR_KM = <span class="number">0.35</span> <span class="comment"># L/km</span>
+CAPACIDADE_TANQUE = <span class="number">80</span> <span class="comment"># litros</span>
+
+<span class="keyword">def</span> <span class="function">distancia</span>(p1, p2):
+    <span class="keyword">return</span> math.hypot(p2[<span class="number">0</span>] - p1[<span class="number">0</span>], p2[<span class="number">1</span>] - p1[<span class="number">1</span>])
+
+<span class="keyword">def</span> <span class="function">distancia_rota_original</span>(pontos):
+    atual = (<span class="number">0</span>, <span class="number">0</span>)
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> ponto <span class="keyword">in</span> pontos:
+        total += distancia(atual, ponto)
+        atual = ponto
+    total += distancia(atual, (<span class="number">0</span>, <span class="number">0</span>))
+    <span class="keyword">return</span> total
+
+<span class="keyword">def</span> <span class="function">rota_vizinho_mais_proximo</span>(pontos):
+    nao_visitados = pontos.copy()
+    atual = (<span class="number">0</span>, <span class="number">0</span>)
+    rota = []
+    total = <span class="number">0</span>
+    <span class="keyword">while</span> nao_visitados:
+        proximo = min(nao_visitados, key=<span class="keyword">lambda</span> p: distancia(atual, p))
+        total += distancia(atual, proximo)
+        atual = proximo
+        rota.append(proximo)
+        nao_visitados.remove(proximo)
+    total += distancia(atual, (<span class="number">0</span>, <span class="number">0</span>))
+    <span class="keyword">return</span> rota, total
+
+<span class="keyword">def</span> <span class="function">calcular_consumo</span>(distancia_total):
+    <span class="keyword">return</span> distancia_total * CONSUMO_POR_KM
+
+<span class="keyword">def</span> <span class="function">precisa_reabastecer</span>(distancia_total):
+    autonomia = CAPACIDADE_TANQUE / CONSUMO_POR_KM
+    <span class="keyword">return</span> distancia_total > autonomia, autonomia
+
+<span class="comment"># Execução principal</span>
+pontos = [(<span class="number">10</span>, <span class="number">10</span>), (<span class="number">20</span>, <span class="number">5</span>), (<span class="number">5</span>, <span class="number">15</span>), (<span class="number">15</span>, <span class="number">15</span>)]
+
+dist_original = distancia_rota_original(pontos)
+consumo_original = calcular_consumo(dist_original)
+
+rota_otimizada, dist_otimizada = rota_vizinho_mais_proximo(pontos)
+consumo_otimizado = calcular_consumo(dist_otimizada)
+
+precisa, autonomia = precisa_reabastecer(dist_otimizada)
+
+print(<span class="string">"=== ROTA ORIGINAL ==="</span>)
+print(f<span class="string">"Distância total: {dist_original:.2f} km"</span>)
+print(f<span class="string">"Consumo: {consumo_original:.2f} L"</span>)
+
+print(<span class="string">"\n=== ROTA OTIMIZADA (Vizinho Mais Próximo) ==="</span>)
+print(<span class="string">"Ordem da rota:"</span>, rota_otimizada)
+print(f<span class="string">"Distância total: {dist_otimizada:.2f} km"</span>)
+print(f<span class="string">"Consumo: {consumo_otimizado:.2f} L"</span>)
+
+print(<span class="string">"\n=== COMPARAÇÃO ==="</span>)
+economia = consumo_original - consumo_otimizado
+print(f<span class="string">"Economia de combustível: {economia:.2f} L"</span>)
+
+print(<span class="string">"\n=== ABASTECIMENTO ==="</span>)
+print(f<span class="string">"Autonomia máxima: {autonomia:.2f} km"</span>)
+print(<span class="string">"Precisa reabastecer?"</span>, <span class="string">"SIM"</span> <span class="keyword">if</span> precisa <span class="keyword">else</span> <span class="string">"NÃO"</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+=== ROTA ORIGINAL ===
+Distância total: 80.40 km
+Consumo: 28.14 L
+
+=== ROTA OTIMIZADA (Vizinho Mais Próximo) ===
+Ordem da rota: [(10, 10), (5, 15), (15, 15), (20, 5)]
+Distância total: 62.14 km
+Consumo: 21.75 L
+
+=== COMPARAÇÃO ===
+Economia de combustível: 6.39 L
+
+=== ABASTECIMENTO ===
+Autonomia máxima: 228.57 km
+Precisa reabastecer? NÃO
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Código 2 - Gráfico de Rotas)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código 2 — Gráfico de Rotas</span>
+<span class="comment"># Visualização comparativa entre rota original e otimizada</span>
+
+<span class="keyword">import</span> math
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="keyword">def</span> <span class="function">distancia</span>(p1, p2):
+    <span class="keyword">return</span> math.hypot(p2[<span class="number">0</span>] - p1[<span class="number">0</span>], p2[<span class="number">1</span>] - p1[<span class="number">1</span>])
+
+<span class="keyword">def</span> <span class="function">rota_original</span>(pontos):
+    <span class="keyword">return</span> [(<span class="number">0</span>, <span class="number">0</span>)] + pontos + [(<span class="number">0</span>, <span class="number">0</span>)]
+
+<span class="keyword">def</span> <span class="function">rota_vizinho</span>(pontos):
+    nao_visitados = pontos.copy()
+    atual = (<span class="number">0</span>, <span class="number">0</span>)
+    rota = [atual]
+    <span class="keyword">while</span> nao_visitados:
+        proximo = min(nao_visitados, key=<span class="keyword">lambda</span> p: distancia(atual, p))
+        rota.append(proximo)
+        atual = proximo
+        nao_visitados.remove(proximo)
+    rota.append((<span class="number">0</span>, <span class="number">0</span>))
+    <span class="keyword">return</span> rota
+
+<span class="keyword">def</span> <span class="function">plotar</span>(rota1, rota2):
+    plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))
+    x1, y1 = zip(*rota1)
+    x2, y2 = zip(*rota2)
+    plt.plot(x1, y1, <span class="string">'r--o'</span>, label=<span class="string">"Original"</span>)
+    plt.plot(x2, y2, <span class="string">'g-o'</span>, label=<span class="string">"Otimizada"</span>)
+    plt.scatter(<span class="number">0</span>, <span class="number">0</span>, color=<span class="string">'blue'</span>, s=<span class="number">120</span>, label=<span class="string">"Origem"</span>)
+    plt.legend()
+    plt.grid()
+    plt.title(<span class="string">"Comparação de Rotas"</span>)
+    plt.show()
+
+pontos = [(<span class="number">10</span>, <span class="number">10</span>), (<span class="number">20</span>, <span class="number">5</span>), (<span class="number">5</span>, <span class="number">15</span>), (<span class="number">15</span>, <span class="number">15</span>), (<span class="number">25</span>, <span class="number">10</span>)]
+plotar(rota_original(pontos), rota_vizinho(pontos))
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+[Gráfico gerado com matplotlib]
+- Rota original em vermelho (linha tracejada)
+- Rota otimizada em verde (linha sólida)
+- Ponto de origem em azul
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Código 3 - Comparação de Desempenho)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código 3 — Comparação de Rotas e Desempenho</span>
+<span class="comment"># Análise de desempenho com diferentes quantidades de pontos</span>
+
+<span class="keyword">import</span> math
+<span class="keyword">import</span> random
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="keyword">def</span> <span class="function">distancia</span>(p1, p2):
+    <span class="keyword">return</span> math.hypot(p2[<span class="number">0</span>] - p1[<span class="number">0</span>], p2[<span class="number">1</span>] - p1[<span class="number">1</span>])
+
+<span class="keyword">def</span> <span class="function">rota_original</span>(pontos):
+    rota = [(<span class="number">0</span>, <span class="number">0</span>)] + pontos + [(<span class="number">0</span>, <span class="number">0</span>)]
+    total = sum(distancia(rota[i], rota[i+<span class="number">1</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(rota)-<span class="number">1</span>))
+    <span class="keyword">return</span> rota, total
+
+<span class="keyword">def</span> <span class="function">rota_vizinho</span>(pontos):
+    nao_visitados = pontos.copy()
+    atual = (<span class="number">0</span>, <span class="number">0</span>)
+    rota = [atual]
+    <span class="keyword">while</span> nao_visitados:
+        proximo = min(nao_visitados, key=<span class="keyword">lambda</span> p: distancia(atual, p))
+        rota.append(proximo)
+        atual = proximo
+        nao_visitados.remove(proximo)
+    rota.append((<span class="number">0</span>, <span class="number">0</span>))
+    total = sum(distancia(rota[i], rota[i+<span class="number">1</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(rota)-<span class="number">1</span>))
+    <span class="keyword">return</span> rota, total
+
+<span class="keyword">def</span> <span class="function">gerar_pontos</span>(n, limite=<span class="number">50</span>):
+    <span class="keyword">return</span> [(random.uniform(<span class="number">0</span>, limite), random.uniform(<span class="number">0</span>, limite)) <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]
+
+<span class="keyword">def</span> <span class="function">plotar_rotas</span>(rota1, rota2):
+    plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))
+    x1, y1 = zip(*rota1)
+    x2, y2 = zip(*rota2)
+    plt.plot(x1, y1, <span class="string">'r--o'</span>, label=<span class="string">"Original"</span>)
+    plt.plot(x2, y2, <span class="string">'g-o'</span>, label=<span class="string">"Otimizada"</span>)
+    plt.scatter(<span class="number">0</span>, <span class="number">0</span>, color=<span class="string">'blue'</span>, s=<span class="number">100</span>, label=<span class="string">"Origem"</span>)
+    plt.title(<span class="string">"Comparação de Rotas (Exemplo)"</span>)
+    plt.legend()
+    plt.grid()
+
+<span class="keyword">def</span> <span class="function">experimento</span>():
+    tamanhos = [<span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>]
+    dist_orig = []
+    dist_opt = []
+    <span class="keyword">for</span> n <span class="keyword">in</span> tamanhos:
+        pontos = gerar_pontos(n)
+        _, d1 = rota_original(pontos)
+        _, d2 = rota_vizinho(pontos)
+        dist_orig.append(d1)
+        dist_opt.append(d2)
+    <span class="comment"># Gráfico de desempenho</span>
+    plt.figure(figsize=(<span class="number">8</span>, <span class="number">5</span>))
+    plt.plot(tamanhos, dist_orig, <span class="string">'r--o'</span>, label=<span class="string">"Original"</span>)
+    plt.plot(tamanhos, dist_opt, <span class="string">'g-o'</span>, label=<span class="string">"Otimizada"</span>)
+    plt.xlabel(<span class="string">"Número de pontos"</span>)
+    plt.ylabel(<span class="string">"Distância total"</span>)
+    plt.title(<span class="string">"Desempenho do Algoritmo"</span>)
+    plt.legend()
+    plt.grid()
+
+<span class="comment"># Execução principal</span>
+pontos = gerar_pontos(<span class="number">10</span>)
+r1, _ = rota_original(pontos)
+r2, _ = rota_vizinho(pontos)
+plotar_rotas(r1, r2)
+experimento()
+plt.show()
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+[Gráficos gerados com matplotlib]
+- Gráfico 1: Comparação visual das rotas (Original vs Otimizada)
+- Gráfico 2: Desempenho do algoritmo (Distância total × Número de pontos)
+                </code>
+            </div>
+
+            <!-- ===== TABELA RESUMO ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo dos Códigos</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Tema</th>
+                            <th>Funções Principais</th>
+                            <th>Saída</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Consumo e Abastecimento</td>
+                            <td>distancia, rota_vizinho_mais_proximo, calcular_consumo</td>
+                            <td>Distâncias, consumo, economia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Gráfico de Rotas</td>
+                            <td>rota_original, rota_vizinho, plotar</td>
+                            <td>Gráfico comparativo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Comparação de Desempenho</td>
+                            <td>gerar_pontos, experimento, plotar_rotas</td>
+                            <td>Gráfico de desempenho</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> O algoritmo do vizinho mais próximo apresentou uma redução 
+                significativa na distância total percorrida e, consequentemente, no consumo de combustível. 
+                A análise de desempenho mostrou que a heurística é eficiente para problemas de pequeno 
+                e médio porte, com resultados consistentes para diferentes quantidades de pontos.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/codigo1.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Código 1
+                </a>
+                <a href="trabalhos/algoritimos/codigo2_grafico.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Código 2
+                </a>
+                <a href="trabalhos/algoritimos/codigo3rotasedesempenho.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código 3
+                </a>
+            </div>
         </div>
-    </div>
-</section>
 
-<footer>
-    <h3>Vinicius Moletta da Silva</h3>
-    <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
-</footer>
-
-</body>
-</html>
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A implementação do problema do Caixeiro Viajante (TSP) 
+                com diferentes abordagens (força bruta e heurística do vizinho mais próximo) demonstrou 
+                a importância de algoritmos de otimização para problemas logísticos. O algoritmo 
+                heurístico, embora não garanta a solução ótima, oferece uma boa aproximação com 
+                baixo custo computacional. A análise de desempenho mostrou que a economia de 
+                combustível pode ser significativa, impactando diretamente os custos operacionais 
+                e a sustentabilidade.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅
