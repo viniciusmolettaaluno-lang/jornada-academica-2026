@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 11 - agroMindpampaAI</title>
+    <title>Trabalho 11 - AgroMind Pampa AI</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* ===== ESTILOS EXTRAS (complementam o style.css) ===== */
-        
-        /* Tags / Badges */
+        /* ===== ESTILOS EXTRAS ===== */
         .meta-tags {
             display: flex;
             flex-wrap: wrap;
@@ -28,8 +26,8 @@
         .tag.green { background: #c6f6d5; color: #22543d; }
         .tag.purple { background: #e9d8fd; color: #44337a; }
         .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
 
-        /* Bloco de código */
         .code-block {
             background: #1a202c;
             color: #e2e8f0;
@@ -57,16 +55,15 @@
             border-radius: 6px;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: background 0.3s;
             float: right;
             margin-bottom: 8px;
+            transition: background 0.3s;
         }
         .copy-btn:hover {
             background: rgba(255,255,255,0.15);
             color: white;
         }
 
-        /* Saída do programa */
         .output-box {
             background: #edf2f7;
             border-left: 4px solid #2b6cb0;
@@ -85,47 +82,6 @@
             margin-bottom: 4px;
         }
 
-        /* Seção de reflexão */
-        .reflection-box {
-            background: #edf2f7;
-            border-radius: 12px;
-            padding: 24px 28px;
-            margin-top: 40px;
-            border-left: 5px solid #805ad5;
-        }
-        .reflection-box h3 {
-            color: #1a365d;
-            margin-bottom: 10px;
-        }
-
-        /* Botões extras */
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-        .btn-group .botao {
-            flex: 1;
-            min-width: 140px;
-            text-align: center;
-        }
-
-        /* Grid de cards */
-        .grid-trabalhos {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 10px;
-        }
-        @media (max-width: 768px) {
-            .grid-trabalhos {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Cards com borda colorida */
         .card-trabalho {
             background: white;
             border-radius: 12px;
@@ -133,12 +89,10 @@
             box-shadow: 0 4px 16px rgba(0,0,0,0.06);
             border-top: 5px solid #2b6cb0;
             transition: transform 0.2s;
+            margin-bottom: 30px;
         }
         .card-trabalho:hover {
             transform: translateY(-3px);
-        }
-        .card-trabalho:nth-child(2) {
-            border-top-color: #38a169;
         }
         .card-trabalho h3 {
             font-size: 1.3rem;
@@ -146,36 +100,168 @@
             margin-bottom: 6px;
         }
 
-        /* Seção de demonstração */
-        .demo-section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px 32px;
-            margin-top: 40px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
         }
-        .demo-section h2 {
-            color: #1a365d;
-            font-size: 1.6rem;
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #38a169; }
+        .exercicio-card h4 {
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
-        .demo-section h2 .badge-code {
-            background: #1a202c;
-            color: #68d391;
+        .exercicio-card .badge {
             font-size: 0.7rem;
-            padding: 4px 16px;
-            border-radius: 20px;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
         }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #c6f6d5; color: #22543d; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #38a169; }
+
+        /* ===== ESTILOS DO DASHBOARD ===== */
+        .dashboard-preview {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 12px 0;
+        }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .metric-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a202c;
+        }
+        .metric-card .label {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 4px;
+        }
+        .metric-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 12px 0;
+        }
+        @media (max-width: 600px) {
+            .status-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .status-card {
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .status-card.success { background: #c6f6d5; color: #22543d; }
+        .status-card.warning { background: #fefcbf; color: #744210; }
+        .status-card.error { background: #fed7d7; color: #742a2a; }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin: 12px 0;
+            background: #edf2f7;
+            padding: 20px;
+            text-align: center;
+            color: #4a5568;
+        }
+        .screenshot img {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
     </style>
 </head>
 <body>
 
-<!-- ========== NAVBAR (padrão do site) ========== -->
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
     <h2>📘 Portfólio Acadêmico</h2>
     <ul>
@@ -190,17 +276,18 @@
     <div class="container">
         <h1>🌾 Trabalho 11</h1>
         <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
-            agroMindpampaAI · Solução com LLMs para Engenharia
+            AgroMind Pampa AI - Sistema Inteligente de Irrigação
         </p>
         <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
-            <span class="tag blue">🧠 IA Aplicada</span>
-            <span class="tag green">🌱 Agronegócio</span>
-            <span class="tag orange">⚡ Engenharia Elétrica</span>
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag green">🌱 Agro</span>
+            <span class="tag purple">🧠 IA</span>
+            <span class="tag orange">📊 Streamlit</span>
         </div>
         <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
-            Resolução de um problema real de engenharia utilizando Large Language Models (LLMs) 
-            para desenvolver uma solução computacional inteligente, integrando algoritmos, 
-            análise de dados e tomada de decisão assistida por IA.
+            Sistema inteligente de monitoramento e controle de irrigação agrícola regionalizado para 
+            Alegrete/RS, utilizando automação, sensores simulados e análise de dados aplicados à 
+            Fronteira Oeste Gaúcha.
         </p>
     </div>
 </header>
@@ -209,146 +296,259 @@
 <section>
     <div class="container">
 
-        <!-- Grid de Cards (2 colunas) -->
-        <div class="grid-trabalhos">
-
-            <!-- Card 1: Descrição do Problema -->
-            <div class="card-trabalho">
-                <h3>📋 Descrição do Problema</h3>
-                <div class="meta-tags">
-                    <span class="tag blue">Contexto</span>
-                    <span class="tag purple">Engenharia</span>
-                    <span class="tag">Agro</span>
-                </div>
-                <p style="color:#2d3748;">
-                    <strong>Desafio:</strong> Como otimizar o manejo de recursos no agronegócio usando 
-                    dados de sensores, clima e histórico de produção? O problema envolve a predição 
-                    de produtividade e recomendação de ações com base em variáveis ambientais.
-                </p>
-                <p style="font-size:0.95rem; color:#4a5568; margin:8px 0 16px;">
-                    📌 <em>Clique no botão para ler o documento completo com o detalhamento do problema.</em>
-                </p>
-                <a href="trabalhos/algoritimos/Descrição do Problema.pdf" target="_blank" class="botao">
-                    📄 Abrir Descrição Completa
-                </a>
-            </div>
-
-            <!-- Card 2: agroMindpampaAI -->
-            <div class="card-trabalho">
-                <h3>🤖 agroMindpampaAI</h3>
-                <div class="meta-tags">
-                    <span class="tag green">Solução</span>
-                    <span class="tag blue">Python</span>
-                    <span class="tag purple">LLM</span>
-                </div>
-                <p style="color:#2d3748;">
-                    <strong>Implementação:</strong> Sistema desenvolvido com auxílio de LLMs 
-                    que processa dados de sensores, aplica algoritmos de predição e gera recomendações 
-                    para o manejo agrícola.
-                </p>
-                <p style="font-size:0.95rem; color:#4a5568; margin:8px 0 16px;">
-                    ⚙️ <em>Contém: código estruturado e documentação do processo de desenvolvimento com IA.</em>
-                </p>
-                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
-                    📄 Abrir agroMindpampaAI
-                </a>
-            </div>
-
-        </div>
-
-        <!-- ===== SEÇÃO DE DEMONSTRAÇÃO ===== -->
-        <div class="demo-section">
-            <h2>
-                🧪 Demonstração da Solução
-                <span class="badge-code">Python · IA</span>
-            </h2>
-            <p style="color:#4a5568; margin-bottom:16px;">
-                Trecho do código principal do <strong>agroMindpampaAI</strong>, mostrando a lógica 
-                de predição com Random Forest e integração com dados de sensores.
+        <div class="card-trabalho">
+            <h3>🎯 Visão Geral do Projeto</h3>
+            <p style="color:#2d3748;">
+                O <strong>AgroMind Pampa AI</strong> é uma plataforma inteligente de irrigação agrícola 
+                desenvolvida para atender às necessidades da região de Alegrete/RS, que enfrenta desafios 
+                relacionados à estiagem, altas temperaturas e uso excessivo de água na irrigação.
             </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Monitoramento em tempo real de umidade do solo, temperatura e condições climáticas</li>
+                <li>Automação inteligente do acionamento da irrigação</li>
+                <li>Simulação de sensores agrícolas e condições climáticas típicas da região</li>
+                <li>Dashboard interativo com métricas e mapas visuais</li>
+                <li>Detecção de anomalias e alertas operacionais</li>
+            </ul>
 
-            <!-- Bloco de Código -->
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Descrição do Problema</span>
+                    <span class="badge ex1">Contexto</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Contextualização dos desafios da agricultura na região de 
+                    Alegrete/RS, incluindo estiagem, altas temperaturas e desperdício hídrico, 
+                    justificando a necessidade de um sistema inteligente de irrigação.
+                </p>
+                <a href="trabalhos/algoritimos/Descri%C3%A7%C3%A3o%20do%20Problema.PDF" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Descrição do Problema
+                </a>
+            </div>
+
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟢 Código do Sistema</span>
+                    <span class="badge ex2">AgroMind Pampa AI</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código completo do sistema desenvolvido em Python com 
+                    Streamlit, incluindo simulação de sensores, dashboard interativo, mapas visuais, 
+                    detecção de anomalias e métricas operacionais.
+                </p>
+                <a href="trabalhos/algoritimos/agroMindpampaAI.PDF" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código do Sistema
+                </a>
+            </div>
+
+            <!-- ===== DASHBOARD PREVIEW ===== -->
+            <h3 style="margin-top:30px;">📊 Dashboard do Sistema</h3>
+            
+            <div class="dashboard-preview">
+                <h4 style="color:#1a365d; margin-bottom:12px;">Indicadores Operacionais</h4>
+                <div class="dashboard-grid">
+                    <div class="metric-card">
+                        <div class="icon">🌡️</div>
+                        <div class="value">28.4 °C</div>
+                        <div class="label">Temperatura Média</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon">💧</div>
+                        <div class="value">2,450 L/h</div>
+                        <div class="label">Consumo Hídrico</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon">⚡</div>
+                        <div class="value">3.2 kWh</div>
+                        <div class="label">Energia Consumida</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon">🚿</div>
+                        <div class="value">3</div>
+                        <div class="label">Setores Irrigando</div>
+                    </div>
+                </div>
+
+                <h4 style="color:#1a365d; margin:16px 0 12px;">Mapa Inteligente da Fazenda</h4>
+                <div class="status-grid">
+                    <div class="status-card success">✅ Setor 1<br>Irrigando</div>
+                    <div class="status-card success">✅ Setor 2<br>Irrigando</div>
+                    <div class="status-card warning">⚠️ Setor 3<br>Umidade Baixa</div>
+                    <div class="status-card success">✅ Setor 4<br>Irrigando</div>
+                    <div class="status-card error">🔴 Setor 5<br>Possível Vazamento</div>
+                    <div class="status-card success">✅ Setor 6<br>Irrigando</div>
+                    <div class="status-card warning">⚠️ Setor 7<br>Vento Excessivo</div>
+                    <div class="status-card success">✅ Setor 8<br>Irrigando</div>
+                </div>
+
+                <h4 style="color:#1a365d; margin:16px 0 12px;">📸 Interface do Sistema (Print)</h4>
+                <div class="screenshot">
+                    <p style="margin-bottom:12px; color:#718096;">
+                        <strong>Captura de tela do AgroMind Pampa AI em execução</strong>
+                    </p>
+                    <img src="trabalhos/algoritimos/Captura%20de%20Tela%20(3).png" 
+                         alt="AgroMind Pampa AI Dashboard" 
+                         style="max-width:100%; border-radius:8px; border:1px solid #e2e8f0;"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<p style=\'color:#718096;\'>📷 Captura de tela disponível no PDF do sistema.</p>'">
+                </div>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Streamlit - Dashboard)</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
                 <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
-<span class="comment"># agroMindpampaAI - Módulo de Predição</span>
+<span class="comment"># AgroMind Pampa AI - Sistema Inteligente de Irrigação</span>
+<span class="comment"># Configuração do Dashboard com Streamlit</span>
+
+<span class="keyword">import</span> streamlit <span class="keyword">as</span> st
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor
+<span class="keyword">import</span> plotly.express <span class="keyword">as</span> px
+<span class="keyword">import</span> random
 
-<span class="comment"># Dados simulados de sensores</span>
-dados = {
-    <span class="string">'temp'</span>: [22, 24, 21, 23, 25],
-    <span class="string">'umid'</span>: [65, 70, 68, 72, 66],
-    <span class="string">'precip'</span>: [12, 8, 15, 5, 10],
-    <span class="string">'produtividade'</span>: [3200, 3450, 3100, 3600, 3300]
-}
+<span class="comment"># Configuração da página</span>
+st.set_page_config(
+    page_title=<span class="string">"AgroMind Pampa AI"</span>,
+    layout=<span class="string">"wide"</span>
+)
 
-df = pd.DataFrame(dados)
+st.title(<span class="string">"🌎 AgroMind Pampa AI"</span>)
+st.subheader(<span class="string">"Sistema Inteligente de Irrigação - Alegrete/RS"</span>)
 
-<span class="comment"># Treinando modelo preditivo</span>
-X = df[[<span class="string">'temp'</span>, <span class="string">'umid'</span>, <span class="string">'precip'</span>]]
-y = df[<span class="string">'produtividade'</span>]
-modelo = RandomForestRegressor(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
-modelo.fit(X, y)
+<span class="comment"># Sidebar com configurações</span>
+st.sidebar.header(<span class="string">"⚙️ Configurações"</span>)
+estacao = st.sidebar.selectbox(
+    <span class="string">"Estação do Ano"</span>,
+    [<span class="string">"Verão Gaúcho"</span>, <span class="string">"Outono"</span>, <span class="string">"Inverno"</span>, <span class="string">"Primavera"</span>]
+)
 
-<span class="comment"># Fazendo uma predição para novos dados</span>
-novo_dado = np.array([[<span class="number">23</span>, <span class="number">68</span>, <span class="number">10</span>]])
-predicao = modelo.predict(novo_dado)
-<span class="keyword">print</span>(<span class="string">f"Produtividade estimada: {predicao[0]:.0f} kg/ha"</span>)
+tipo_cultura = st.sidebar.selectbox(
+    <span class="string">"Tipo de Cultura"</span>,
+    [<span class="string">"Arroz Irrigado"</span>, <span class="string">"Soja"</span>, <span class="string">"Milho"</span>, <span class="string">"Pastagem"</span>]
+)
+
+<span class="comment"># Simulação de dados dos sensores</span>
+<span class="comment"># [Código completo disponível no PDF do sistema]</span>
                 </pre>
             </div>
 
-            <!-- Saída do Código -->
             <div class="output-box">
-                <div class="label">▶ Saída do programa</div>
+                <div class="label">▶ Exemplo de Saída (Dashboard)</div>
                 <code style="color:#1a202c;">
-Produtividade estimada: 3350 kg/ha
+🌎 AgroMind Pampa AI
+Sistema Inteligente de Irrigação - Alegrete/RS
+
+⚙️ Configurações
+   Estação do Ano: Verão Gaúcho
+   Tipo de Cultura: Arroz Irrigado
+
+📊 Indicadores Operacionais
+   🌡️ Temperatura Média: 28.4 °C
+   💧 Consumo Hídrico: 2,450 L/h
+   ⚡ Energia Consumida: 3.2 kWh
+   🚿 Setores Irrigando: 3
+
+📍 Mapa Inteligente da Fazenda
+   ✅ Setor 1 - Irrigando
+   ✅ Setor 2 - Irrigando
+   ⚠️ Setor 3 - Umidade Baixa
+   🔴 Setor 5 - Possível Vazamento
                 </code>
             </div>
 
+            <!-- ===== TABELA DE FUNCIONALIDADES ===== -->
+            <h3 style="margin-top:30px;">📋 Funcionalidades do Sistema</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Funcionalidade</th>
+                            <th>Descrição</th>
+                            <th>Tecnologia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Monitoramento</strong></td>
+                            <td>Sensores simulados de temperatura, umidade, pressão e vento</td>
+                            <td>Python + Pandas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dashboard</strong></td>
+                            <td>Métricas em tempo real com layout responsivo</td>
+                            <td>Streamlit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mapa Visual</strong></td>
+                            <td>Setores da fazenda com status coloridos</td>
+                            <td>Streamlit Columns</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Detecção de Anomalias</strong></td>
+                            <td>Vazamentos, vento excessivo e falhas hidráulicas</td>
+                            <td>Lógica condicional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gráficos Interativos</strong></td>
+                            <td>Histórico climático e evolução de variáveis</td>
+                            <td>Plotly</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alertas Operacionais</strong></td>
+                            <td>Notificações de eventos em tempo real</td>
+                            <td>Streamlit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
-                💡 <strong>Como foi feito:</strong> O código foi desenvolvido em conjunto com LLMs, 
-                que auxiliaram na estruturação do modelo, escolha de parâmetros e interpretação 
-                dos resultados. O modelo Random Forest foi escolhido por sua robustez com dados 
-                não-lineares.
+                💡 <strong>Diferencial:</strong> O AgroMind Pampa AI foi desenvolvido com foco na realidade 
+                da Fronteira Oeste Gaúcha, simulando condições climáticas típicas da região de Alegrete/RS 
+                e aplicando conceitos de automação, IoT e inteligência artificial para otimizar o uso 
+                de água e energia na agricultura.
             </p>
 
-            <!-- Grupo de Botões -->
+            <!-- ===== BOTÕES ===== -->
             <div class="btn-group">
-                <a href="#" class="botao" style="background:transparent; border:2px solid #2b6cb0; color:#2b6cb0;">
-                    ▶️ Ver no Google Colab
+                <a href="trabalhos/algoritimos/Descri%C3%A7%C3%A3o%20do%20Problema.PDF" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Descrição do Problema
                 </a>
-                <a href="trabalhos/algoritimos/agroMindpampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
-                    📥 Baixar PDF Completo
-                </a>
-                <a href="trabalhos/algoritimos/Descrição do Problema.pdf" target="_blank" class="botao" style="background:transparent; border:2px solid #4a5568; color:#4a5568;">
-                    📋 Ver Descrição
+                <a href="trabalhos/algoritimos/agroMindpampaAI.PDF" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Código do Sistema
                 </a>
             </div>
         </div>
 
         <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
-        <div class="reflection-box">
-            <h3>🧠 Reflexão sobre o Uso de LLMs</h3>
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #38a169;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
             <p style="color:#2d3748;">
-                <strong>O que aprendi:</strong> Utilizar LLMs (ChatGPT, Claude) como assistentes 
-                no desenvolvimento de soluções de engenharia acelera o processo de prototipagem, 
-                auxilia na depuração de código e oferece novas perspectivas para abordar problemas 
-                complexos. No entanto, é fundamental validar cada sugestão com o conhecimento 
-                técnico do engenheiro.
+                <strong>O que aprendi:</strong> O desenvolvimento do AgroMind Pampa AI foi uma experiência 
+                transformadora que integrou conhecimentos de programação, automação, agricultura e 
+                inteligência artificial. Aprendi a utilizar o Streamlit para criar dashboards interativos, 
+                simular sensores em tempo real e aplicar lógica de detecção de anomalias. O projeto 
+                me mostrou como a tecnologia pode ser aplicada para resolver problemas reais da 
+                agricultura, especialmente em regiões que enfrentam desafios climáticos como a 
+                Fronteira Oeste Gaúcha.
             </p>
             <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
-                <span class="tag" style="background:#805ad5; color:white;">✅ Validação Humana</span>
-                <span class="tag" style="background:#2b6cb0; color:white;">✅ Iteração Rápida</span>
-                <span class="tag" style="background:#38a169; color:white;">✅ Aprendizado Contínuo</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Streamlit</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Automação Agrícola</span>
+                <span class="tag" style="background:#805ad5; color:white;">✅ IoT e IA</span>
             </div>
         </div>
 
     </div>
 </section>
 
-<!-- ========== FOOTER (padrão do site) ========== -->
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
@@ -364,7 +564,7 @@ Produtividade estimada: 3350 kg/ha
     function copiarCodigo() {
         const codigo = document.getElementById('codigoExemplo').innerText;
         navigator.clipboard.writeText(codigo).then(() => {
-            const btn = document.querySelector('.copy-btn');
+            const btn = document.querySelectorAll('.copy-btn')[0];
             const original = btn.innerText;
             btn.innerText = '✅ Copiado!';
             setTimeout(() => { btn.innerText = original; }, 2000);
