@@ -3,81 +3,657 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 8</title>
+    <title>Trabalho 8 - Resolução Algorítmica Interdisciplinar</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+        .btn-pdf.ex4 { background: #38a169; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho7.html">Trabalho 7</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho7.html">◀ Trabalho 7</a></li>
+        <li><a href="trabalho9.html">Trabalho 9 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 8</h1>
-        <p>
-            Resolução Algorítmica Interdisciplinar: Seleção de um problema de outra disciplina do semestre e desenvolvimento de sua resolução utilizando três abordagens distintas em Python com apoio de LLMs.
+        <h1>📐 Trabalho 8</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Resolução Algorítmica Interdisciplinar
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 LLMs</span>
+            <span class="tag orange">📐 Geometria Analítica</span>
+            <span class="tag green">📊 Visualização</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Seleção de um problema de Geometria Analítica e desenvolvimento de sua resolução 
+            utilizando três abordagens distintas em Python com apoio de LLMs.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Geometria Analítica</h3>
-                <p>
-                    Descrição clara do problema interdisciplinar escolhido e contextualização matemática do desafio.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Selecionar um problema de Geometria Analítica (determinação do módulo e vetor unitário 
+                de um vetor) e desenvolver sua resolução utilizando três abordagens distintas em Python, 
+                com apoio de LLMs (Claude, ChatGPT, Gemini).
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Abordagem 1: Cálculo e visualização com Matplotlib</li>
+                <li>Abordagem 2: Interface gráfica com Tkinter</li>
+                <li>Abordagem 3: Simulação de movimento com Pygame</li>
+                <li>Comparação das diferentes implementações</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Abordagens Desenvolvidas</h3>
+            
+            <!-- ABORDAGEM 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Abordagem 1</span>
+                    <span class="badge ex1">Mapa de Navegação Vetorial</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Implementação com Matplotlib para visualização gráfica do vetor, 
+                    cálculo do módulo, vetor unitário, ângulo e direção cardinal.
                 </p>
-                <a href="trabalhos/algoritimos/problema de geometria anlitica.pdf" target="_blank" class="botao">
-                    Abrir Problema
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Matplotlib, vetores, módulo, vetor unitário, ângulo, direção.
+                </p>
+                <a href="trabalhos/algoritimos/mapadenavegaçãovetorial.pdf" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Abordagem 1
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Navegação Vetorial</h3>
-                <p>
-                    Resolução algorítmica e explicação passo a passo da lógica estruturada para o mapa de navegação.
+            <!-- ABORDAGEM 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Abordagem 2</span>
+                    <span class="badge ex2">Representação Geométrica</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Interface gráfica com Tkinter para entrada de dados, 
+                    cálculo e visualização geométrica dos vetores.
                 </p>
-                <a href="trabalhos/algoritimos/Mapa de navegação vetorial.pdf" target="_blank" class="botao">
-                    Abrir Mapa Vetorial
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Tkinter, interface gráfica, visualização interativa.
+                </p>
+                <a href="trabalhos/algoritimos/representacaogeometrica.pdf" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Abordagem 2
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Representação Geométrica</h3>
-                <p>
-                    Primeiras abordagens de implementação em Python voltadas à modelagem geométrica do problema.
+            <!-- ABORDAGEM 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Abordagem 3</span>
+                    <span class="badge ex3">Simulação de Movimento Real</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Simulação de movimento com Pygame, controlando um drone 
+                    e exibindo informações vetoriais em tempo real.
                 </p>
-                <a href="trabalhos/algoritimos/representação geometrica .pdf" target="_blank" class="botao">
-                    Abrir Representação
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Pygame, simulação de movimento, controle interativo.
+                </p>
+                <a href="trabalhos/algoritimos/simulaçãodemovimentoreal.pdf" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Abordagem 3
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Simulação de Movimento</h3>
-                <p>
-                    Implementação final e análise de cenários simulando o comportamento físico/movimento real do algoritmo.
+            <!-- ABORDAGEM 4 - Problema Original -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟢 Problema Original</span>
+                    <span class="badge ex4">Geometria Analítica</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Problema original de Geometria Analítica: determinar o módulo 
+                    e o vetor unitário do vetor m = (4, 1).
                 </p>
-                <a href="trabalhos/algoritimos/simulação de movimento real.pdf" target="_blank" class="botao">
-                    Abrir Simulação
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Módulo, vetor unitário, raiz quadrada, divisão.
+                </p>
+                <a href="trabalhos/algoritimos/problemadegeometriaanalitica.pdf" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Problema Original
                 </a>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO 1 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Abordagem 1 - Mapa de Navegação Vetorial)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Abordagem 1 — Mapa de Navegação Vetorial</span>
+<span class="comment"># Visualização com Matplotlib</span>
+
+<span class="keyword">import</span> math
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># Entrada</span>
+print(<span class="string">"SIMULADOR DE NAVEGAÇÃO VETORIAL\n"</span>)
+x = float(input(<span class="string">"Deslocamento no eixo X (Leste/Oeste): "</span>))
+y = float(input(<span class="string">"Deslocamento no eixo Y (Norte/Sul): "</span>))
+
+<span class="comment"># Cálculos</span>
+modulo = math.sqrt(x**<span class="number">2</span> + y**<span class="number">2</span>)
+ux = x / modulo
+uy = y / modulo
+angulo = math.degrees(math.atan2(y, x))
+
+<span class="comment"># Direção cardinal</span>
+<span class="keyword">if</span> x > <span class="number">0</span>:
+    horizontal = <span class="string">"Leste"</span>
+<span class="keyword">elif</span> x < <span class="number">0</span>:
+    horizontal = <span class="string">"Oeste"</span>
+<span class="keyword">else</span>:
+    horizontal = <span class="string">""</span>
+
+<span class="keyword">if</span> y > <span class="number">0</span>:
+    vertical = <span class="string">"Norte"</span>
+<span class="keyword">elif</span> y < <span class="number">0</span>:
+    vertical = <span class="string">"Sul"</span>
+<span class="keyword">else</span>:
+    vertical = <span class="string">""</span>
+
+direcao = f<span class="string">"{vertical} {horizontal}"</span>.strip()
+
+<span class="comment"># Resultados</span>
+print(<span class="string">"\n===== RESULTADOS ===="</span>)
+print(f<span class="string">"Vetor: ({x}, {y})"</span>)
+print(f<span class="string">"Módulo: {modulo:.2f}"</span>)
+print(f<span class="string">"Vetor unitário: ({ux:.2f}, {uy:.2f})"</span>)
+print(f<span class="string">"Ângulo: {angulo:.2f}°"</span>)
+print(f<span class="string">"Direção: {direcao}"</span>)
+
+<span class="comment"># Visualização</span>
+plt.figure(figsize=(<span class="number">7</span>, <span class="number">7</span>))
+plt.quiver(<span class="number">0</span>, <span class="number">0</span>, x, y, angles=<span class="string">'xy'</span>, scale_units=<span class="string">'xy'</span>, scale=<span class="number">1</span>, color=<span class="string">'blue'</span>)
+plt.quiver(<span class="number">0</span>, <span class="number">0</span>, ux, uy, angles=<span class="string">'xy'</span>, scale_units=<span class="string">'xy'</span>, scale=<span class="number">1</span>, color=<span class="string">'red'</span>)
+limite = max(abs(x), abs(y)) + <span class="number">2</span>
+plt.xlim(-limite, limite)
+plt.ylim(-limite, limite)
+plt.axhline(<span class="number">0</span>, color=<span class="string">'black'</span>)
+plt.axvline(<span class="number">0</span>, color=<span class="string">'black'</span>)
+plt.grid(<span class="keyword">True</span>)
+plt.title(<span class="string">"Mapa de Navegação Vetorial"</span>)
+plt.text(x, y, <span class="string">" Destino"</span>)
+plt.text(ux, uy, <span class="string">" Unitário"</span>)
+plt.text(<span class="number">0</span>, limite<span class="number">-0.5</span>, <span class="string">"N"</span>)
+plt.text(<span class="number">0</span>, -limite+<span class="number">0.5</span>, <span class="string">"S"</span>)
+plt.text(limite<span class="number">-0.5</span>, <span class="number">0</span>, <span class="string">"L"</span>)
+plt.text(-limite+<span class="number">0.5</span>, <span class="number">0</span>, <span class="string">"O"</span>)
+plt.show()
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+SIMULADOR DE NAVEGAÇÃO VETORIAL
+
+Deslocamento no eixo X (Leste/Oeste): 4
+Deslocamento no eixo Y (Norte/Sul): 1
+
+===== RESULTADOS ====
+Vetor: (4.0, 1.0)
+Módulo: 4.12
+Vetor unitário: (0.97, 0.24)
+Ângulo: 14.04°
+Direção: Norte Leste
+
+[Gráfico gerado com matplotlib]
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Problema Original - Geometria Analítica)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Problema Original — Geometria Analítica</span>
+<span class="comment"># Determinar o módulo e o vetor unitário do vetor m = (4, 1)</span>
+
+<span class="keyword">import</span> math
+
+<span class="comment"># Entrada</span>
+x = <span class="number">4</span>
+y = <span class="number">1</span>
+
+<span class="comment"># Cálculo do módulo</span>
+modulo = math.sqrt(x**<span class="number">2</span> + y**<span class="number">2</span>)
+
+<span class="comment"># Cálculo do vetor unitário</span>
+ux = x / modulo
+uy = y / modulo
+
+<span class="comment"># Saída</span>
+print(f<span class="string">"Vetor: ({x}, {y})"</span>)
+print(f<span class="string">"Módulo: {modulo:.4f}"</span>)
+print(f<span class="string">"Vetor unitário: ({ux:.4f}, {uy:.4f})"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Vetor: (4, 1)</span>
+<span class="comment"># Módulo: 4.1231</span>
+<span class="comment"># Vetor unitário: (0.9701, 0.2425)</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Vetor: (4, 1)
+Módulo: 4.1231
+Vetor unitário: (0.9701, 0.2425)
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Abordagem 2 - Representação Geométrica)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Abordagem 2 — Representação Geométrica</span>
+<span class="comment"># Interface gráfica com Tkinter</span>
+
+<span class="keyword">import</span> math
+<span class="keyword">import</span> tkinter <span class="keyword">as</span> tk
+<span class="keyword">from</span> tkinter <span class="keyword">import</span> messagebox
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="keyword">def</span> <span class="function">calcular_e_desenhar</span>():
+    <span class="keyword">try</span>:
+        x = float(entrada_x.get())
+        y = float(entrada_y.get())
+
+        <span class="comment"># Cálculo do módulo</span>
+        modulo = math.sqrt(x**<span class="number">2</span> + y**<span class="number">2</span>)
+
+        <span class="keyword">if</span> modulo == <span class="number">0</span>:
+            messagebox.showerror(<span class="string">"Erro"</span>, <span class="string">"O vetor nulo não possui direção."</span>)
+            <span class="keyword">return</span>
+
+        <span class="comment"># Vetor unitário</span>
+        ux = x / modulo
+        uy = y / modulo
+
+        <span class="comment"># Resultados</span>
+        resultado.config(
+            text=f<span class="string">'Módulo: {modulo:.4f}\n'</span>
+                 f<span class="string">'Vetor unitário: ({ux:.4f}, {uy:.4f})'</span>
+        )
+
+        <span class="comment"># Gráfico</span>
+        plt.figure(figsize=(<span class="number">6</span>, <span class="number">6</span>))
+        plt.quiver(<span class="number">0</span>, <span class="number">0</span>, x, y, angles=<span class="string">'xy'</span>, scale_units=<span class="string">'xy'</span>, scale=<span class="number">1</span>, color=<span class="string">'blue'</span>)
+        plt.quiver(<span class="number">0</span>, <span class="number">0</span>, ux, uy, angles=<span class="string">'xy'</span>, scale_units=<span class="string">'xy'</span>, scale=<span class="number">1</span>, color=<span class="string">'red'</span>)
+        limite = max(abs(x), abs(y)) + <span class="number">2</span>
+        plt.xlim(-limite, limite)
+        plt.ylim(-limite, limite)
+        plt.axhline(<span class="number">0</span>, color=<span class="string">'black'</span>)
+        plt.axvline(<span class="number">0</span>, color=<span class="string">'black'</span>)
+        plt.grid(<span class="keyword">True</span>)
+        plt.title(<span class="string">"Visualização Geométrica dos Vetores"</span>)
+        plt.text(x, y, <span class="string">" Vetor Original"</span>)
+        plt.text(ux, uy, <span class="string">" Vetor Unitário"</span>)
+        plt.show()
+
+    <span class="keyword">except</span> ValueError:
+        messagebox.showerror(<span class="string">"Erro"</span>, <span class="string">"Digite apenas números."</span>)
+
+<span class="comment"># Interface</span>
+janela = tk.Tk()
+janela.title(<span class="string">"Visualizador Geométrico de Vetores"</span>)
+janela.geometry(<span class="string">"400x300"</span>)
+
+tk.Label(janela, text=<span class="string">"Visualização de Vetores"</span>, font=<span class="string">"Arial 14"</span>).pack(pady=<span class="number">10</span>)
+
+tk.Label(janela, text=<span class="string">"Digite x:"</span>).pack()
+entrada_x = tk.Entry(janela)
+entrada_x.pack()
+
+tk.Label(janela, text=<span class="string">"Digite y:"</span>).pack()
+entrada_y = tk.Entry(janela)
+entrada_y.pack()
+
+tk.Button(janela, text=<span class="string">"Calcular e Mostrar"</span>, command=calcular_e_desenhar).pack(pady=<span class="number">10</span>)
+
+resultado = tk.Label(janela, text=<span class="string">""</span>, font=<span class="string">"Arial 12"</span>)
+resultado.pack(pady=<span class="number">10</span>)
+
+janela.mainloop()
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+[Interface gráfica Tkinter aberta]
+- Campo para digitar x
+- Campo para digitar y
+- Botão "Calcular e Mostrar"
+- Exibição do resultado (módulo e vetor unitário)
+- Gráfico gerado com matplotlib
+                </code>
+            </div>
+
+            <!-- ===== TABELA RESUMO ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo das Abordagens</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Abordagem</th>
+                            <th>Ferramenta</th>
+                            <th>Funcionalidades</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Matplotlib</td>
+                            <td>Cálculo, visualização, direção cardinal</td>
+                            <td>Gráfica</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Tkinter + Matplotlib</td>
+                            <td>Interface gráfica, entrada de dados, visualização</td>
+                            <td>Interativa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Pygame</td>
+                            <td>Simulação de movimento, controle interativo</td>
+                            <td>Simulação</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Original</strong></td>
+                            <td>Python puro</td>
+                            <td>Cálculo do módulo e vetor unitário</td>
+                            <td>Algorítmica</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> As três abordagens demonstram diferentes formas de resolver 
+                o mesmo problema de Geometria Analítica, utilizando ferramentas distintas (Matplotlib, 
+                Tkinter e Pygame). Cada abordagem tem suas vantagens: a primeira é mais direta para 
+                visualização, a segunda oferece interatividade, e a terceira proporciona uma simulação 
+                mais dinâmica e realista.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/mapadenavegaçãovetorial.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Abordagem 1
+                </a>
+                <a href="trabalhos/algoritimos/representacaogeometrica.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Abordagem 2
+                </a>
+                <a href="trabalhos/algoritimos/simulaçãodemovimentoreal.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Abordagem 3
+                </a>
+                <a href="trabalhos/algoritimos/problemadegeometriaanalitica.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Problema Original
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A resolução de um problema de Geometria Analítica utilizando 
+                três abordagens distintas em Python demonstrou a versatilidade da linguagem e a importância 
+                de escolher a ferramenta adequada para cada contexto. O Matplotlib é excelente para 
+                visualização gráfica, o Tkinter permite criar interfaces interativas, e o Pygame 
+                proporciona simulações dinâmicas e imersivas. O apoio de LLMs (Claude, ChatGPT, Gemini) 
+                foi fundamental para estruturar as soluções e aprender novas bibliotecas e conceitos.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Interdisciplinaridade</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Múltiplas Abordagens</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Suporte de LLMs</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
 
-</body>
-</html>
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[0];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo3() {
+        const codigo = document.getElementById('codigoExemplo3').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn
