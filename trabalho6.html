@@ -1,54 +1,487 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 6</title>
+    <title>Trabalho 6 - Análise de Circuitos com IA</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho5.html">Trabalho 5</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho5.html">◀ Trabalho 5</a></li>
+        <li><a href="trabalho7.html">Trabalho 7 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 6</h1>
-        <p>
-            Uso de LLMs no apoio à formulação de problemas computacionais aplicados à Engenharia Elétrica, desenvolvendo o raciocínio lógico e resoluções algorítmicas com vetores e listas.
+        <h1>⚡ Trabalho 6</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Análise de Circuitos com Suporte de IA
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 IA</span>
+            <span class="tag orange">⚡ Engenharia Elétrica</span>
+            <span class="tag green">📊 Análise de Circuitos</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Proposta de dois problemas práticos aplicados à engenharia com suporte de IA e 
+            suas respectivas implementações independentes em Python.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Formulação e Resolução de Problemas</h3>
-                <p>
-                    Proposta de dois problemas práticos aplicados à engenharia com suporte de IA e suas respectivas implementações independentes.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Propor e resolver dois problemas práticos de engenharia elétrica com suporte de IA,
+                implementando soluções em Python de forma independente.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Análise de tensões em circuitos elétricos</li>
+                <li>Análise de correntes em ramos de um circuito</li>
+                <li>Uso de IA para interpretação e suporte na resolução</li>
+                <li>Implementação de código Python funcional</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Exercícios Desenvolvidos</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Exercício 1</span>
+                    <span class="badge ex1">Análise de Tensões</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> Um engenheiro mediu as tensões (em volts) em 8 pontos de um circuito: 
+                    127, 130, 125, 128, 135, 120, 129, 131. Analisar os valores, calcular a média, 
+                    máximo, mínimo e identificar quantos pontos estão fora da faixa de ±5% da média.
                 </p>
-                <a href="trabalhos/algoritimos/trabalho6.pdf" target="_blank" class="botao">
-                    Abrir Resolução
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Listas, laços de repetição, média, máximo, mínimo, 
+                    faixa de tolerância (±5%).
+                </p>
+                <a href="trabalhos/algoritimos/trabalho6.PDF" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Resolução Completa
                 </a>
             </div>
 
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Exercício 2</span>
+                    <span class="badge ex2">Análise de Correntes</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Problema:</strong> As correntes em 5 ramos de um circuito são: 
+                    2.5, 3.1, 2.8, 3.0, 2.9, 3.3. Calcular a corrente total do circuito, 
+                    a corrente média e identificar quais ramos têm corrente acima da média.
+                </p>
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Listas, soma, média, identificação de valores 
+                    acima da média.
+                </p>
+                <a href="trabalhos/algoritimos/trabalho6.PDF" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Resolução Completa
+                </a>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 1 (EXERCÍCIO 1) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 1 - Análise de Tensões)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 1 — Análise de Tensões em um Circuito</span>
+<span class="comment"># Valores medidos em 8 pontos</span>
+
+tensoes = [<span class="number">127</span>, <span class="number">130</span>, <span class="number">125</span>, <span class="number">128</span>, <span class="number">135</span>, <span class="number">120</span>, <span class="number">129</span>, <span class="number">131</span>]
+
+<span class="comment"># Cálculo da média</span>
+soma = <span class="number">0</span>
+<span class="keyword">for</span> t <span class="keyword">in</span> tensoes:
+    soma += t
+media = soma / len(tensoes)
+
+<span class="comment"># Cálculo do máximo e mínimo</span>
+maximo = tensoes[<span class="number">0</span>]
+minimo = tensoes[<span class="number">0</span>]
+<span class="keyword">for</span> t <span class="keyword">in</span> tensoes:
+    <span class="keyword">if</span> t > maximo:
+        maximo = t
+    <span class="keyword">if</span> t < minimo:
+        minimo = t
+
+<span class="comment"># Verificação de pontos fora da faixa de ±5% da média</span>
+limite_inferior = media * <span class="number">0.95</span>
+limite_superior = media * <span class="number">1.05</span>
+fora_faixa = <span class="number">0</span>
+
+<span class="keyword">for</span> t <span class="keyword">in</span> tensoes:
+    <span class="keyword">if</span> t < limite_inferior <span class="keyword">or</span> t > limite_superior:
+        fora_faixa += <span class="number">1</span>
+
+<span class="comment"># Saída dos resultados</span>
+print(f<span class="string">"Tensões: {tensoes}"</span>)
+print(f<span class="string">"Média: {media:.2f} V"</span>)
+print(f<span class="string">"Máximo: {maximo} V"</span>)
+print(f<span class="string">"Mínimo: {minimo} V"</span>)
+print(f<span class="string">"Pontos fora da faixa (±5%): {fora_faixa}"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Tensões: [127, 130, 125, 128, 135, 120, 129, 131]</span>
+<span class="comment"># Média: 128.12 V</span>
+<span class="comment"># Máximo: 135 V</span>
+<span class="comment"># Mínimo: 120 V</span>
+<span class="comment"># Pontos fora da faixa (±5%): 2</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Tensões: [127, 130, 125, 128, 135, 120, 129, 131]
+Média: 128.12 V
+Máximo: 135 V
+Mínimo: 120 V
+Pontos fora da faixa (±5%): 2
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (EXERCÍCIO 2) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 2 - Análise de Correntes)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 2 — Análise de Correntes em Ramos</span>
+<span class="comment"># Valores medidos em 6 ramos</span>
+
+correntes = [<span class="number">2.5</span>, <span class="number">3.1</span>, <span class="number">2.8</span>, <span class="number">3.0</span>, <span class="number">2.9</span>, <span class="number">3.3</span>]
+
+<span class="comment"># Cálculo da corrente total</span>
+corrente_total = sum(correntes)
+
+<span class="comment"># Cálculo da corrente média</span>
+corrente_media = corrente_total / len(correntes)
+
+<span class="comment"># Identificação de ramos com corrente acima da média</span>
+acima_media = []
+<span class="keyword">for</span> c <span class="keyword">in</span> correntes:
+    <span class="keyword">if</span> c > corrente_media:
+        acima_media.append(c)
+
+<span class="comment"># Saída dos resultados</span>
+print(f<span class="string">"Correntes: {correntes}"</span>)
+print(f<span class="string">"Corrente total: {corrente_total:.2f} A"</span>)
+print(f<span class="string">"Corrente média: {corrente_media:.2f} A"</span>)
+print(f<span class="string">"Ramos com corrente acima da média: {acima_media}"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Correntes: [2.5, 3.1, 2.8, 3.0, 2.9, 3.3]</span>
+<span class="comment"># Corrente total: 17.60 A</span>
+<span class="comment"># Corrente média: 2.93 A</span>
+<span class="comment"># Ramos com corrente acima da média: [3.1, 3.0, 3.3]</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Correntes: [2.5, 3.1, 2.8, 3.0, 2.9, 3.3]
+Corrente total: 17.60 A
+Corrente média: 2.93 A
+Ramos com corrente acima da média: [3.1, 3.0, 3.3]
+                </code>
+            </div>
+
+            <!-- ===== TABELA RESUMO ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo dos Exercícios</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Exercício</th>
+                            <th>Tema</th>
+                            <th>Conceitos</th>
+                            <th>Saída Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Análise de Tensões</td>
+                            <td>Listas, laços, média, max, min, tolerância</td>
+                            <td>Média: 128.12 V, Fora da faixa: 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Análise de Correntes</td>
+                            <td>Listas, soma, média, identificação</td>
+                            <td>Total: 17.60 A, Acima da média: 3 ramos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> Os dois exercícios demonstram a aplicação de conceitos 
+                básicos de Python (listas, laços, cálculos estatísticos) na resolução de problemas 
+                práticos de engenharia elétrica. O suporte de IA auxiliou na interpretação dos 
+                problemas e na estruturação das soluções.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/trabalho6.PDF" target="_blank" class="botao" style="background:#2b6cb0;">
+                    📄 Ver PDF Completo
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A utilização de IA como ferramenta de suporte para 
+                resolução de problemas de engenharia elétrica mostrou-se eficaz. Os dois exercícios 
+                propostos abordaram conceitos fundamentais como análise de tensões e correntes, 
+                utilizando estruturas básicas de Python. O uso de listas, laços de repetição e 
+                cálculos estatísticos (média, máximo, mínimo) são habilidades essenciais para 
+                qualquer engenheiro que trabalhe com análise de dados.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Análise de Circuitos</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Python para Engenharia</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Suporte de IA</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[0];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
 
 </body>
 </html>
-
