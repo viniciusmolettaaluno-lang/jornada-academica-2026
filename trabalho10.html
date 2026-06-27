@@ -3,91 +3,657 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 10</title>
+    <title>Trabalho 10 - Análise Comparativa Avançada de LLMs</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card.ex5 { border-left-color: #e53e3e; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+        .exercicio-card .badge.ex5 { background: #fed7d7; color: #742a2a; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+        .btn-pdf.ex4 { background: #38a169; }
+        .btn-pdf.ex5 { background: #e53e3e; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+        .table-highlight { background: #ebf8ff; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho9.html">Trabalho 9</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho9.html">◀ Trabalho 9</a></li>
+        <li><a href="trabalho11.html">Trabalho 11 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 10</h1>
-        <p>
-            Análise Comparativa Avançada: Resolução de problemas computacionais com estruturas dinâmicas em Python e estudo crítico do desempenho de múltiplas LLMs.
+        <h1>🧠 Trabalho 10</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Análise Comparativa Avançada de LLMs
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 LLMs</span>
+            <span class="tag orange">📐 Treliças</span>
+            <span class="tag green">📊 Análise Estrutural</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Análise Comparativa Avançada: Resolução de problemas computacionais com estruturas 
+            dinâmicas em Python e estudo crítico do desempenho de múltiplas LLMs (ChatGPT, Claude, Grok) 
+            na análise de treliças planas isostáticas.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Exercício Proposto</h3>
-                <p>
-                    Apresentação do problema selecionado, definição das variáveis e escopo dos vetores dinâmicos aplicados à engenharia.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Realizar uma análise comparativa avançada entre diferentes LLMs (ChatGPT, Claude, Grok) 
+                na resolução de problemas computacionais com estruturas dinâmicas em Python. O trabalho 
+                envolve a implementação de soluções para análise de treliças planas isostáticas e um 
+                estudo crítico detalhado do desempenho de cada modelo.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Implementação do problema de treliças planas por três LLMs distintos</li>
+                <li>Análise de forças internas (tração/compressão) e reações de apoio</li>
+                <li>Geração de gráficos: treliça original, mapa de calor, barras e histograma</li>
+                <li>Comparação detalhada entre os códigos gerados</li>
+                <li>Relatório crítico com evidências objetivas</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Exercício Proposto</span>
+                    <span class="badge ex1">Treliças Planas</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Análise de Tensões em Treliças Planas Isostáticas. 
+                    O programa deve calcular forças internas, reações de apoio e gerar visualizações 
+                    gráficas dos resultados.
                 </p>
-                <a href="trabalhos/algoritimos/segundoexercicioproposto.pdf" target="_blank" class="botao">
-                    Abrir Exercício
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Treliças, equilíbrio nodal, Gauss-Jordan, tração/compressão.
+                </p>
+                <a href="trabalhos/algoritimos/segundoexercicioproposto.pdf" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Exercício Proposto
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: ChatGPT</h3>
-                <p>
-                    Avaliação técnica do script em Python entregue pelo ChatGPT, validação da tabela de resultados e dos gráficos gerados.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Código ChatGPT</span>
+                    <span class="badge ex2">GPT</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo ChatGPT com estrutura simples e didática, 
+                    boa divisão em funções e comentários claros.
                 </p>
-                <a href="trabalhos/algoritimos/chatgpttrab10.pdf" target="_blank" class="botao">
-                    Ver Código GPT
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Legibilidade, simplicidade, didático.
+                </p>
+                <a href="trabalhos/algoritimos/chatgpttrab10.pdf" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código ChatGPT
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: Claude</h3>
-                <p>
-                    Análise do comportamento do algoritmo proposto pelo Claude, consistência no uso de listas e organização estrutural.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Código Claude</span>
+                    <span class="badge ex3">Claude IA</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo Claude IA, o mais completo e profissional, 
+                    com estrutura orientada a objetos, geração automática de treliças e testes de robustez.
                 </p>
-                <a href="trabalhos/algoritimos/claudetrab10.pdf" target="_blank" class="botao">
-                    Ver Código Claude
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Orientação a objetos, escalabilidade, relatórios detalhados.
+                </p>
+                <a href="trabalhos/algoritimos/claudetrab10.pdf" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Código Claude
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: Grok / LLM 3</h3>
-                <p>
-                    Verificação e testes da solução computacional desenvolvida por meio de abordagens alternativas de inteligência artificial.
+            <!-- EXERCÍCIO 4 -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟢 Código Grok</span>
+                    <span class="badge ex4">Grok</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo Grok, com implementação matemática robusta, 
+                    tratamento explícito de singularidade e visualizações completas.
                 </p>
-                <a href="trabalhos/algoritimos/groktrab10.pdf" target="_blank" class="botao">
-                    Ver Código Grok
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Robustez matemática, visualizações, equilíbrio entre clareza e detalhamento.
+                </p>
+                <a href="trabalhos/algoritimos/groktrab10.pdf" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Código Grok
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Relatório Comparativo</h3>
-                <p>
-                    Conclusão e quadro comparativo final detalhando o desempenho, clareza e conformidade de cada LLM testada.
+            <!-- EXERCÍCIO 5 -->
+            <div class="exercicio-card ex5">
+                <h4>
+                    <span>🔴 Relatório Crítico</span>
+                    <span class="badge ex5">Análise Comparativa</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Relatório crítico comparando os três códigos gerados, 
+                    com análise de corretude numérica, robustez, qualidade dos gráficos, eficiência e 
+                    qualidade do código.
                 </p>
-                <a href="trabalhos/algoritimos/RelatórioCríticotrab10.pdf" target="_blank" class="botao">
-                    Abrir Relatório
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Comparação detalhada, evidências objetivas, conclusão.
+                </p>
+                <a href="trabalhos/algoritimos/RelatórioCríticotrab10.PDF" target="_blank" class="btn-pdf ex5">
+                    📄 Ver Relatório Crítico
                 </a>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO 1 (CHATGPT) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (ChatGPT - Eliminação de Gauss)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo ChatGPT</span>
+<span class="comment"># Função de eliminação de Gauss manual</span>
+
+<span class="keyword">def</span> <span class="function">gauss</span>(A, b):
+    n = len(b)
+    <span class="comment"># Matriz aumentada</span>
+    M = []
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):
+        linha = A[i][:] + [b[i]]
+        M.append(linha)
+    
+    <span class="comment"># Eliminação</span>
+    <span class="keyword">for</span> k <span class="keyword">in</span> range(n):
+        <span class="comment"># Pivotamento parcial</span>
+        maior = abs(M[k][k])
+        linha_pivo = k
+        <span class="keyword">for</span> i <span class="keyword">in</span> range(k + <span class="number">1</span>, n):
+            <span class="keyword">if</span> abs(M[i][k]) > maior:
+                maior = abs(M[i][k])
+                linha_pivo = i
+        M[k], M[linha_pivo] = M[linha_pivo], M[k]
+        
+        <span class="comment"># Verificação de singularidade</span>
+        <span class="keyword">if</span> abs(M[k][k]) < <span class="number">1e-12</span>:
+            <span class="keyword">raise</span> ValueError(<span class="string">"Sistema singular ou mecanismo estrutural."</span>)
+        
+        <span class="comment"># Eliminação</span>
+        <span class="keyword">for</span> i <span class="keyword">in</span> range(k + <span class="number">1</span>, n):
+            fator = M[i][k] / M[k][k]
+            <span class="keyword">for</span> j <span class="keyword">in</span> range(k, n + <span class="number">1</span>):
+                M[i][j] -= fator * M[k][j]
+    
+    <span class="comment"># Retrossubstituição</span>
+    x = [<span class="number">0.0</span>] * n
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(n - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):
+        soma = <span class="number">0.0</span>
+        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, n):
+            soma += M[i][j] * x[j]
+        x[i] = (M[i][n] - soma) / M[i][i]
+    
+    <span class="keyword">return</span> x
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (Treliça Warren 4 nós)</div>
+                <code style="color:#1a202c;">
+Barra 0: 500.00 N → TRAÇÃO
+Barra 1: 500.00 N → TRAÇÃO
+Barra 2: -707.11 N → COMPRESSÃO
+Barra 3: -707.11 N → COMPRESSÃO
+Barra 4: 1000.00 N → TRAÇÃO
+
+Reação no nó 0 (x) = 0.00 N
+Reação no nó 0 (y) = 500.00 N
+Reação no nó 2 (y) = 500.00 N
+
+Barra mais solicitada: Barra 4
+Força máxima: 1000.00 N
+Força média: 682.84 N
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (CLAUDE) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Claude - Estrutura Orientada a Objetos)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo Claude IA</span>
+<span class="comment"># Classe principal da treliça</span>
+
+<span class="keyword">class</span> <span class="function">TrelicaPlana</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, nos, barras, cargas, apoios):
+        <span class="string">"""
+        nos: [(x1,y1), (x2,y2), ...]
+        barras: [(nó_i, nó_j), ...]
+        cargas: [(Fx,Fy), ...]
+        apoios: "fixo" -> reage em X e Y, "movel" -> reage em Y, "livre" -> sem reação
+        """</span>
+        self.nos = nos
+        self.barras = barras
+        self.cargas = cargas
+        self.apoios = apoios
+        self.N = len(nos)
+        self.B = len(barras)
+        self.definir_incognitas()
+    
+    <span class="keyword">def</span> <span class="function">montar_sistema</span>(self):
+        <span class="string">"""Monta a matriz de equilíbrio do sistema"""</span>
+        num_incognitas = len(self.nom_variaveis)
+        A = np.zeros((<span class="number">2</span> * self.N, num_incognitas))
+        b = np.zeros(<span class="number">2</span> * self.N)
+        
+        <span class="comment"># Contribuição das barras</span>
+        <span class="keyword">for</span> idx_barra, (i, j) <span class="keyword">in</span> enumerate(self.barras):
+            xi, yi = self.nos[i]
+            xj, yj = self.nos[j]
+            dx = xj - xi
+            dy = yj - yi
+            L = math.sqrt(dx**<span class="number">2</span> + dy**<span class="number">2</span>)
+            c = dx / L
+            s = dy / L
+            A[<span class="number">2</span> * i][idx_barra] += c
+            A[<span class="number">2</span> * i + <span class="number">1</span>][idx_barra] += s
+            A[<span class="number">2</span> * j][idx_barra] -= c
+            A[<span class="number">2</span> * j + <span class="number">1</span>][idx_barra] -= s
+        
+        <span class="keyword">return</span> A, b
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (Treliça Warren 2 painéis)</div>
+                <code style="color:#1a202c;">
+============================================================
+RESULTADOS DA TRELIÇA
+============================================================
+Barra 00 | Força = 333.33 N | TRAÇÃO
+Barra 01 | Força = 333.33 N | TRAÇÃO
+Barra 02 | Força = -600.93 N | COMPRESSÃO
+Barra 03 | Força = 600.93 N | TRAÇÃO
+Barra 04 | Força = 600.93 N | TRAÇÃO
+Barra 05 | Força = -600.93 N | COMPRESSÃO
+Barra 06 | Força = -666.67 N | COMPRESSÃO
+
+Força média: 533.86 N
+Barra mais solicitada: 6
+Força máxima: 666.67 N
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 (GROK) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Grok - Gauss-Jordan Manual)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo Grok</span>
+<span class="comment"># Implementação manual de Gauss-Jordan</span>
+
+<span class="keyword">def</span> <span class="function">gauss_jordan</span>(A, b, tol=<span class="number">1e-10</span>):
+    <span class="string">"""
+    Resolve Ax = b pelo método de Gauss-Jordan (implementação manual).
+    Retorna solução x e indica se o sistema é singular.
+    """</span>
+    n = len(b)
+    <span class="comment"># Matriz aumentada</span>
+    M = np.hstack((A.astype(float), b.reshape(-<span class="number">1</span>, <span class="number">1</span>)))
+    
+    <span class="comment"># Eliminação para frente</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):
+        <span class="comment"># Pivotamento parcial</span>
+        max_row = np.argmax(np.abs(M[i:, i])) + i
+        <span class="keyword">if</span> abs(M[max_row, i]) < tol:
+            <span class="keyword">return</span> <span class="keyword">None</span>, <span class="keyword">True</span>  <span class="comment"># Singular</span>
+        <span class="comment"># Troca de linhas</span>
+        M[[i, max_row]] = M[[max_row, i]]
+        <span class="comment"># Normaliza pivô</span>
+        pivot = M[i, i]
+        M[i] = M[i] / pivot
+        <span class="comment"># Elimina coluna</span>
+        <span class="keyword">for</span> k <span class="keyword">in</span> range(n):
+            <span class="keyword">if</span> k != i:
+                factor = M[k, i]
+                M[k] = M[k] - factor * M[i]
+    
+    x = M[:, -<span class="number">1</span>]
+    <span class="keyword">return</span> x, <span class="keyword">False</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (Treliça Warren 4 nós)</div>
+                <code style="color:#1a202c;">
+Forças nas barras (N):
+Barra 0: 288.68 N → TRAÇÃO
+Barra 1: 288.68 N → TRAÇÃO
+Barra 2: -577.35 N → COMPRESSÃO
+Barra 3: -577.35 N → COMPRESSÃO
+Barra 4: 1000.00 N → TRAÇÃO
+
+Barra mais solicitada: 4 (1000.0 N)
+Força média (módulo): 546.4 N
+                </code>
+            </div>
+
+            <!-- ===== TABELA COMPARATIVA ===== -->
+            <h3 style="margin-top:30px;">📊 Tabela Comparativa entre LLMs</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th class="text-center">🟣 ChatGPT</th>
+                            <th class="text-center">🟡 Claude</th>
+                            <th class="text-center">🟢 Grok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Corretude Numérica</strong></td>
+                            <td class="text-center">✅ Correta</td>
+                            <td class="text-center">✅ Correta</td>
+                            <td class="text-center">✅ Correta</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Robustez (N=4,8,16,32)</strong></td>
+                            <td class="text-center">🟡 Parcial</td>
+                            <td class="text-center">🟢 Completa</td>
+                            <td class="text-center">🟢 Completa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qualidade dos Gráficos</strong></td>
+                            <td class="text-center">🟡 Boa</td>
+                            <td class="text-center">🟢 Excelente</td>
+                            <td class="text-center">🟢 Excelente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eficiência (N=32)</strong></td>
+                            <td class="text-center">🟢 Rápido</td>
+                            <td class="text-center">🟢 Rápido</td>
+                            <td class="text-center">🟢 Rápido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qualidade do Código</strong></td>
+                            <td class="text-center">🟢 Didático</td>
+                            <td class="text-center">🟢 Profissional</td>
+                            <td class="text-center">🟢 Robusto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gauss Manual</strong></td>
+                            <td class="text-center">✅ Sim</td>
+                            <td class="text-center">✅ Sim</td>
+                            <td class="text-center">✅ Sim</td>
+                        </tr>
+                        <tr style="background:#edf2f7; font-weight:600;">
+                            <td><strong>⭐ Avaliação Geral</strong></td>
+                            <td class="text-center">🟢 Bom</td>
+                            <td class="text-center">🟢 Excelente</td>
+                            <td class="text-center">🟢 Excelente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== TABELA DE DESEMPENHO ===== -->
+            <h3 style="margin-top:30px;">📈 Resumo do Relatório Crítico</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>LLM</th>
+                            <th>Pontos Positivos</th>
+                            <th>Pontos a Melhorar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ChatGPT</strong></td>
+                            <td>Código simples e didático, boa legibilidade</td>
+                            <td>Menor modularização e robustez</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude</strong></td>
+                            <td>Orientação a objetos, escalabilidade, relatórios detalhados</td>
+                            <td>Maior complexidade para iniciantes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grok</strong></td>
+                            <td>Implementação matemática robusta, visualizações completas</td>
+                            <td>Código extenso e detalhado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> O Claude gerou a solução mais completa e profissional, 
+                com orientação a objetos e escalabilidade. O Grok apresentou a implementação matemática 
+                mais robusta com excelentes visualizações. O ChatGPT produziu o código mais simples 
+                e fácil de entender, ideal para fins didáticos. Todos os modelos acertaram na primeira 
+                tentativa e implementaram corretamente o método de Gauss manualmente.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/segundoexercicioproposto.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Exercício Proposto
+                </a>
+                <a href="trabalhos/algoritimos/chatgpttrab10.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Código ChatGPT
+                </a>
+                <a href="trabalhos/algoritimos/claudetrab10.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Claude
+                </a>
+                <a href="trabalhos/algoritimos/groktrab10.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Código Grok
+                </a>
+                <a href="trabalhos/algoritimos/relatoriocriticotrab10.PDF" target="_blank" class="botao" style="background:#e53e3e;">
+                    📄 Relatório Crítico
+                </a>
+            </div>
         </div>
-    </div>
-</section>
 
-<footer>
-    <h3>Vinicius Moletta da Silva</h3>
-    <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
-</footer>
-
-</body>
-</html>
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A análise de treliças planas isostáticas utilizando diferentes 
+                LLMs demonstrou a versatilidade e a capacidade de cada modelo em resolver problemas 
+                computacionais complexos. O ChatGPT se destacou pela simplicidade e didática, o Claude 
+                pela profissionalização e escalabilidade, e o Grok pela robustez matemática. A comparação 
+                mostrou que todos os modelos implementaram corretamente o método de Gauss manualmente, 
+                mas com diferentes níveis de sofisticação. O estudo crítico permitiu identificar os 
+                pontos
