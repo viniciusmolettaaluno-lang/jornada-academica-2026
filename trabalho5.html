@@ -3,63 +3,665 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 5</title>
+    <title>Trabalho 5 - Listas/Vetores/Arrays em Python</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card.ex5 { border-left-color: #e53e3e; }
+        .exercicio-card.ex6 { border-left-color: #ed64a6; }
+        .exercicio-card.ex7 { border-left-color: #a0aec0; }
+        .exercicio-card.ex8 { border-left-color: #4fd1c5; }
+        .exercicio-card.ex9 { border-left-color: #9f7aea; }
+        .exercicio-card.ex10 { border-left-color: #fc8181; }
+        .exercicio-card.ex11 { border-left-color: #f6ad55; }
+        .exercicio-card.ex12 { border-left-color: #68d391; }
+        .exercicio-card.ex13 { border-left-color: #63b3ed; }
+        .exercicio-card.ex14 { border-left-color: #b794f4; }
+        .exercicio-card.ex15 { border-left-color: #f687b3; }
+        
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+        .exercicio-card .badge.ex5 { background: #fed7d7; color: #742a2a; }
+        .exercicio-card .badge.ex6 { background: #fbb6ce; color: #702459; }
+        .exercicio-card .badge.ex7 { background: #e2e8f0; color: #1a202c; }
+        .exercicio-card .badge.ex8 { background: #b2f5ea; color: #234e52; }
+        .exercicio-card .badge.ex9 { background: #d6bcfa; color: #44337a; }
+        .exercicio-card .badge.ex10 { background: #feb2b2; color: #742a2a; }
+        .exercicio-card .badge.ex11 { background: #fbd38d; color: #744210; }
+        .exercicio-card .badge.ex12 { background: #9ae6b4; color: #22543d; }
+        .exercicio-card .badge.ex13 { background: #90cdf4; color: #1a365d; }
+        .exercicio-card .badge.ex14 { background: #d6bcfa; color: #44337a; }
+        .exercicio-card .badge.ex15 { background: #fbb6ce; color: #702459; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+            margin-top: 6px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+
+        .grid-exercicios {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .grid-exercicios {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 8px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho4.html">Trabalho 4</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho4.html">◀ Trabalho 4</a></li>
+        <li><a href="trabalho6.html">Trabalho 6 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 5</h1>
-        <p>
-            Escrever o código Python dos exercícios de listas/vetores/arrays. Para cada exercício, implemente e execute o código Python. Mostre que você executou o código na sua máquina.
+        <h1>📊 Trabalho 5</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Listas / Vetores / Arrays em Python
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag green">📋 Listas</span>
+            <span class="tag purple">⚡ Engenharia Elétrica</span>
+            <span class="tag orange">📊 Análise de Dados</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Implementação de 15 exercícios práticos utilizando listas/vetores/arrays em Python,
+            aplicados a problemas de engenharia elétrica, telecomunicações e análise de dados.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <!-- Primeiro cartão com a extensão em maiúsculo (.PDF) -->
-            <div class="card">
-                <h3>Documento Técnico</h3>
-                <p>
-                    Primeira parte do trabalho desenvolvido.
-                </p>
-                <a href="trabalhos/algoritimos/exerciciostrab5.PDF" target="_blank" class="botao">
-                    Abrir Resolução
-                </a>
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Escrever o código Python dos exercícios de listas/vetores/arrays. Para cada exercício,
+                implementar e executar o código Python, mostrando a execução na máquina.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Manipulação de listas (append, remove, extend, copy)</li>
+                <li>Operações com listas (sum, max, min, len, sort)</li>
+                <li>Filtragem e busca em listas</li>
+                <li>Aplicações em engenharia (temperaturas, tensões, pacotes, cargas, sinais)</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Exercícios Desenvolvidos</h3>
+            
+            <div class="grid-exercicios">
+                <!-- EXERCÍCIO 1 -->
+                <div class="exercicio-card ex1">
+                    <h4>
+                        <span>🔵 1</span>
+                        <span class="badge ex1">Temperaturas</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Análise de temperaturas de forno: max, min e lista.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 2 -->
+                <div class="exercicio-card ex2">
+                    <h4>
+                        <span>🟣 2</span>
+                        <span class="badge ex2">Tensões</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Média de tensões e alerta para valores fora da faixa.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 3 -->
+                <div class="exercicio-card ex3">
+                    <h4>
+                        <span>🟡 3</span>
+                        <span class="badge ex3">Pacotes de Rede</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Análise de pacotes: total, bytes e pacotes jumbo.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 4 -->
+                <div class="exercicio-card ex4">
+                    <h4>
+                        <span>🟢 4</span>
+                        <span class="badge ex4">Vibração</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Remoção de leituras inválidas (-999.0) de vibração.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 5 -->
+                <div class="exercicio-card ex5">
+                    <h4>
+                        <span>🔴 5</span>
+                        <span class="badge ex5">Cargas Elétricas</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Cálculo de potência ativa após remoção de cargas.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 6 -->
+                <div class="exercicio-card ex6">
+                    <h4>
+                        <span>🩷 6</span>
+                        <span class="badge ex6">Canais de RF</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Desativação de canais com interferência acima do limiar.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 7 -->
+                <div class="exercicio-card ex7">
+                    <h4>
+                        <span>⬜ 7</span>
+                        <span class="badge ex7">Backup</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Cópia de lista para preservar dados originais.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 8 -->
+                <div class="exercicio-card ex8">
+                    <h4>
+                        <span>🩵 8</span>
+                        <span class="badge ex8">Simulação de Falha</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Simulação de falha em resistor de 100Ω.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 9 -->
+                <div class="exercicio-card ex9">
+                    <h4>
+                        <span>🟣 9</span>
+                        <span class="badge ex9">Rotas de Rede</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Atualização de tabela de rotas com remoção e inserção.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 10 -->
+                <div class="exercicio-card ex10">
+                    <h4>
+                        <span>🔴 10</span>
+                        <span class="badge ex10">Pressão</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Análise de pressão de 3 sensores: média, max, min.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 11 -->
+                <div class="exercicio-card ex11">
+                    <h4>
+                        <span>🟠 11</span>
+                        <span class="badge ex11">Medições</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Ordenação e verificação de tolerância (±15%).
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 12 -->
+                <div class="exercicio-card ex12">
+                    <h4>
+                        <span>🟢 12</span>
+                        <span class="badge ex12">Cobertura de Sinal</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Análise de cobertura de 3 antenas (limiar -100 dBm).
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 13 -->
+                <div class="exercicio-card ex13">
+                    <h4>
+                        <span>🔵 13</span>
+                        <span class="badge ex13">Controle de Qualidade</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Aprovação/reprovação com tolerância ±0.05Ω.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 14 -->
+                <div class="exercicio-card ex14">
+                    <h4>
+                        <span>🟣 14</span>
+                        <span class="badge ex14">Cenários de Carga</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Comparação de cenários atual e futuro com função.
+                    </p>
+                </div>
+
+                <!-- EXERCÍCIO 15 -->
+                <div class="exercicio-card ex15">
+                    <h4>
+                        <span>🩷 15</span>
+                        <span class="badge ex15">Sinal I/Q</span>
+                    </h4>
+                    <p style="color:#2d3748; font-size:0.9rem;">
+                        Remoção de ruídos com critério 3σ (desvio padrão).
+                    </p>
+                </div>
             </div>
 
-            <!-- Segundo cartão com o nome fotostrabalho05.pdf -->
-            <div class="card">
-                <h3>Fotos do Trabalho</h3>
-                <p>
-                    Segunda parte contendo os registros e resoluções da atividade.
-                </p>
-                <a href="trabalhos/algoritimos/fotostrabalho05.pdf" target="_blank" class="botao">
-                    Abrir Resolução
-                </a>
+            <!-- ===== CÓDIGO EXEMPLO 1 (EXERCÍCIO 1) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 1 - Temperaturas)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 1 — Temperaturas do Forno</span>
+<span class="comment"># Análise de temperaturas: máximo, mínimo e lista</span>
+
+temperaturas = []
+temperaturas.append(<span class="number">820</span>)
+temperaturas.append(<span class="number">835</span>)
+temperaturas.append(<span class="number">848</span>)
+temperaturas.append(<span class="number">791</span>)
+temperaturas.append(<span class="number">812</span>)
+temperaturas.append(<span class="number">856</span>)
+
+print(f<span class="string">"Leituras: {temperaturas}"</span>)
+print(f<span class="string">"Maximo: {max(temperaturas)} °C"</span>)
+print(f<span class="string">"Minimo: {min(temperaturas)} °C"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Leituras: [820, 835, 848, 791, 812, 856]</span>
+<span class="comment"># Maximo: 856 °C</span>
+<span class="comment"># Minimo: 791 °C</span>
+                </pre>
             </div>
 
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Leituras: [820, 835, 848, 791, 812, 856]
+Maximo: 856 °C
+Minimo: 791 °C
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (EXERCÍCIO 5) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 5 - Cargas Elétricas)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 5 — Cargas Elétricas</span>
+<span class="comment"># Cálculo de potência ativa após remoção de cargas</span>
+
+cargas = [<span class="number">15.0</span>, <span class="number">22.5</span>, <span class="number">8.0</span>, <span class="number">40.0</span>, <span class="number">12.5</span>, <span class="number">30.0</span>]
+
+potencia_antes = sum(cargas)
+
+cargas.remove(<span class="number">8.0</span>) <span class="comment"># Desligada por sobrecarga</span>
+cargas.remove(<span class="number">40.0</span>) <span class="comment"># Equipamento em manutenção</span>
+
+potencia_agora = sum(cargas)
+reducao = potencia_antes - potencia_agora
+
+print(f<span class="string">"Cargas ativas : {cargas}"</span>)
+print(f<span class="string">"Potência antes: {potencia_antes:.1f} kW"</span>)
+print(f<span class="string">"Potência agora: {potencia_agora:.1f} kW"</span>)
+print(f<span class="string">"Redução : {reducao:.1f} kW"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Cargas ativas : [15.0, 22.5, 12.5, 30.0]</span>
+<span class="comment"># Potência antes: 128.0 kW</span>
+<span class="comment"># Potência agora: 80.0 kW</span>
+<span class="comment"># Redução : 48.0 kW</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Cargas ativas : [15.0, 22.5, 12.5, 30.0]
+Potência antes: 128.0 kW
+Potência agora: 80.0 kW
+Redução : 48.0 kW
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 (EXERCÍCIO 12) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Exercício 12 - Cobertura de Sinal)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Exercício 12 — Cobertura de Sinal</span>
+<span class="comment"># Análise de cobertura de 3 antenas (limiar -100 dBm)</span>
+
+antena_norte = [-<span class="number">85</span>, -<span class="number">90</span>, -<span class="number">105</span>, -<span class="number">78</span>, -<span class="number">92</span>, -<span class="number">110</span>, -<span class="number">88</span>]
+antena_sul = [-<span class="number">95</span>, -<span class="number">88</span>, -<span class="number">102</span>, -<span class="number">79</span>, -<span class="number">85</span>, -<span class="number">91</span>, -<span class="number">97</span>]
+antena_leste = [-<span class="number">80</span>, -<span class="number">75</span>, -<span class="number">108</span>, -<span class="number">93</span>, -<span class="number">86</span>, -<span class="number">103</span>, -<span class="number">82</span>]
+
+limiar = -<span class="number">100</span>
+
+todos_logs = []
+todos_logs.extend(antena_norte)
+todos_logs.extend(antena_sul)
+todos_logs.extend(antena_leste)
+
+total_amostras = len(todos_logs)
+cobertura_adequada = [leitura <span class="keyword">for</span> leitura <span class="keyword">in</span> todos_logs <span class="keyword">if</span> leitura >= limiar]
+em_cobertura = len(cobertura_adequada)
+taxa_cobertura = (em_cobertura / total_amostras) * <span class="number">100</span>
+pior_sinal = min(todos_logs)
+indice_pior = todos_logs.index(pior_sinal)
+media = sum(todos_logs) / total_amostras
+
+print(f<span class="string">"Total de amostras : {total_amostras}"</span>)
+print(f<span class="string">"Em cobertura (>= -100): {em_cobertura}"</span>)
+print(f<span class="string">"Taxa de cobertura : {taxa_cobertura:.1f}%"</span>)
+print(f<span class="string">"Pior sinal : {pior_sinal} dBm (índice {indice_pior})"</span>)
+print(f<span class="string">"Média : {media:.1f} dBm"</span>)
+
+<span class="comment"># Saída esperada:</span>
+<span class="comment"># Total de amostras : 21</span>
+<span class="comment"># Em cobertura (>= -100): 16</span>
+<span class="comment"># Taxa de cobertura : 76.2%</span>
+<span class="comment"># Pior sinal : -110 dBm (índice 5)</span>
+<span class="comment"># Média : -91.0 dBm</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+Total de amostras : 21
+Em cobertura (>= -100): 16
+Taxa de cobertura : 76.2%
+Pior sinal : -110 dBm (índice 5)
+Média : -91.0 dBm
+                </code>
+            </div>
+
+            <!-- ===== TABELA RESUMO ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo dos Exercícios</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Exercício</th>
+                            <th>Conceito</th>
+                            <th>Principais Funções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>1</strong></td><td>Temperaturas</td><td>append, max, min</td></tr>
+                        <tr><td><strong>2</strong></td><td>Tensões</td><td>sum, len, for, if</td></tr>
+                        <tr><td><strong>3</strong></td><td>Pacotes de Rede</td><td>append, len, sum, list comprehension</td></tr>
+                        <tr><td><strong>4</strong></td><td>Vibração</td><td>remove, while, len</td></tr>
+                        <tr><td><strong>5</strong></td><td>Cargas Elétricas</td><td>remove, sum</td></tr>
+                        <tr><td><strong>6</strong></td><td>Canais de RF</td><td>dicionário, for, append</td></tr>
+                        <tr><td><strong>7</strong></td><td>Backup</td><td>copy</td></tr>
+                        <tr><td><strong>8</strong></td><td>Simulação de Falha</td><td>copy, index, sum</td></tr>
+                        <tr><td><strong>9</strong></td><td>Rotas de Rede</td><td>copy, remove, extend, list comprehension</td></tr>
+                        <tr><td><strong>10</strong></td><td>Pressão</td><td>extend, len, sum, max, min</td></tr>
+                        <tr><td><strong>11</strong></td><td>Medições</td><td>copy, extend, sort, list comprehension</td></tr>
+                        <tr><td><strong>12</strong></td><td>Cobertura de Sinal</td><td>extend, len, list comprehension, min, index</td></tr>
+                        <tr><td><strong>13</strong></td><td>Controle de Qualidade</td><td>abs, append, for, len</td></tr>
+                        <tr><td><strong>14</strong></td><td>Cenários de Carga</td><td>copy, extend, função</td></tr>
+                        <tr><td><strong>15</strong></td><td>Sinal I/Q</td><td>extend, copy, len, sum, math.sqrt, list comprehension, remove</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> Os exercícios demonstraram a versatilidade das listas em Python 
+                para resolver problemas práticos de engenharia. Foram abordadas operações como 
+                append, remove, extend, copy, além de funções como sum, max, min, len, sort e 
+                list comprehensions.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/exerciciostrab5.PDF" target="_blank" class="botao" style="background:#2b6cb0;">
+                    📄 Ver Código dos Exercícios
+                </a>
+                <a href="trabalhos/algoritimos/fotostrabalho05.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📸 Ver Fotos da Execução
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> Os exercícios com listas/vetores/arrays em Python 
+                permitiram consolidar o conhecimento sobre manipulação de estruturas de dados 
+                lineares. Aprendi a utilizar operações como append, remove, extend, copy, 
+                além de funções como sum, max, min, len, sort e list comprehensions. 
+                As aplicações em engenharia elétrica, telecomunicações e análise de dados 
+                mostraram como as listas são fundamentais para resolver problemas do dia a dia.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Manipulação de Listas</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Análise de Dados</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Aplicações em Engenharia</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
 
-</body>
-</html>
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[0];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const
