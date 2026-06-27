@@ -272,63 +272,41 @@
         .evolucao-item .check { color: #38a169; font-weight: 700; }
         .evolucao-item .cross { color: #e53e3e; font-weight: 700; }
 
-        /* ===== TABELA ATUALIZADA E CORRIGIDA ===== */
+        /* ===== TABELA CORRIGIDA COM FUNDO ESCURO E LETRA BRANCA ===== */
         .tabela-funcionalidades {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.95rem;
-            background: #f7fafc !important; /* Garante o fundo claro */
+            background: #1a202c;
+            border-radius: 8px;
+            overflow: hidden;
         }
         .tabela-funcionalidades th {
-            padding: 10px 12px;
+            padding: 12px 16px;
             text-align: left;
-            background: #e2e8f0 !important; /* Fundo cinza azulado para headers */
-            color: #1a365d !important; /* Texto azul escuro para headers */
-            font-weight: 600;
+            background: #2d3748;
+            color: #e2e8f0 !important;
+            font-weight: 700;
+            border-bottom: 2px solid #4a5568;
         }
         .tabela-funcionalidades td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e2e8f0;
-            color: #2d3748 !important; /* Texto escuro perfeitamente legível */
-        }
-        .tabela-funcionalidades td strong {
-            color: #1a202c !important; /* Destaque forte para os títulos */
+            padding: 12px 16px;
+            border-bottom: 1px solid #2d3748;
+            color: #e2e8f0 !important;
         }
         .tabela-funcionalidades tr:hover {
-            background: #edf2f7;
+            background: #2d3748;
+        }
+        .tabela-funcionalidades .text-green {
+            color: #68d391 !important;
+            font-weight: 700;
         }
         .text-center { text-align: center; }
-        .text-green { color: #38a169 !important; font-weight: 600; }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            background: #1a202c;
-            color: #a0aec0;
-            padding: 24px 0;
-            text-align: center;
-            border-top: 1px solid #2d3748;
-            margin-top: 40px;
-        }
-        .footer h3 {
-            color: #e2e8f0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        .footer p {
-            font-size: 0.9rem;
-            margin: 2px 0;
-        }
-        .footer a {
-            color: #63b3ed;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
     <h2>📘 Portfólio Acadêmico</h2>
     <ul>
@@ -338,6 +316,7 @@
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
         <h1>🚀 Trabalho 12</h1>
@@ -358,13 +337,14 @@
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
 
         <div class="card-trabalho">
             <h3>🎯 Objetivo do Projeto</h3>
             <p style="color:#2d3748;">
-                O projeto AgroMind Pampa AI foi desenvolvido com o objective de simular um sistema inteligente 
+                O projeto AgroMind Pampa AI foi desenvolvido com o objetivo de simular um sistema inteligente 
                 de agricultura de precisão voltado ao monitoramento e gerenciamento da irrigação agrícola, 
                 resolvendo problemas relacionados ao desperdício de água, consumo excessivo de energia e 
                 dificuldade de monitoramento das condições do solo e do clima.
@@ -377,8 +357,10 @@
                 <li>Estrutura escalável para sensores reais, APIs e Machine Learning</li>
             </ul>
 
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
             <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
             
+            <!-- EXERCÍCIO 1 -->
             <div class="exercicio-card ex1">
                 <h4>
                     <span>🔵 Objetivo do Projeto</span>
@@ -393,6 +375,7 @@
                 </a>
             </div>
 
+            <!-- EXERCÍCIO 2 -->
             <div class="exercicio-card ex2">
                 <h4>
                     <span>🟢 Diferenciais e Evoluções</span>
@@ -407,6 +390,7 @@
                 </a>
             </div>
 
+            <!-- EXERCÍCIO 3 -->
             <div class="exercicio-card ex3">
                 <h4>
                     <span>🟣 Limitações e Melhorias</span>
@@ -421,6 +405,7 @@
                 </a>
             </div>
 
+            <!-- EXERCÍCIO 4 -->
             <div class="exercicio-card ex4">
                 <h4>
                     <span>🟡 Código Atualizado</span>
@@ -435,6 +420,7 @@
                 </a>
             </div>
 
+            <!-- ===== COMPARAÇÃO VERSÕES ===== -->
             <h3 style="margin-top:30px;">📊 Evolução: Trabalho 11 → Trabalho 12</h3>
             <div class="comparacao-grid">
                 <div class="comparacao-card">
@@ -459,6 +445,7 @@
                 </div>
             </div>
 
+            <!-- ===== DASHBOARD EVOLUÍDO ===== -->
             <h3 style="margin-top:30px;">📊 Dashboard do Sistema (Versão 2)</h3>
             
             <div class="dashboard-preview">
@@ -534,6 +521,7 @@
                 </div>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO ===== -->
             <h3 style="margin-top:30px;">💻 Código Exemplo (IA Preditiva)</h3>
             <div class="code-block">
                 <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
@@ -592,6 +580,7 @@ Previsão para 3 dias: Risco de estresse severo
                 </code>
             </div>
 
+            <!-- ===== TABELA DE FUNCIONALIDADES CORRIGIDA ===== -->
             <h3 style="margin-top:30px;">📋 Funcionalidades da Versão 2</h3>
             <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
                 <table class="tabela-funcionalidades">
@@ -606,45 +595,117 @@ Previsão para 3 dias: Risco de estresse severo
                         <tr>
                             <td><strong>IA Preditiva</strong></td>
                             <td>Antecipa estresse hídrico com base em variáveis climáticas</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Índice de Estresse</strong></td>
                             <td>Algoritmo matemático para calcular risco hídrico</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Irrigação Preventiva</strong></td>
                             <td>Ativa recomendações antes da condição crítica</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Classificação de Risco</strong></td>
                             <td>Baixo, Moderado, Alto, Crítico</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Dashboard Profissional</strong></td>
                             <td>Modo escuro inspirado em sistemas supervisórios</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Setores Configuráveis</strong></td>
                             <td>Slider para ajustar número de setores (4-16)</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                         <tr>
                             <td><strong>Logs Operacionais</strong></td>
-                            <td>Histórico detalhado das ações com registro de tempo</td>
-                            <td class="text-green text-center">✅ Nova</td>
+                            <td>Eventos com timestamp em tempo real</td>
+                            <td class="text-center text-green">✅ Nova</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estrutura Escalável</strong></td>
+                            <td>Preparado para sensores IoT, APIs, ML</td>
+                            <td class="text-center text-green">✅ Nova</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Diferencial:</strong> O AgroMind Pampa AI evoluiu de uma simples simulação agrícola 
+                para uma plataforma inteligente de agricultura de precisão com características próximas 
+                de sistemas reais utilizados no agronegócio moderno, com IA preditiva, irrigação 
+                automatizada e estrutura escalável para tecnologias reais.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/objetivoagromind.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Objetivo
+                </a>
+                <a href="trabalhos/algoritimos/diferenciaisAgroMindPampaAI.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Diferenciais
+                </a>
+                <a href="trabalhos/algoritimos/limita%C3%A7oesemelhorias.pdf" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Limitações
+                </a>
+                <a href="trabalhos/algoritimos/codigoatualizadoagromind.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Atualizado
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #38a169;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A evolução do AgroMind Pampa AI da versão 1 para a versão 2 
+                foi uma experiência enriquecedora que demonstrou como um projeto pode ser aprimorado 
+                com a adição de inteligência artificial preditiva, irrigação preventiva e um dashboard 
+                mais profissional. Aprendi a importância de estruturar o código de forma modular e 
+                escalável, preparando o sistema para futuras integrações com tecnologias reais como 
+                sensores IoT, APIs climáticas e Machine Learning.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#38a169; color:white;">✅ IA Preditiva</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Agricultura 4.0</span>
+                <span class="tag" style="background:#805ad5; color:white;">✅ Escalabilidade</span>
+            </div>
+        </div>
+
     </div>
 </section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <h3>Vinicius Moletta da Silva</h3>
+    <p>Engenharia Elétrica</p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
 
 </body>
 </html>
