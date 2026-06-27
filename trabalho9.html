@@ -3,91 +3,651 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 9</title>
+    <title>Trabalho 9 - Análise Comparativa de LLMs</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card.ex5 { border-left-color: #e53e3e; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+        .exercicio-card .badge.ex5 { background: #fed7d7; color: #742a2a; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+        .btn-pdf.ex4 { background: #38a169; }
+        .btn-pdf.ex5 { background: #e53e3e; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+        .table-highlight { background: #ebf8ff; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho8.html">Trabalho 8</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho8.html">◀ Trabalho 8</a></li>
+        <li><a href="trabalho10.html">Trabalho 10 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 9</h1>
-        <p>
-            Análise Comparativa de LLMs: Implementação de soluções em Python utilizando estruturas dinâmicas, tabelas e gráficos, seguida de um estudo comparativo detalhado entre diferentes modelos de Inteligência Artificial.
+        <h1>🤖 Trabalho 9</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Análise Comparativa de LLMs
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 LLMs</span>
+            <span class="tag orange">📊 Análise de Dados</span>
+            <span class="tag green">📈 Gráficos</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Implementação de soluções em Python utilizando estruturas dinâmicas, tabelas e gráficos 
+            para análise de um sistema de abastecimento de água, seguida de um estudo comparativo 
+            detalhado entre diferentes modelos de Inteligência Artificial (ChatGPT, Claude, Copilot).
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Exercício Proposto</h3>
-                <p>
-                    Definição do problema computacional, requisitos do enunciado e estruturação dos vetores e listas variáveis.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Desenvolver uma ferramenta de análise de sistemas de abastecimento de água utilizando 
+                Python, com estruturas dinâmicas, tabelas e gráficos. O trabalho envolve a implementação 
+                de soluções por três LLMs diferentes (ChatGPT, Claude, Copilot) e uma análise 
+                comparativa detalhada entre os códigos gerados.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Implementação do problema proposto por três LLMs distintos</li>
+                <li>Análise de desempenho: demanda, perda, custo e autonomia</li>
+                <li>Geração de gráficos comparativos (barras, pizza, linha)</li>
+                <li>Comparação detalhada entre os códigos gerados</li>
+                <li>Relatório crítico com evidências objetivas</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Exercício Proposto</span>
+                    <span class="badge ex1">Problema</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Análise de Estabilidade e Custo em Sistemas de Abastecimento de Água. 
+                    O programa deve calcular indicadores de eficiência, risco de desabastecimento e custo 
+                    operacional, além de gerar gráficos comparativos.
                 </p>
-                <a href="trabalhos/algoritimos/exercicioproposto.pdf" target="_blank" class="botao">
-                    Abrir Exercício
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Conceitos:</strong> Demanda, perda, custo, autonomia, risco, gráficos.
+                </p>
+                <a href="trabalhos/algoritimos/exercicioproposto.PDF" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Exercício Proposto
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: ChatGPT</h3>
-                <p>
-                    Avaliação do código gerado pelo ChatGPT, consistência dos cálculos estruturados e geração dos gráficos visuais.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Código ChatGPT</span>
+                    <span class="badge ex2">GPT</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo ChatGPT com estrutura organizada, 
+                    comentários explicativos e gráficos com títulos, legendas e grades.
                 </p>
-                <a href="trabalhos/algoritimos/codigoGPT.pdf" target="_blank" class="botao">
-                    Ver Código GPT
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Organização, comentários, boa visualização dos gráficos.
+                </p>
+                <a href="trabalhos/algoritimos/codigoGPT.PDF" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código GPT
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: Claude</h3>
-                <p>
-                    Verificação da execução do algoritmo, uso correto de listas dinâmicas e organização da solução proposta pelo Claude.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Código Claude</span>
+                    <span class="badge ex3">Claude IA</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo Claude IA, o mais completo e detalhado, 
+                    com validação de dados, tratamento de erros e gráficos de alta qualidade.
                 </p>
-                <a href="trabalhos/algoritimos/codigoCLAUDE.pdf" target="_blank" class="botao">
-                    Ver Código Claude
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Validação de dados, modularização, qualidade gráfica.
+                </p>
+                <a href="trabalhos/algoritimos/codigoCLAUDE.PDF" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Código Claude
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Análise: Copilot</h3>
-                <p>
-                    Estudo crítico sobre as respostas obtidas no Copilot, coerência da tabela de resultados e clareza algorítmica.
+            <!-- EXERCÍCIO 4 -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟢 Código Copilot</span>
+                    <span class="badge ex4">Copilot</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo Copilot, funcional e com cálculos corretos, 
+                    porém com menos validação de dados e estrutura mais simples.
                 </p>
-                <a href="trabalhos/algoritimos/codigoCOPILOT.pdf" target="_blank" class="botao">
-                    Ver Código Copilot
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Simplicidade, funcionalidade, cálculos corretos.
+                </p>
+                <a href="trabalhos/algoritimos/codigoCOPILOT.PDF" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Código Copilot
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Relatório Comparativo</h3>
-                <p>
-                    Quadro comparativo final analisando erros, acertos, apresentação gráfica e organização geral entre as três LLMs.
+            <!-- EXERCÍCIO 5 -->
+            <div class="exercicio-card ex5">
+                <h4>
+                    <span>🔴 Relatório</span>
+                    <span class="badge ex5">Análise Comparativa</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Relatório crítico comparando os três códigos gerados, 
+                    com análise de execução, corretude, qualidade dos gráficos e validação de dados.
                 </p>
-                <a href="trabalhos/algoritimos/relatorio.pdf" target="_blank" class="botao">
-                    Abrir Relatório
+                <p style="color:#4a5568; font-size:0.95rem;">
+                    <strong>Destaques:</strong> Comparação detalhada, evidências objetivas, conclusão.
+                </p>
+                <a href="trabalhos/algoritimos/relatorio.PDF" target="_blank" class="btn-pdf ex5">
+                    📄 Ver Relatório
                 </a>
             </div>
 
-        </div>
-    </div>
-</section>
+            <!-- ===== CÓDIGO EXEMPLO 1 (CHATGPT) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (ChatGPT - Estrutura Principal)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo ChatGPT</span>
+<span class="comment"># Análise de Abastecimento de Água</span>
 
-<footer>
-    <h3>Vinicius Moletta da Silva</h3>
-    <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
-</footer>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
 
-</body>
-</html>
+<span class="comment"># Entrada de dados</span>
+N = int(input(<span class="string">"Digite o número de bairros: "</span>))
+
+bairros = []
+demandas = []
+capacidades = []
+volumes_iniciais = []
+perdas_percentuais = []
+custos_m3 = []
+
+<span class="keyword">for</span> i <span class="keyword">in</span> range(N):
+    print(f<span class="string">"\n===== Bairro {i+1} ====="</span>)
+    nome = input(<span class="string">"Nome do bairro: "</span>)
+    demanda = float(input(<span class="string">"Demanda diária (m³): "</span>))
+    capacidade = float(input(<span class="string">"Capacidade do reservatório (m³): "</span>))
+    volume_inicial = float(input(<span class="string">"Volume inicial disponível (m³): "</span>))
+    perda = float(input(<span class="string">"Percentual de perda (%): "</span>))
+    custo = float(input(<span class="string">"Custo de bombeamento por m³ (R$): "</span>))
+    
+    bairros.append(nome)
+    demandas.append(demanda)
+    capacidades.append(capacidade)
+    volumes_iniciais.append(volume_inicial)
+    perdas_percentuais.append(perda)
+    custos_m3.append(custo)
+
+<span class="comment"># Processamento</span>
+volumes_perdidos = []
+volumes_entregues = []
+custos_diarios = []
+autonomias = []
+riscos = []
+
+<span class="keyword">for</span> i <span class="keyword">in</span> range(N):
+    volume_perdido = demandas[i] * (perdas_percentuais[i] / <span class="number">100</span>)
+    volume_entregue = demandas[i] - volume_perdido
+    custo_diario = volume_entregue * custos_m3[i]
+    autonomia = volumes_iniciais[i] / demandas[i]
+    
+    <span class="keyword">if</span> autonomia > <span class="number">3</span>:
+        risco = <span class="string">"Baixo"</span>
+    <span class="keyword">elif</span> autonomia >= <span class="number">1</span>:
+        risco = <span class="string">"Médio"</span>
+    <span class="keyword">else</span>:
+        risco = <span class="string">"Alto"</span>
+    
+    volumes_perdidos.append(volume_perdido)
+    volumes_entregues.append(volume_entregue)
+    custos_diarios.append(custo_diario)
+    autonomias.append(autonomia)
+    riscos.append(risco)
+
+<span class="comment"># Tabela de resultados</span>
+resultado = pd.DataFrame({
+    <span class="string">"Bairro"</span>: bairros,
+    <span class="string">"Demanda"</span>: demandas,
+    <span class="string">"Volume Perdido"</span>: volumes_perdidos,
+    <span class="string">"Volume Entregue"</span>: volumes_entregues,
+    <span class="string">"Custo Diário"</span>: custos_diarios,
+    <span class="string">"Autonomia"</span>: autonomias,
+    <span class="string">"Risco"</span>: riscos
+})
+
+print(<span class="string">"\n===== RESULTADOS ====="</span>)
+display(resultado)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+===== RESULTADOS =====
+     Bairro  Demanda  Volume Perdido  Volume Entregue  Custo Diário  Autonomia    Risco
+0  Centro A    500.0           50.0            450.0       1125.00        2.00   Médio
+1  Centro B    300.0           15.0            285.0        570.00        3.33   Baixo
+2  Centro C    400.0           60.0            340.0       1020.00        0.75    Alto
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (CLAUDE) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Claude - Validação de Dados)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo Claude IA</span>
+<span class="comment"># Função de validação de entrada</span>
+
+<span class="keyword">def</span> <span class="function">ler_float</span>(mensagem, minimo=<span class="number">0.0</span>, maximo=<span class="keyword">None</span>):
+    <span class="string">"""Lê um número float com validação."""</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="keyword">try</span>:
+            valor = float(input(mensagem))
+            <span class="keyword">if</span> valor < minimo:
+                print(f<span class="string">"⚠️ Valor deve ser ≥ {minimo}. Tente novamente."</span>)
+                <span class="keyword">continue</span>
+            <span class="keyword">if</span> maximo <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> valor > maximo:
+                print(f<span class="string">"⚠️ Valor deve ser ≤ {maximo}. Tente novamente."</span>)
+                <span class="keyword">continue</span>
+            <span class="keyword">return</span> valor
+        <span class="keyword">except</span> ValueError:
+            print(<span class="string">"⚠️ Entrada inválida. Digite um número."</span>)
+
+<span class="keyword">def</span> <span class="function">ler_int</span>(mensagem, minimo=<span class="number">1</span>, maximo=<span class="keyword">None</span>):
+    <span class="string">"""Lê um número inteiro com validação."""</span>
+    <span class="keyword">while</span> <span class="keyword">True</span>:
+        <span class="keyword">try</span>:
+            valor = int(input(mensagem))
+            <span class="keyword">if</span> valor < minimo:
+                print(f<span class="string">"⚠️ Valor deve ser ≥ {minimo}. Tente novamente."</span>)
+                <span class="keyword">continue</span>
+            <span class="keyword">if</span> maximo <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> valor > maximo:
+                print(f<span class="string">"⚠️ Valor deve ser ≤ {maximo}. Tente novamente."</span>)
+                <span class="keyword">continue</span>
+            <span class="keyword">return</span> valor
+        <span class="keyword">except</span> ValueError:
+            print(<span class="string">"⚠️ Entrada inválida. Digite um número inteiro."</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Validação</div>
+                <code style="color:#1a202c;">
+Quantos bairros serão analisados? 3
+⚠️ Valor deve ser ≥ 1. Tente novamente.
+Quantos bairros serão analisados? 2
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 3 (COPILOT) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Copilot - Estrutura Simples)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo3()">📋 Copiar</button>
+                <pre id="codigoExemplo3" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo Copilot</span>
+<span class="comment"># Estrutura simples e funcional</span>
+
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+N = int(input(<span class="string">"Digite o número de bairros: "</span>))
+dados = []
+
+<span class="keyword">for</span> i <span class="keyword">in</span> range(N):
+    print(f<span class="string">"\n--- Bairro {i+1} ---"</span>)
+    nome = input(<span class="string">"Nome do bairro: "</span>)
+    demanda = float(input(<span class="string">"Demanda diária estimada (m³): "</span>))
+    capacidade = float(input(<span class="string">"Capacidade do reservatório (m³): "</span>))
+    volume_inicial = float(input(<span class="string">"Volume inicial disponível (m³): "</span>))
+    perda_percentual = float(input(<span class="string">"Percentual de perda (%): "</span>))
+    custo_bombeamento = float(input(<span class="string">"Custo de bombeamento por m³: "</span>))
+    
+    volume_perdido = demanda * (perda_percentual / <span class="number">100</span>)
+    volume_entregue = max(<span class="number">0</span>, demanda - volume_perdido)
+    custo_diario = volume_entregue * custo_bombeamento
+    autonomia = volume_inicial / demanda <span class="keyword">if</span> demanda > <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
+    
+    <span class="keyword">if</span> autonomia > <span class="number">3</span>:
+        risco = <span class="string">"Baixo"</span>
+    <span class="keyword">elif</span> <span class="number">1</span> <= autonomia <= <span class="number">3</span>:
+        risco = <span class="string">"Médio"</span>
+    <span class="keyword">else</span>:
+        risco = <span class="string">"Alto"</span>
+    
+    dados.append({
+        <span class="string">"Bairro"</span>: nome,
+        <span class="string">"Demanda (m³)"</span>: demanda,
+        <span class="string">"Volume Entregue (m³)"</span>: volume_entregue,
+        <span class="string">"Custo Diário (R$)"</span>: custo_diario,
+        <span class="string">"Autonomia (dias)"</span>: round(autonomia, <span class="number">2</span>),
+        <span class="string">"Risco"</span>: risco
+    })
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída</div>
+                <code style="color:#1a202c;">
+Resultados por bairro:
+     Bairro  Demanda (m³)  Volume Entregue (m³)  Custo Diário (R$)  Autonomia (dias)   Risco
+0  Centro A         500.0                 450.0             1125.00             2.00  Médio
+1  Centro B         300.0                 285.0              570.00             3.33  Baixo
+2  Centro C         400.0                 340.0             1020.00             0.75   Alto
+                </code>
+            </div>
+
+            <!-- ===== TABELA COMPARATIVA ===== -->
+            <h3 style="margin-top:30px;">📊 Tabela Comparativa entre LLMs</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th class="text-center">🟣 ChatGPT</th>
+                            <th class="text-center">🟡 Claude</th>
+                            <th class="text-center">🟢 Copilot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Execução</strong></td>
+                            <td class="text-center">✅ Roda sem erro</td>
+                            <td class="text-center">✅ Roda sem erro</td>
+                            <td class="text-center">✅ Roda sem erro</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vetores Variáveis</strong></td>
+                            <td class="text-center">✅ Sim</td>
+                            <td class="text-center">✅ Sim</td>
+                            <td class="text-center">✅ Sim</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Corretude</strong></td>
+                            <td class="text-center">✅ Corretos</td>
+                            <td class="text-center">✅ Corretos</td>
+                            <td class="text-center">✅ Corretos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Qualidade dos Gráficos</strong></td>
+                            <td class="text-center">🟡 Boa</td>
+                            <td class="text-center">🟢 Excelente</td>
+                            <td class="text-center">🟡 Boa</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legibilidade</strong></td>
+                            <td class="text-center">🟢 Organizado</td>
+                            <td class="text-center">🟢 Muito Organizado</td>
+                            <td class="text-center">🟡 Simples</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Validação</strong></td>
+                            <td class="text-center">🟡 Básica</td>
+                            <td class="text-center">🟢 Completa</td>
+                            <td class="text-center">🔴 Pouca</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modularização</strong></td>
+                            <td class="text-center">🟡 Parcial</td>
+                            <td class="text-center">🟢 Completa</td>
+                            <td class="text-center">🔴 Pouca</td>
+                        </tr>
+                        <tr style="background:#edf2f7; font-weight:600;">
+                            <td><strong>⭐ Avaliação Geral</strong></td>
+                            <td class="text-center">🟢 Bom</td>
+                            <td class="text-center">🟢 Excelente</td>
+                            <td class="text-center">🟡 Regular</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== TABELA DE DESEMPENHO ===== -->
+            <h3 style="margin-top:30px;">📈 Resumo do Relatório</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>LLM</th>
+                            <th>Pontos Positivos</th>
+                            <th>Pontos a Melhorar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ChatGPT</strong></td>
+                            <td>Estrutura organizada, comentários, gráficos com legendas</td>
+                            <td>Validação de dados básica</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Claude</strong></td>
+                            <td>Validação completa, modularização, gráficos de alta qualidade</td>
+                            <td>Nenhum ponto relevante</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Copilot</strong></td>
+                            <td>Código funcional, cálculos corretos</td>
+                            <td>Pouca validação, estrutura simples</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Conclusão:</strong> O Claude IA produziu a melhor solução, com validação completa, 
+                modularização, gráficos de alta qualidade e tratamento de erros robusto. O ChatGPT 
+                apresentou uma solução organizada e funcional, enquanto o Copilot, embora funcional, 
+                carece de validação e estrutura mais elaborada.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/exercicioproposto.PDF" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Exercício Proposto
+                </a>
+                <a href="trabalhos/algoritimos/codigoGPT.PDF" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Código GPT
+                </a>
+                <a href="trabalhos/algoritimos/codigoCLAUDE.PDF" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Claude
+                </a>
+                <a href="trabalhos/algoritimos/codigoCOPILOT.PDF" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Código Copilot
+                </a>
+                <a href="trabalhos
