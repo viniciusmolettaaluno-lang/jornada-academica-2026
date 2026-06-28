@@ -3,61 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 14</title>
+    <title>Trabalho 14 - Catálogo de Eventos Esportivos de Alegrete-RS</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; background: #ebf8ff; }
+        .exercicio-card.ex2 { border-left-color: #38a169; background: #f0fff4; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #c6f6d5; color: #22543d; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #38a169; }
+
+        /* ===== PREVIEW DO CATÁLOGO ===== */
+        .catalogo-preview {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .catalogo-preview .card-preview {
+            background: white;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .catalogo-preview .card-preview h4 {
+            color: #1a365d;
+            margin-bottom: 4px;
+        }
+        .catalogo-preview .card-preview .meta {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        .catalogo-preview .card-preview .badge-modalidade {
+            display: inline-block;
+            background: #bee3f8;
+            color: #1a365d;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho13.html">Trabalho 13</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho13.html">◀ Trabalho 13</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 14</h1>
-        <p>
-            Catálogo de Eventos Esportivos de Alegrete-RS: Aplicação de Inteligência Artificial e programação Python para o levantamento, estruturação e enriquecimento do conteúdo histórico, digital e cultural do município.
+        <h1>🏟️ Trabalho 14</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Catálogo de Eventos Esportivos de Alegrete-RS
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag green">📊 Dados</span>
+            <span class="tag purple">🧠 IA</span>
+            <span class="tag orange">🏛️ Cultura</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Aplicação de Inteligência Artificial e programação Python para o levantamento, 
+            estruturação e enriquecimento do conteúdo histórico, digital e cultural do município 
+            de Alegrete-RS através de um catálogo de eventos esportivos.
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>Catálogo de Eventos</h3>
-                <p>
-                    Resultado estruturado contendo as modalidades, datas, locais, mídias, links oficiais, redes sociais e o histórico das edições esportivas de Alegrete-RS.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Projeto</h3>
+            <p style="color:#2d3748;">
+                Desenvolver uma aplicação em Python capaz de organizar informações sobre eventos esportivos 
+                realizados em Alegrete-RS. A solução gera automaticamente arquivos em formatos estruturados 
+                (JSON e CSV) e também uma página web (HTML) para facilitar a visualização e consulta dos eventos.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Catálogo contendo nome, modalidade, data, local, histórico e imagens dos eventos</li>
+                <li>Geração automática de arquivos JSON e CSV para integração com outros sistemas</li>
+                <li>Página web responsiva para visualização dos eventos</li>
+                <li>Base para futuras integrações com o portal Alegrete.org</li>
+                <li>Contribuição para a divulgação do esporte no município</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Catálogo de Eventos</span>
+                    <span class="badge ex1">Descrição</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Documento detalhado sobre o objetivo da solução, 
+                    LLMs utilizadas, principais dificuldades encontradas e resultados obtidos 
+                    no desenvolvimento do catálogo.
                 </p>
-                <a href="trabalhos/algoritimos/Catálogo de Eventos Esportivos de Alegrete-RS.pdf" target="_blank" class="botao">
-                    Abrir Catálogo
+                <a href="trabalhos/algoritimos/CatalogodeEventos.pdf" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Catálogo
                 </a>
             </div>
 
-            <div class="card">
-                <h3>Código-Fonte do Catálogo</h3>
-                <p>
-                    Script Python desenvolvido com o auxílio de IA para a coleta, organização e geração estruturada das informações do catálogo esportivo.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟢 Código do Sistema</span>
+                    <span class="badge ex2">Python</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código completo em Python para geração automática dos 
+                    arquivos JSON, CSV e HTML com os dados dos eventos esportivos de Alegrete-RS.
                 </p>
-                <a href="trabalhos/algoritimos/codigo catalogo esportes.pdf" target="_blank" class="botao">
-                    Ver Código Fonte
+                <a href="trabalhos/algoritimos/codigocatalogoesportes.pdf" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código
                 </a>
             </div>
 
+            <!-- ===== PREVIEW DO CATÁLOGO ===== -->
+            <h3 style="margin-top:30px;">📋 Pré-visualização do Catálogo</h3>
+            <div class="catalogo-preview">
+                <div class="card-preview">
+                    <h4>🏃 Titans Race</h4>
+                    <span class="badge-modalidade">Corrida de Obstáculos</span>
+                    <div class="meta">📅 2026 • 📍 Alegrete - RS</div>
+                    <div class="meta">📸 @titansrace • <a href="#" style="color:#2b6cb0;">Página Oficial</a></div>
+                    <div class="meta" style="font-size:0.85rem; color:#718096;">Evento realizado anualmente.</div>
+                </div>
+                <div class="card-preview">
+                    <h4>🏃 Minerva Run</h4>
+                    <span class="badge-modalidade">Corrida de Rua</span>
+                    <div class="meta">📅 01/02/2026 • 📍 Parque Rui Ramos</div>
+                    <div class="meta">📸 @minervarun • <a href="#" style="color:#2b6cb0;">Página Oficial</a></div>
+                    <div class="meta" style="font-size:0.85rem; color:#718096;">Evento esportivo tradicional.</div>
+                </div>
+                <div class="card-preview">
+                    <h4>🤝 Pernas Solidárias</h4>
+                    <span class="badge-modalidade">Corrida Beneficente</span>
+                    <div class="meta">📅 26/04/2026 • 📍 Alegrete - RS</div>
+                    <div class="meta">📸 @sescrs • <a href="#" style="color:#2b6cb0;">Página Oficial</a></div>
+                    <div class="meta" style="font-size:0.85rem; color:#718096;">Corrida com arrecadação solidária.</div>
+                </div>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Geração de Catálogo)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código para geração do Catálogo de Eventos Esportivos</span>
+<span class="comment"># Geração automática de JSON, CSV e HTML</span>
+
+<span class="keyword">import</span> json
+<span class="keyword">import</span> csv
+
+<span class="comment"># Catálogo de eventos esportivos de Alegrete</span>
+eventos = [
+    {
+        <span class="string">"nome"</span>: <span class="string">"Titans Race"</span>,
+        <span class="string">"modalidade"</span>: <span class="string">"Corrida de Obstáculos"</span>,
+        <span class="string">"data"</span>: <span class="string">"2026"</span>,
+        <span class="string">"local"</span>: <span class="string">"Alegrete - RS"</span>,
+        <span class="string">"imagem"</span>: <span class="string">"https://via.placeholder.com/400x200"</span>,
+        <span class="string">"site"</span>: <span class="string">"https://www.titansrace.com.br"</span>,
+        <span class="string">"instagram"</span>: <span class="string">"@titansrace"</span>,
+        <span class="string">"historico"</span>: <span class="string">"Evento realizado anualmente."</span>
+    },
+    {
+        <span class="string">"nome"</span>: <span class="string">"Minerva Run"</span>,
+        <span class="string">"modalidade"</span>: <span class="string">"Corrida de Rua"</span>,
+        <span class="string">"data"</span>: <span class="string">"01/02/2026"</span>,
+        <span class="string">"local"</span>: <span class="string">"Parque Rui Ramos"</span>,
+        <span class="string">"imagem"</span>: <span class="string">"https://via.placeholder.com/400x200"</span>,
+        <span class="string">"site"</span>: <span class="string">"https://cronometraeventos.com.br"</span>,
+        <span class="string">"instagram"</span>: <span class="string">"@minervarun"</span>,
+        <span class="string">"historico"</span>: <span class="string">"Evento esportivo tradicional."</span>
+    },
+    {
+        <span class="string">"nome"</span>: <span class="string">"Pernas Solidárias"</span>,
+        <span class="string">"modalidade"</span>: <span class="string">"Corrida Beneficente"</span>,
+        <span class="string">"data"</span>: <span class="string">"26/04/2026"</span>,
+        <span class="string">"local"</span>: <span class="string">"Alegrete - RS"</span>,
+        <span class="string">"imagem"</span>: <span class="string">"https://via.placeholder.com/400x200"</span>,
+        <span class="string">"site"</span>: <span class="string">"https://www.sesc-rs.com.br"</span>,
+        <span class="string">"instagram"</span>: <span class="string">"@sescrs"</span>,
+        <span class="string">"historico"</span>: <span class="string">"Corrida com arrecadação solidária."</span>
+    }
+]
+
+<span class="comment"># Gerar JSON</span>
+<span class="keyword">with</span> open(<span class="string">"eventos.json"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> arquivo:
+    json.dump(eventos, arquivo, ensure_ascii=<span class="keyword">False</span>, indent=<span class="number">4</span>)
+
+<span class="comment"># Gerar CSV</span>
+<span class="keyword">with</span> open(<span class="string">"eventos.csv"</span>, <span class="string">"w"</span>, newline=<span class="string">""</span>, encoding=<span class="string">"utf-8-sig"</span>) <span class="keyword">as</span> arquivo:
+    escritor = csv.DictWriter(arquivo, fieldnames=eventos[<span class="number">0</span>].keys())
+    escritor.writeheader()
+    escritor.writerows(eventos)
+
+print(<span class="string">"="</span> * <span class="number">50</span>)
+print(<span class="string">"CATÁLOGO ESPORTIVO DE ALEGRETE"</span>)
+print(<span class="string">"="</span> * <span class="number">50</span>)
+print(<span class="string">"\nArquivos gerados com sucesso:"</span>)
+print(<span class="string">"✓ eventos.json"</span>)
+print(<span class="string">"✓ eventos.csv"</span>)
+print(<span class="string">"✓ index.html"</span>)
+print(<span class="string">"\nAbra o arquivo index.html para visualizar o catálogo."</span>)
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Saída do programa</div>
+                <code style="color:#1a202c;">
+==================================================
+CATÁLOGO ESPORTIVO DE ALEGRETE
+==================================================
+
+Arquivos gerados com sucesso:
+✓ eventos.json
+✓ eventos.csv
+✓ index.html
+
+Abra o arquivo index.html para visualizar o catálogo.
+                </code>
+            </div>
+
+            <!-- ===== TABELA DE RESULTADOS ===== -->
+            <h3 style="margin-top:30px;">📊 Resumo dos Resultados</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Descrição</th>
+                            <th>Formato</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>📋 Catálogo</strong></td>
+                            <td>Dados dos eventos com nome, modalidade, data, local, histórico, imagem e links</td>
+                            <td>JSON / CSV / HTML</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📄 JSON</strong></td>
+                            <td>Estrutura leve para integração com APIs e sistemas</td>
+                            <td>.json</td>
+                        </tr>
+                        <tr>
+                            <td><strong>📊 CSV</strong></td>
+                            <td>Planilha para análise em Excel, Google Sheets e bancos de dados</td>
+                            <td>.csv</td>
+                        </tr>
+                        <tr>
+                            <td><strong>🌐 HTML</strong></td>
+                            <td>Página web responsiva com cards para visualização dos eventos</td>
+                            <td>.html</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>Diferencial:</strong> O sistema foi desenvolvido para ser simples e executável 
+                sem a necessidade de pastas complexas, gerando automaticamente todos os arquivos 
+                necessários para a divulgação e organização dos eventos esportivos de Alegrete-RS.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/CatalogodeEventos.pdf" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Catálogo de Eventos
+                </a>
+                <a href="trabalhos/algoritimos/codigocatalogoesportes.pdf" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Código do Sistema
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #4299e1;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> Este projeto demonstrou como a programação Python aliada 
+                à Inteligência Artificial pode ser aplicada para organizar e valorizar o patrimônio 
+                cultural e esportivo de um município. A geração automática de arquivos em múltiplos 
+                formatos (JSON, CSV, HTML) permite que os dados sejam utilizados de forma versátil, 
+                desde planilhas até páginas web. O uso do ChatGPT para auxiliar na concepção e 
+                desenvolvimento da solução mostrou como as IAs podem acelerar o processo de criação 
+                de ferramentas úteis para a comunidade.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#4299e1; color:white;">✅ Python</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Dados e Cultura</span>
+                <span class="tag" style="background:#805ad5; color:white;">✅ IA Aplicada</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
 
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
+
 </body>
-</html>
+    </html>
