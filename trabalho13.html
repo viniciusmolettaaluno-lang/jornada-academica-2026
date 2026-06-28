@@ -3,81 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabalho 13</title>
+    <title>Trabalho 13 - Modularização de Código e Avaliação de LLMs</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
+
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .exercicio-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 16px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .exercicio-card.ex1 { border-left-color: #4299e1; }
+        .exercicio-card.ex2 { border-left-color: #805ad5; }
+        .exercicio-card.ex3 { border-left-color: #d69e2e; }
+        .exercicio-card.ex4 { border-left-color: #38a169; }
+        .exercicio-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .exercicio-card .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .exercicio-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .exercicio-card .badge.ex2 { background: #e9d8fd; color: #44337a; }
+        .exercicio-card .badge.ex3 { background: #fefcbf; color: #744210; }
+        .exercicio-card .badge.ex4 { background: #c6f6d5; color: #22543d; }
+
+        .btn-pdf {
+            display: inline-block;
+            background: #2b6cb0;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+        .btn-pdf:hover {
+            background: #1a4f8a;
+        }
+        .btn-pdf.ex1 { background: #4299e1; }
+        .btn-pdf.ex2 { background: #805ad5; }
+        .btn-pdf.ex3 { background: #d69e2e; }
+        .btn-pdf.ex4 { background: #38a169; }
+
+        /* ===== TABELA COMPARATIVA ===== */
+        .tabela-comparativa {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        .tabela-comparativa th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        .tabela-comparativa td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        .tabela-comparativa tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+        .text-green { color: #38a169; font-weight: 600; }
+        .text-gold { color: #d69e2e; font-weight: 600; }
+    </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
-    <h2>Portfólio Acadêmico</h2>
+    <h2>📘 Portfólio Acadêmico</h2>
     <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="trabalho12.html">Trabalho 12</a></li>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho12.html">◀ Trabalho 12</a></li>
+        <li><a href="trabalho14.html">Trabalho 14 ▶</a></li>
     </ul>
 </nav>
 
+<!-- ========== HEADER ========== -->
 <header>
     <div class="container">
-        <h1>Trabalho 13</h1>
-        <p>
-            Modularização de Código e Avaliação de LLMs: Desenvolvimento de uma solução para monitoramento de grandezas de engenharia, com foco na análise crítica do nível de modularização e legibilidade das soluções geradas por diferentes IAs.
+        <h1>🧩 Trabalho 13</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Modularização de Código e Avaliação de LLMs
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🐍 Python</span>
+            <span class="tag purple">🧠 LLMs</span>
+            <span class="tag orange">⚡ Engenharia Elétrica</span>
+            <span class="tag green">📊 Modularização</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Desenvolvimento de uma solução para monitoramento de grandezas de engenharia (tensão elétrica), 
+            com foco na análise crítica do nível de modularização, legibilidade e qualidade das soluções 
+            geradas por diferentes IAs (ChatGPT e Gemini).
         </p>
     </div>
 </header>
 
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
 <section>
     <div class="container">
-        <div class="grid">
 
-            <div class="card">
-                <h3>1. Lógica e Pseudocódigo</h3>
-                <p>
-                    Estruturação da lógica do problema com as próprias palavras através de pseudocódigo para o monitoramento das grandezas de engenharia.
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Desenvolver uma solução em Python para monitoramento de grandezas de engenharia (tensão elétrica), 
+                com foco na análise crítica do nível de modularização, legibilidade e qualidade das soluções 
+                geradas por diferentes LLMs (ChatGPT e Gemini). O trabalho envolve:
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Desenvolvimento de um sistema de diagnóstico de rede elétrica</li>
+                <li>Validação e filtragem de medições de tensão</li>
+                <li>Classificação de medições em Normal, Alerta e Crítico</li>
+                <li>Detecção de eventos críticos e sequências consecutivas</li>
+                <li>Comparação da modularização entre ChatGPT e Gemini</li>
+            </ul>
+
+            <!-- ===== LISTA DE EXERCÍCIOS ===== -->
+            <h3 style="margin-top:30px;">📋 Documentos do Trabalho</h3>
+            
+            <!-- EXERCÍCIO 1 -->
+            <div class="exercicio-card ex1">
+                <h4>
+                    <span>🔵 Pseudocódigo</span>
+                    <span class="badge ex1">Estrutura Lógica</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Pseudocódigo do sistema de diagnóstico de rede elétrica, 
+                    incluindo validação de medições, classificação e detecção de eventos críticos.
                 </p>
-                <a href="trabalhos/algoritimos/pseudocodigo13.pdf" target="_blank" class="botao">
-                    Abrir Pseudocódigo
+                <a href="trabalhos/algoritimos/pseudocodigo13.PDF" target="_blank" class="btn-pdf ex1">
+                    📄 Ver Pseudocódigo
                 </a>
             </div>
 
-            <div class="card">
-                <h3>2. Código: ChatGPT</h3>
-                <p>
-                    Implementação em Python gerada pelo modelo ChatGPT a partir da lógica de monitoramento proposta.
+            <!-- EXERCÍCIO 2 -->
+            <div class="exercicio-card ex2">
+                <h4>
+                    <span>🟣 Código ChatGPT</span>
+                    <span class="badge ex2">GPT</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo ChatGPT com estrutura modular, 
+                    funções bem definidas e boa legibilidade.
                 </p>
-                <a href="trabalhos/algoritimos/gpt13.pdf" target="_blank" class="botao">
-                    Ver Código GPT
+                <a href="trabalhos/algoritimos/gpt13.PDF" target="_blank" class="btn-pdf ex2">
+                    📄 Ver Código ChatGPT
                 </a>
             </div>
 
-            <div class="card">
-                <h3>3. Código: Gemini</h3>
-                <p>
-                    Implementação modularizada desenvolvida pelo modelo Gemini em Python para análise comparativa.
+            <!-- EXERCÍCIO 3 -->
+            <div class="exercicio-card ex3">
+                <h4>
+                    <span>🟡 Código Gemini</span>
+                    <span class="badge ex3">Gemini</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Código gerado pelo Gemini com modularização completa, 
+                    sem variáveis globais e alta testabilidade.
                 </p>
-                <a href="trabalhos/algoritimos/geminitrab13.pdf" target="_blank" class="botao">
-                    Ver Código Gemini
+                <a href="trabalhos/algoritimos/geminitrab13.pdf" target="_blank" class="btn-pdf ex3">
+                    📄 Ver Código Gemini
                 </a>
             </div>
 
-            <div class="card">
-                <h3>4. Avaliação de Modularização</h3>
-                <p>
-                    Estudo crítico avaliando o uso de funções, clareza de escopo, reaproveitamento de código e legibilidade entre as soluções geradas pelas IAs.
+            <!-- EXERCÍCIO 4 -->
+            <div class="exercicio-card ex4">
+                <h4>
+                    <span>🟢 Avaliação Final</span>
+                    <span class="badge ex4">Análise Comparativa</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    <strong>Descrição:</strong> Avaliação crítica comparando os códigos gerados pelo 
+                    ChatGPT e Gemini, com critérios de modularização, legibilidade e qualidade.
                 </p>
-                <a href="trabalhos/algoritimos/avaliacao final13.pdf" target="_blank" class="botao">
-                    Abrir Avaliação Final
+                <a href="trabalhos/algoritimos/avaliacao%20final13.PDF" target="_blank" class="btn-pdf ex4">
+                    📄 Ver Avaliação Final
                 </a>
             </div>
 
+            <!-- ===== CÓDIGO EXEMPLO 1 (CHATGPT) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (ChatGPT - Estrutura Modular)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo ChatGPT</span>
+<span class="comment"># Sistema de diagnóstico de rede elétrica</span>
+
+<span class="keyword">import</span> statistics
+
+TENSAO_NOMINAL = <span class="number">220</span>
+TENSAO_MINIMA = <span class="number">0</span>
+TENSAO_MAXIMA = <span class="number">500</span>
+
+<span class="keyword">def</span> <span class="function">validar_medicao</span>(valor):
+    <span class="string">"""Verifica se a medição é numérica e está na faixa válida."""</span>
+    <span class="keyword">try</span>:
+        valor = float(valor)
+        <span class="keyword">return</span> TENSAO_MINIMA <= valor <= TENSAO_MAXIMA
+    <span class="keyword">except</span> (ValueError, TypeError):
+        <span class="keyword">return</span> <span class="keyword">False</span>
+
+<span class="keyword">def</span> <span class="function">calcular_desvio_percentual</span>(tensao):
+    <span class="string">"""Calcula o desvio percentual em relação à tensão nominal."""</span>
+    <span class="keyword">return</span> abs(tensao - TENSAO_NOMINAL) / TENSAO_NOMINAL * <span class="number">100</span>
+
+<span class="keyword">def</span> <span class="function">classificar_medicao</span>(tensao):
+    <span class="string">"""Classifica a medição em NORMAL, ALERTA ou CRÍTICO."""</span>
+    desvio = calcular_desvio_percentual(tensao)
+    <span class="keyword">if</span> desvio > <span class="number">20</span>:
+        <span class="keyword">return</span> <span class="string">"CRÍTICO"</span>
+    <span class="keyword">elif</span> desvio > <span class="number">10</span>:
+        <span class="keyword">return</span> <span class="string">"ALERTA"</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> <span class="string">"NORMAL"</span>
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (ChatGPT)</div>
+                <code style="color:#1a202c;">
+============= RELATÓRIO ===========
+
+Amostras válidas: 8
+Amostras descartadas: 4
+
+--- Estatísticas ---
+Média: 231.88 V
+Mínimo: 170.00 V
+Máximo: 290.00 V
+Desvio padrão: 41.70 V
+
+--- Classificação ---
+NORMAL : 2
+ALERTA : 2
+CRITICO: 4
+
+--- Eventos Críticos ---
+Quantidade de eventos: 4
+Maior sequência crítica: 4
+                </code>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO 2 (GEMINI) ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Gemini - Modularização Completa)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo2()">📋 Copiar</button>
+                <pre id="codigoExemplo2" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment"># Código gerado pelo Gemini</span>
+<span class="comment"># Sistema de diagnóstico - versão modular</span>
+
+<span class="keyword">def</span> <span class="function">validar_e_filtrar_medicoes</span>(dados_brutos, faixa_min, faixa_max):
+    <span class="string">"""Valida e filtra medições, descartando valores inválidos."""</span>
+    validas = []
+    descartadas = <span class="number">0</span>
+    <span class="keyword">for</span> valor <span class="keyword">in</span> dados_brutos:
+        <span class="keyword">try</span>:
+            v = float(valor)
+            <span class="keyword">if</span> faixa_min <= v <= faixa_max:
+                validas.append(v)
+            <span class="keyword">else</span>:
+                descartadas += <span class="number">1</span>
+        <span class="keyword">except</span> (ValueError, TypeError):
+            descartadas += <span class="number">1</span>
+    <span class="keyword">return</span> validas, descartadas
+
+<span class="keyword">def</span> <span class="function">calcular_estatisticas</span>(medicoes):
+    <span class="string">"""Calcula média, mínimo, máximo e desvio padrão."""</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> medicoes:
+        <span class="keyword">return</span> {<span class="string">"minimo"</span>: <span class="keyword">None</span>, <span class="string">"maximo"</span>: <span class="keyword">None</span>, 
+                <span class="string">"media"</span>: <span class="keyword">None</span>, <span class="string">"desvio_padrao"</span>: <span class="keyword">None</span>}
+    <span class="keyword">return</span> {
+        <span class="string">"minimo"</span>: min(medicoes),
+        <span class="string">"maximo"</span>: max(medicoes),
+        <span class="string">"media"</span>: sum(medicoes) / len(medicoes),
+        <span class="string">"desvio_padrao"</span>: statistics.stdev(medicoes) <span class="keyword">if</span> len(medicoes) > <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>
+    }
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Exemplo de Saída (Gemini)</div>
+                <code style="color:#1a202c;">
+=======================================================
+   RELATÓRIO DE DIAGNÓSTICO DA REDE ELÉTRICA
+=======================================================
+Tensão Nominal de Referência: 220.0 V
+Limiar de Alerta:  22.0V de desvio (10%)
+Limiar Crítico:  44.0V de desvio (20%)
+-------------------------------------------------------
+Amostras Válidas:  9
+Amostras Descartadas:  4
+-------------------------------------------------------
+ESTATÍSTICAS DA TENSÃO:
+ Mínima:  150.00 V
+ Máxima:  280.00 V
+ Média:  232.22 V
+ Desvio Padrão Amostral:  42.67 V
+-------------------------------------------------------
+DISTRIBUIÇÃO DOS ESTADOS:
+ Normal:  3 amostra(s)
+ Alerta [Desvio > 10%]:  2 amostra(s)
+ Crítico [Desvio > 20%]:  4 amostra(s)
+-------------------------------------------------------
+DETECÇÃO DE EVENTOS CRÍTICOS:
+ Total de medições críticas: 4
+ Maior sequência crítica consecutiva: 4
+=======================================================
+                </code>
+            </div>
+
+            <!-- ===== TABELA COMPARATIVA ===== -->
+            <h3 style="margin-top:30px;">📊 Avaliação de Modularização</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table class="tabela-comparativa">
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th class="text-center">🔵 Gemini</th>
+                            <th class="text-center">🟣 ChatGPT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Decomposição em funções (responsabilidade única)</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nomes descritivos de funções e variáveis</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ausência de duplicação de código (DRY)</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parâmetros e retornos bem definidos</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reaproveitamento de funções</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Função principal organizando o fluxo</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legibilidade e comentários</strong></td>
+                            <td class="text-center text-green">✅ 2</td>
+                            <td class="text-center text-green">✅ 2</td>
+                        </tr>
+                        <tr style="background:#edf2f7; font-weight:600;">
+                            <td><strong>⭐ Total</strong></td>
+                            <td class="text-center" style="color:#38a169; font-size:1.1rem;">14/14</td>
+                            <td class="text-center" style="color:#d69e2e; font-size:1.1rem;">13/14</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== CONCLUSÃO ===== -->
+            <h3 style="margin-top:30px;">📋 Conclusão da Avaliação</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0;">
+                <p style="color:#2d3748;">
+                    <strong>1.</strong> Os dois são muito bons. Os dois funcionam, são organizados e fáceis de entender.
+                </p>
+                <p style="color:#2d3748;">
+                    <strong>2.</strong> O <strong style="color:#38a169;">Gemini</strong> ainda ganha por pouco. Ele é um pouquinho melhor porque não usa nenhuma variável global. Tudo entra por parâmetro e sai por retorno. Isso é tecnicamente mais correto.
+                </p>
+                <p style="color:#2d3748;">
+                    <strong>3.</strong> O <strong style="color:#805ad5;">ChatGPT</strong> melhorou muito da primeira versão para essa. A versão 2 está quase no mesmo nível do Gemini. O único "defeito" é que ele ainda usa constantes globais no topo (<code>TENSAO_NOMINAL = 220</code>). Se ele tivesse passado esses valores como parâmetro, teria nota máxima também.
+                </p>
+                <p style="color:#2d3748;">
+                    <strong>4.</strong> Na prática, para um sistema real de monitoramento, os dois códigos seriam aceitáveis. Mas se eu fosse engenheiro e tivesse que escolher um, escolheria o <strong style="color:#38a169;">Gemini</strong> por ser ligeiramente mais flexível e testável.
+                </p>
+            </div>
+
+            <p style="color:#4a5568; font-size:0.95rem; margin-top:12px;">
+                💡 <strong>O que aprendi:</strong> Pequenos detalhes, como evitar variáveis globais, fazem diferença na qualidade do código. Para a faculdade, os dois códigos são ótimos exemplos de modularização.
+            </p>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="trabalhos/algoritimos/pseudocodigo13.PDF" target="_blank" class="botao" style="background:#4299e1;">
+                    📄 Pseudocódigo
+                </a>
+                <a href="trabalhos/algoritimos/gpt13.PDF" target="_blank" class="botao" style="background:#805ad5;">
+                    📄 Código ChatGPT
+                </a>
+                <a href="trabalhos/algoritimos/geminitrab13.pdf" target="_blank" class="botao" style="background:#d69e2e;">
+                    📄 Código Gemini
+                </a>
+                <a href="trabalhos/algoritimos/avaliacao%20final13.PDF" target="_blank" class="botao" style="background:#38a169;">
+                    📄 Avaliação Final
+                </a>
+            </div>
         </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Aprendizado</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> A análise comparativa entre as soluções geradas pelo ChatGPT e Gemini 
+                para o problema de monitoramento de tensão elétrica demonstrou a importância da modularização 
+                na qualidade do código. O Gemini se destacou por evitar variáveis globais, tornando o código 
+                mais testável e flexível. O ChatGPT também apresentou uma solução de alta qualidade, com 
+                estrutura modular e boa legibilidade, perdendo apenas no detalhe das constantes globais. 
+                Este trabalho reforçou a importância de avaliar criticamente o código gerado por LLMs e 
+                entender os princípios de engenharia de software que fazem a diferença na prática.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ Modularização</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ Avaliação de LLMs</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ Engenharia de Software</span>
+            </div>
+        </div>
+
     </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
     <h3>Vinicius Moletta da Silva</h3>
     <p>Engenharia Elétrica</p>
-    <p><a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color: inherit; text-decoration: none;">viniciusmoletta.aluno@unipampa.edu.br</a></p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
 </footer>
 
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[0];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+
+    function copiarCodigo2() {
+        const codigo = document.getElementById('codigoExemplo2').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelectorAll('.copy-btn')[1];
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
+
 </body>
-</html>
+    </html>
