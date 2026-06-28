@@ -250,3 +250,15 @@ footer p a:hover {
     background-color: #e2e8f0 !important;
     color: #1a365d !important;
 }
+.comparacao-card,
+.comparacao-card *{
+    color:#1f2937;
+}
+
+.comparacao-card .check{
+    color:#16a34a;
+}
+
+.comparacao-card .cross{
+    color:#dc2626;
+}
