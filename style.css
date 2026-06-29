@@ -354,3 +354,28 @@ footer p a:hover {
 .output-box code {
     color: #1a202c !important;
 }
+/* ==========================================
+   CORREÇÃO RÁPIDA - TODOS OS TRABALHOS
+   ========================================== */
+
+/* Força todos os textos dentro dos cards a ficarem escuros */
+.card-trabalho {
+    color: #1a202c !important;
+}
+
+.card-trabalho * {
+    color: #1a202c !important;
+}
+
+/* EXCEÇÃO: código, menu, footer, header */
+.navbar, .navbar *, footer, footer *, header, header *,
+.card-trabalho .code-block, .card-trabalho .code-block * {
+    color: inherit !important;
+}
+
+/* Restaura as cores do código */
+.card-trabalho .code-block .comment { color: #68d391 !important; }
+.card-trabalho .code-block .keyword { color: #f472b6 !important; }
+.card-trabalho .code-block .string { color: #fbbf24 !important; }
+.card-trabalho .code-block .function { color: #60a5fa !important; }
+.card-trabalho .code-block .number { color: #f472b6 !important; }
