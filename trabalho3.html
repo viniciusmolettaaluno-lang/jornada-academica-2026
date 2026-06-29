@@ -189,6 +189,42 @@
             font-weight: 600;
         }
         .text-center { text-align: center; }
+
+        .arquivos-esperados {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .arquivos-esperados h4 {
+            color: #1a365d;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        .arquivos-esperados code {
+            background: #edf2f7;
+            padding: 2px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 3px 0;
+            font-size: 0.85rem;
+            color: #2d3748;
+        }
+        .arquivos-esperados .file-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .arquivos-esperados .file-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #2d3748;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -487,14 +523,17 @@ Tensão = 220.00 V
                 </a>
             </div>
 
-            <!-- ===== AVISO SOBRE PDFS ===== -->
-            <div style="background: #fefcbf; border-radius: 8px; padding: 12px 16px; margin-top: 16px; border-left: 4px solid #d69e2e;">
-                <p style="color:#744210; font-size:0.95rem; margin:0;">
-                    ⚠️ <strong>Arquivos esperados na pasta:</strong><br>
-                    <code style="background:#edf2f7; padding:2px 6px; border-radius:4px;">trabalhos/algoritimos/relatoriofinal.PDF</code><br>
-                    <code style="background:#edf2f7; padding:2px 6px; border-radius:4px;">trabalhos/algoritimos/claude.PDF</code><br>
-                    <code style="background:#edf2f7; padding:2px 6px; border-radius:4px;">trabalhos/algoritimos/gemini.PDF</code><br>
-                    <code style="background:#edf2f7; padding:2px 6px; border-radius:4px;">trabalhos/algoritimos/grok.PDF</code>
+            <!-- ===== ARQUIVOS ESPERADOS (VERSÃO MAIS LIMPA) ===== -->
+            <div class="arquivos-esperados">
+                <h4>📁 Arquivos do Trabalho</h4>
+                <div class="file-list">
+                    <span class="file-item">relatoriofinal.PDF</span>
+                    <span class="file-item">claude.PDF</span>
+                    <span class="file-item">gemini.PDF</span>
+                    <span class="file-item">grok.PDF</span>
+                </div>
+                <p style="color:#718096; font-size:0.85rem; margin-top:6px;">
+                    Localização: <code>trabalhos/algoritimos/</code>
                 </p>
             </div>
         </div>
