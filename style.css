@@ -262,3 +262,95 @@ footer p a:hover {
 .comparacao-card .cross{
     color:#dc2626;
 }
+/* ==========================================
+   CORREÇÃO - EXERCÍCIOS (TRABALHO 3)
+   ========================================== */
+
+/* Garante que os cards de IA tenham fundo claro e texto escuro */
+.ia-card {
+    background: #f7fafc !important;
+    color: #1a202c !important;
+}
+
+.ia-card * {
+    color: #1a202c !important;
+}
+
+/* Força a cor correta para os textos dentro dos cards */
+.ia-card h4,
+.ia-card h4 span,
+.ia-card p,
+.ia-card .exercise-item,
+.ia-card .exercise-item strong,
+.ia-card .badge {
+    color: #1a202c !important;
+}
+
+/* Badges com cores específicas */
+.ia-card .badge.gemini {
+    background: #bee3f8 !important;
+    color: #1a365d !important;
+}
+.ia-card .badge.claude {
+    background: #e9d8fd !important;
+    color: #44337a !important;
+}
+.ia-card .badge.grok {
+    background: #fed7d7 !important;
+    color: #742a2a !important;
+}
+
+/* Lista de exercícios - fundo branco e texto escuro */
+.exercise-list .exercise-item {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1a202c !important;
+}
+
+.exercise-list .exercise-item strong {
+    color: #1a365d !important;
+}
+
+/* Garante que os títulos das seções dentro do card fiquem escuros */
+.ia-card h4 {
+    color: #1a202c !important;
+}
+
+/* Títulos dentro do card-trabalho */
+.card-trabalho h3 {
+    color: #1a365d !important;
+}
+
+.card-trabalho p {
+    color: #2d3748 !important;
+}
+
+/* Corrige a cor dos textos nos cards de exemplo de código */
+.code-block {
+    background: #1a202c !important;
+    color: #e2e8f0 !important;
+}
+
+.code-block * {
+    color: #e2e8f0 !important;
+}
+
+.code-block .comment { color: #68d391 !important; }
+.code-block .keyword { color: #f472b6 !important; }
+.code-block .string { color: #fbbf24 !important; }
+.code-block .function { color: #60a5fa !important; }
+.code-block .number { color: #f472b6 !important; }
+
+/* Output box */
+.output-box {
+    background: #edf2f7 !important;
+    color: #1a202c !important;
+}
+
+.output-box .label {
+    color: #1a365d !important;
+}
+
+.output-box code {
+    color: #1a202c !important;
+}
