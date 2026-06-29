@@ -1,1 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho 15 - Desenvolvimento do Portfólio Acadêmico</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== ESTILOS EXTRAS ===== */
+        .meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0 14px;
+        }
+        .tag {
+            background: #e2e8f0;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: 0.3px;
+        }
+        .tag.blue { background: #bee3f8; color: #1a365d; }
+        .tag.green { background: #c6f6d5; color: #22543d; }
+        .tag.purple { background: #e9d8fd; color: #44337a; }
+        .tag.orange { background: #fefcbf; color: #744210; }
+        .tag.red { background: #fed7d7; color: #742a2a; }
 
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 16px 0 20px;
+            position: relative;
+            border: 1px solid #2d3748;
+        }
+        .code-block .comment { color: #68d391; }
+        .code-block .keyword { color: #f472b6; }
+        .code-block .string { color: #fbbf24; }
+        .code-block .function { color: #60a5fa; }
+        .code-block .number { color: #f472b6; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #a0aec0;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            float: right;
+            margin-bottom: 8px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .output-box {
+            background: #edf2f7;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 12px 0 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        .output-box .label {
+            font-weight: 700;
+            color: #1a365d;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-trabalho {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-top: 5px solid #2b6cb0;
+            transition: transform 0.2s;
+            margin-bottom: 30px;
+        }
+        .card-trabalho:hover {
+            transform: translateY(-3px);
+        }
+        .card-trabalho h3 {
+            font-size: 1.3rem;
+            color: #1a365d;
+            margin-bottom: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .btn-group .botao {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+        }
+
+        .resumo-card {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 12px 0;
+            border-left: 5px solid #2b6cb0;
+        }
+        .resumo-card.ex1 { border-left-color: #4299e1; background: #ebf8ff; }
+        .resumo-card.ex2 { border-left-color: #38a169; background: #f0fff4; }
+        .resumo-card.ex3 { border-left-color: #805ad5; background: #faf5ff; }
+        .resumo-card.ex4 { border-left-color: #d69e2e; background: #fffff0; }
+
+        .resumo-card h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+        .resumo-card .badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 20px;
+            background: #e2e8f0;
+        }
+        .resumo-card .badge.ex1 { background: #bee3f8; color: #1a365d; }
+        .resumo-card .badge.ex2 { background: #c6f6d5; color: #22543d; }
+        .resumo-card .badge.ex3 { background: #e9d8fd; color: #44337a; }
+        .resumo-card .badge.ex4 { background: #fefcbf; color: #744210; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            color: #1a202c;
+        }
+        table th {
+            padding: 10px 12px;
+            text-align: left;
+            background: #e2e8f0;
+            color: #1a365d;
+            font-weight: 600;
+        }
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #1a202c;
+        }
+        table tr:hover {
+            background: #f7fafc;
+        }
+        .text-center { text-align: center; }
+
+        .footer {
+            background: #1a202c;
+            color: #a0aec0;
+            padding: 24px 0;
+            text-align: center;
+            border-top: 1px solid #2d3748;
+            margin-top: 40px;
+        }
+        .footer h3 {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            margin: 2px 0;
+        }
+        .footer a {
+            color: #63b3ed;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+    <h2>📘 Portfólio Acadêmico</h2>
+    <ul>
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="trabalho14.html">◀ Trabalho 14</a></li>
+    </ul>
+</nav>
+
+<!-- ========== HEADER ========== -->
+<header>
+    <div class="container">
+        <h1>🌐 Trabalho 15</h1>
+        <p style="font-size:1.2rem; font-weight:500; color:#bee3f8;">
+            Desenvolvimento do Portfólio Acadêmico
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;">
+            <span class="tag blue">🌐 HTML/CSS</span>
+            <span class="tag green">📊 JavaScript</span>
+            <span class="tag purple">🐍 Python</span>
+            <span class="tag orange">🚀 GitHub Pages</span>
+        </div>
+        <p style="max-width:720px; margin:16px auto 0; font-size:1.05rem;">
+            Desenvolvimento completo do Portfólio Acadêmico como ferramenta de documentação e 
+            apresentação dos trabalhos realizados na disciplina de Algoritmos e Programação, 
+            integrando conhecimentos de programação web, design e organização de conteúdo.
+        </p>
+    </div>
+</header>
+
+<!-- ========== CONTEÚDO PRINCIPAL ========== -->
+<section>
+    <div class="container">
+
+        <div class="card-trabalho">
+            <h3>🎯 Objetivo do Trabalho</h3>
+            <p style="color:#2d3748;">
+                Desenvolver um site estático (portfólio acadêmico) para documentar, organizar e 
+                apresentar todos os trabalhos realizados na disciplina de Algoritmos e Programação. 
+                O site foi projetado para ser intuitivo, visualmente agradável e funcional, 
+                servindo como uma vitrine do aprendizado ao longo do semestre.
+            </p>
+            <ul style="color:#2d3748; margin: 8px 0 16px 20px;">
+                <li>Criar uma estrutura de navegação clara e organizada</li>
+                <li>Apresentar cada trabalho de forma detalhada e interativa</li>
+                <li>Utilizar HTML, CSS e JavaScript para construção do front-end</li>
+                <li>Integrar elementos visuais como cards, tags e blocos de código</li>
+                <li>Publicar o site no GitHub Pages para acesso público</li>
+            </ul>
+
+            <!-- ===== ESTRUTURA DO SITE ===== -->
+            <h3 style="margin-top:30px;">📂 Estrutura do Site</h3>
+            
+            <div class="resumo-card ex1">
+                <h4>
+                    <span>📁 Organização dos Arquivos</span>
+                    <span class="badge ex1">Estrutura</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    O site foi organizado de forma hierárquica para facilitar a manutenção:
+                </p>
+                <ul style="color:#2d3748; margin: 8px 0 0 20px;">
+                    <li><strong>index.html</strong> - Página inicial com todos os trabalhos em cards</li>
+                    <li><strong>trabalho1.html</strong> a <strong>trabalho14.html</strong> - Páginas dedicadas para cada trabalho</li>
+                    <li><strong>style.css</strong> - Arquivo de estilos global</li>
+                    <li><strong>trabalhos/algoritimos/</strong> - Pasta com os PDFs de cada trabalho</li>
+                    <li><strong>script.js</strong> - Funcionalidades JavaScript (se houver)</li>
+                </ul>
+            </div>
+
+            <div class="resumo-card ex2">
+                <h4>
+                    <span>🧭 Navegação</span>
+                    <span class="badge ex2">UX</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    A navegação foi projetada para ser simples e intuitiva:
+                </p>
+                <ul style="color:#2d3748; margin: 8px 0 0 20px;">
+                    <li><strong>Navbar fixa</strong> - Presente em todas as páginas com link para a página inicial</li>
+                    <li><strong>Navegação entre trabalhos</strong> - Botões "Anterior" e "Próximo" em cada página</li>
+                    <li><strong>Cards na página inicial</strong> - Visualização rápida de cada trabalho</li>
+                    <li><strong>Links para PDFs</strong> - Acesso direto aos documentos de cada trabalho</li>
+                </ul>
+            </div>
+
+            <div class="resumo-card ex3">
+                <h4>
+                    <span>🎨 Design Visual</span>
+                    <span class="badge ex3">UI</span>
+                </h4>
+                <p style="color:#2d3748;">
+                    O design foi desenvolvido com foco em clareza e profissionalismo:
+                </p>
+                <ul style="color:#2d3748; margin: 8px 0 0 20px;">
+                    <li><strong>Paleta de cores</strong> - Azul escuro, cinza e branco com elementos coloridos para destaque</li>
+                    <li><strong>Cards interativos</strong> - Efeito hover para melhor experiência do usuário</li>
+                    <li><strong>Blocos de código</strong> - Syntax highlighting e botão "Copiar"</li>
+                    <li><strong>Tags visuais</strong> - Identificação rápida de tecnologias e conceitos</li>
+                    <li><strong>Design responsivo</strong> - Adaptação para diferentes tamanhos de tela</li>
+                </ul>
+            </div>
+
+            <!-- ===== TECNOLOGIAS ===== -->
+            <h3 style="margin-top:30px;">🛠️ Tecnologias Utilizadas</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tecnologia</th>
+                            <th>Função no Site</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>HTML5</strong></td><td>Estruturação das páginas e conteúdo</td></tr>
+                        <tr><td><strong>CSS3</strong></td><td>Estilização, layout e design responsivo</td></tr>
+                        <tr><td><strong>JavaScript</strong></td><td>Funcionalidades interativas (copiar código, navegação)</td></tr>
+                        <tr><td><strong>GitHub Pages</strong></td><td>Hospedagem gratuita do site estático</td></tr>
+                        <tr><td><strong>Git</strong></td><td>Controle de versão e gerenciamento do código</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== PROCESSO DE DESENVOLVIMENTO ===== -->
+            <h3 style="margin-top:30px;">⚙️ Processo de Desenvolvimento</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>1. Planejamento</strong></td><td>Definição da estrutura, navegação e design do site</td></tr>
+                        <tr><td><strong>2. Criação do CSS Global</strong></td><td>Desenvolvimento do style.css com paleta de cores e estilos base</td></tr>
+                        <tr><td><strong>3. Página Inicial</strong></td><td>Criação do index.html com cards para todos os trabalhos</td></tr>
+                        <tr><td><strong>4. Páginas de Trabalho</strong></td><td>Desenvolvimento de cada página com objetivo, código, saída e reflexão</td></tr>
+                        <tr><td><strong>5. Funcionalidades</strong></td><td>Implementação do botão "Copiar" e navegação entre trabalhos</td></tr>
+                        <tr><td><strong>6. Design Responsivo</strong></td><td>Ajustes para funcionamento em dispositivos móveis</td></tr>
+                        <tr><td><strong>7. Testes</strong></td><td>Verificação de links, funcionalidades e visualização</td></tr>
+                        <tr><td><strong>8. Publicação</strong></td><td>Deploy no GitHub Pages para acesso público</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== CÓDIGO EXEMPLO ===== -->
+            <h3 style="margin-top:30px;">💻 Código Exemplo (Estrutura de um Card)</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copiarCodigo()">📋 Copiar</button>
+                <pre id="codigoExemplo" style="margin:0; white-space:pre-wrap; font-family:inherit;">
+<span class="comment">&lt;!-- Exemplo de card da página inicial --&gt;</span>
+&lt;div class="card"&gt;
+    &lt;h3&gt;📝 Trabalho 1&lt;/h3&gt;
+    &lt;p&gt;
+        Resolução de 15 exercícios práticos com estruturas condicionais 
+        simples aplicadas à Engenharia.
+    &lt;/p&gt;
+    &lt;div class="tags"&gt;
+        &lt;span class="tag blue"&gt;🐍 Python&lt;/span&gt;
+        &lt;span class="tag green"&gt;🔄 Estruturas Condicionais&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;a href="trabalho1.html" class="botao"&gt;
+        Ver Trabalho
+    &lt;/a&gt;
+&lt;/div&gt;
+
+<span class="comment">/* Estilo do card (CSS) */</span>
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border-top: 5px solid #2b6cb0;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+                </pre>
+            </div>
+
+            <div class="output-box">
+                <div class="label">▶ Resultado Visual</div>
+                <code style="color:#1a202c;">
+Um card interativo com:
+- Título do trabalho
+- Descrição resumida
+- Tags coloridas
+- Botão "Ver Trabalho"
+- Efeito hover ao passar o mouse
+                </code>
+            </div>
+
+            <!-- ===== DESAFIOS E SOLUÇÕES ===== -->
+            <h3 style="margin-top:30px;">🔧 Desafios e Soluções</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0; overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Desafio</th>
+                            <th>Solução</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Manter consistência visual</strong></td>
+                            <td>Criação de um CSS global compartilhado entre todas as páginas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Navegação entre trabalhos</strong></td>
+                            <td>Implementação de links "Anterior" e "Próximo" em cada página</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Exibição de código com cores</strong></td>
+                            <td>Uso de CSS para syntax highlighting manual</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Botão "Copiar" funcional</strong></td>
+                            <td>JavaScript com Clipboard API para copiar o código</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsividade</strong></td>
+                            <td>Uso de media queries para adaptação a diferentes telas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== RESULTADO FINAL ===== -->
+            <h3 style="margin-top:30px;">🏆 Resultado Final</h3>
+            <div style="background: #f7fafc; border-radius: 8px; padding: 16px 20px; margin: 12px 0; border: 1px solid #e2e8f0;">
+                <p style="color:#2d3748;">
+                    <strong>Site Publicado:</strong> 
+                    <a href="https://viniciusmolettaaluno-lang.github.io/jornada-academica-2026/" target="_blank" style="color:#2b6cb0;">
+                        https://viniciusmolettaaluno-lang.github.io/jornada-academica-2026/
+                    </a>
+                </p>
+                <p style="color:#2d3748;">
+                    <strong>Repositório:</strong> 
+                    <a href="https://github.com/viniciusmolettaaluno-lang/jornada-academica-2026" target="_blank" style="color:#2b6cb0;">
+                        https://github.com/viniciusmolettaaluno-lang/jornada-academica-2026
+                    </a>
+                </p>
+                <p style="color:#2d3748; margin-top:8px;">
+                    <strong>Status:</strong> ✅ Site completo com 14 trabalhos documentados e publicados.
+                </p>
+            </div>
+
+            <!-- ===== BOTÕES ===== -->
+            <div class="btn-group">
+                <a href="index.html" target="_blank" class="botao" style="background:#2b6cb0;">
+                    🌐 Visitar o Site
+                </a>
+                <a href="https://github.com/viniciusmolettaaluno-lang/jornada-academica-2026" target="_blank" class="botao" style="background:transparent; border:2px solid #2b6cb0; color:#2b6cb0;">
+                    📂 Ver Repositório
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== SEÇÃO DE REFLEXÃO ===== -->
+        <div style="background: #edf2f7; border-radius: 12px; padding: 24px 28px; margin-top: 20px; border-left: 5px solid #805ad5;">
+            <h3 style="color: #1a365d; margin-bottom: 10px;">🧠 Reflexão sobre o Desenvolvimento</h3>
+            <p style="color:#2d3748;">
+                <strong>O que aprendi:</strong> O desenvolvimento deste site foi uma experiência completa 
+                que integrou conhecimentos de programação web, design e organização de conteúdo. 
+                Aprendi a estruturar um projeto do zero, desde o planejamento até a publicação, 
+                utilizando HTML, CSS e JavaScript para criar uma interface funcional e visualmente 
+                agradável.
+            </p>
+            <p style="color:#2d3748; margin-top:8px;">
+                <strong>Desafios superados:</strong> A criação de um design consistente, a implementação 
+                de funcionalidades interativas como o botão "Copiar", e a organização de 14 trabalhos 
+                em uma estrutura navegável foram os principais desafios que me ajudaram a crescer 
+                como desenvolvedor.
+            </p>
+            <p style="color:#2d3748; margin-top:8px;">
+                <strong>Próximos passos:</strong> Pretendo continuar aprimorando o site com novas 
+                funcionalidades, como sistema de busca, filtros por categoria, e integração com 
+                um banco de dados para projetos futuros.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:12px;">
+                <span class="tag" style="background:#805ad5; color:white;">✅ HTML/CSS</span>
+                <span class="tag" style="background:#2b6cb0; color:white;">✅ JavaScript</span>
+                <span class="tag" style="background:#38a169; color:white;">✅ GitHub Pages</span>
+                <span class="tag" style="background:#d69e2e; color:white;">✅ UX/UI</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <h3>Vinicius Moletta da Silva</h3>
+    <p>Engenharia Elétrica</p>
+    <p>
+        <a href="mailto:viniciusmoletta.aluno@unipampa.edu.br" style="color:inherit; text-decoration:none;">
+            viniciusmoletta.aluno@unipampa.edu.br
+        </a>
+    </p>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+    function copiarCodigo() {
+        const codigo = document.getElementById('codigoExemplo').innerText;
+        navigator.clipboard.writeText(codigo).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const original = btn.innerText;
+            btn.innerText = '✅ Copiado!';
+            setTimeout(() => { btn.innerText = original; }, 2000);
+        }).catch(() => {
+            alert('Selecione o código manualmente para copiar.');
+        });
+    }
+</script>
+
+</body>
+</html>
